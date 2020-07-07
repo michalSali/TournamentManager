@@ -65,4 +65,17 @@
   <ItemGroup>
     <None Include="PublishLocations\TMData.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Player.sql" />
+    <Build Include="dbo\Tables\Team.sql" />
+    <Build Include="dbo\Tables\TeamMember.sql" />
+    <Build Include="dbo\Tables\Tournament.sql" />
+    <Build Include="dbo\Tables\TournamentEntry.sql" />
+    <Build Include="dbo\Tables\Match.sql" />
+    <Build Include="dbo\Tables\MapScore.sql" />
+    <Build Include="dbo\Tables\MapPlayerStats.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="TMData.refactorlog" />
+  </ItemGroup>
 </Project>
