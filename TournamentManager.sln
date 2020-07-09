@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TMData", "TMData\TMData.sql
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDesktopUI", "TMDesktopUI\TMDesktopUI.csproj", "{389D8B7F-51E2-4E38-BDA2-2D910B64FE70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMLibrary", "TMLibrary\TMLibrary.csproj", "{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{389D8B7F-51E2-4E38-BDA2-2D910B64FE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{389D8B7F-51E2-4E38-BDA2-2D910B64FE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{389D8B7F-51E2-4E38-BDA2-2D910B64FE70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

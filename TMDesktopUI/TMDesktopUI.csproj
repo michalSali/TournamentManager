@@ -135,5 +135,11 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMLibrary\TMLibrary.csproj">
+      <Project>{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}</Project>
+      <Name>TMLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
