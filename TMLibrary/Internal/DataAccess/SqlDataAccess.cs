@@ -40,5 +40,19 @@ namespace TMLibrary.Internal.DataAccess
                     commandType: CommandType.StoredProcedure);                
             }
         }
+
+        public int SaveDataReturnId<T>(string storedProcedure, T parameters, string connectionStringName)
+        {
+            string connectionString = GetConnectionString(connectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {              
+                
+                int id = connection.Query<int>(storedProcedure, parameters,
+                    commandType: CommandType.StoredProcedure).Single();
+
+                return id;
+            }
+        }
     }
 }

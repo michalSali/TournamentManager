@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TMDesktopUI.Library.Helpers;
+using TMDesktopUI.Library.Models;
+using TMLibrary.DataAccess;
+using TMLibrary.Models;
 
 namespace TMDesktopUI.ViewModels
 {
@@ -15,6 +19,16 @@ namespace TMDesktopUI.ViewModels
 		private string _nickname;
 		private string _role;
 		private int _age;
+
+		private ModelsQueries _query;
+		private ModelsSaver _saver;
+		private ModelsLoader _loader;
+		public CreatePlayerViewModel()
+		{
+			_query = new ModelsQueries();
+			_saver = new ModelsSaver();
+			_loader = new ModelsLoader();
+		}
 
 		public string FirstName
 		{
@@ -74,25 +88,24 @@ namespace TMDesktopUI.ViewModels
 			return (firstName?.Length > 0) && (lastName?.Length > 0) && (nickName?.Length > 0);
 		}
 
-		public void CreatePlayer(string firstName, string lastName, string nickName, string role="", int age=0)
-		{
-			/*
-			bool playerAlreadyExists = database.something(firstName, lastName, nickName);
-			if (playerAlreadyExists)
+		public void CreatePlayer(string firstName, string lastName, string nickname, string role="", int age=0)
+		{			
+			if (_query.ExistsPlayer(firstName, lastName, nickname))
 			{
 				MessageBox.Show("Player with the given first name, last name and" +
 								"nickname already exists!");
-			} else
-			{
-				// insert player into database
 			}
-			*/
+			else
+			{
+				_saver.SavePlayer(new PlayerDisplayModel(firstName, lastName, nickname, age, role));
+
+				FirstName = "";
+				LastName = "";
+				Nickname = "";
+				Age = 0;
+				Role = "";
+			}
 			
-		}
-
-
-
-
-		// check if a player with the FirstName, LastName and Nickname already exists in the database
+		}		
 	}
 }

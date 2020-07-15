@@ -74,7 +74,31 @@
     <Build Include="dbo\Tables\Match.sql" />
     <Build Include="dbo\Tables\MapScore.sql" />
     <Build Include="dbo\Tables\MapPlayerStats.sql" />
-    <Build Include="dbo\Stored Procedures\spPlayerLookup.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetByAllNames.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spPlayer_CreateReturnId.sql" />
+    <Build Include="dbo\Stored Procedures\spTeam_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spMatch_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spTournament_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spTeamMember_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spMapScore_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spTournamentEntry_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spMapPlayerStats_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spMatch_GetByTournamentId.sql" />
+    <Build Include="dbo\Stored Procedures\spTeam_CreateReturnId.sql" />
+    <Build Include="dbo\Stored Procedures\spTeamMember_Create.sql" />
+    <Build Include="dbo\Stored Procedures\spTournamentEntry_Create.sql" />
+    <Build Include="dbo\Stored Procedures\spMatch_CreateReturnId.sql" />
+    <Build Include="dbo\Stored Procedures\spMapScore_CreateReturnId.sql" />
+    <Build Include="dbo\Stored Procedures\spMapPlayerStats_Create.sql" />
+    <Build Include="dbo\Stored Procedures\spTournament_CreateReturnId.sql" />
+    <Build Include="dbo\Stored Procedures\spMapScore_GetByMatchId.sql" />
+    <Build Include="dbo\Stored Procedures\spMapPlayerStats_GetByMapScoreId.sql" />
+    <Build Include="dbo\Stored Procedures\spTeam_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\spTeamMember_GetByTeamId.sql" />
+    <Build Include="dbo\Stored Procedures\spTeam_GetByTeamName.sql" />
+    <Build Include="dbo\Stored Procedures\spTournament_GetByName.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TMData.refactorlog" />

@@ -68,10 +68,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ViewModels\CreateMatchViewModel.cs" />
     <Compile Include="ViewModels\CreatePlayerViewModel.cs" />
     <Compile Include="ViewModels\CreateTeamViewModel.cs" />
     <Compile Include="ViewModels\CreateTournamentViewModel.cs" />
+    <Compile Include="ViewModels\DisplayMapScoreViewModel.cs" />
+    <Compile Include="ViewModels\DisplayMatchViewModel.cs" />
+    <Compile Include="ViewModels\MainOptionsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\CreateMatchView.xaml.cs">
+      <DependentUpon>CreateMatchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreatePlayerView.xaml.cs">
       <DependentUpon>CreatePlayerView.xaml</DependentUpon>
     </Compile>
@@ -81,6 +88,15 @@
     <Compile Include="Views\CreateTournamentView.xaml.cs">
       <DependentUpon>CreateTournamentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DisplayMapScoreView.xaml.cs">
+      <DependentUpon>DisplayMapScoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisplayMatchView.xaml.cs">
+      <DependentUpon>DisplayMatchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainOptionsView.xaml.cs">
+      <DependentUpon>MainOptionsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -88,6 +104,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CreateMatchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreatePlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +117,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateTournamentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayMapScoreView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayMatchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainOptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +168,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TMDesktopUI.Library\TMDesktopUI.Library.csproj">
+      <Project>{8805B039-29D8-49CE-9F90-8192CBA54079}</Project>
+      <Name>TMDesktopUI.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMLibrary\TMLibrary.csproj">
       <Project>{C824DA38-BCBB-4772-ADAE-969C13B8F2EE}</Project>
       <Name>TMLibrary</Name>

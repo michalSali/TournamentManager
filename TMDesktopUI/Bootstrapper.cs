@@ -41,6 +41,7 @@ namespace TMDesktopUI
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<ShellViewModel>();
+            //DisplayRootViewFor<CreatePlayerViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)

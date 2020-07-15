@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="TMDesktopUI.Views.DisplayMatchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TMDesktopUI.Views"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="425" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <!-- Row 1 -->
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
+                   HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI Light">
+            Match Overview
+        </TextBlock>
+
+        <!-- Row 2: -->
+
+        <!-- Row 3: Tournament name row -->
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+            Tournament:
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Road to Rio 2020 {Binding }"
+                 MinWidth="150" Margin="0 0 0 10" />
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding SelectedMap_MapDescription}" />
+            <TextBlock Text="{Binding SelectedMap_ScoreDescription}" />
+            <ItemsControl ItemsSource="{Binding SelectedMap_TeamOneStats}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Player_FullName}" />
+                            <TextBlock Text="{Binding Kills}" />
+                            <TextBlock Text="{Binding Assists}" />
+                            <TextBlock Text="{Binding Deaths}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding TeamTwoStats}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        
+
+        <!-- Row 4: Match date row -->
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
+            Match Date:
+        </TextBlock>
+
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="14.4.2020 {Binding }"
+                 MinWidth="150" Margin="0 0 0 10" />
+
+        <!-- Row 5: Start date row -->
+
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
+            Final Score:
+        </TextBlock>
+        
+
+        <!-- Row 6: Tournament prizepool row -->
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 10"
+                    Orientation="Horizontal" HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Team A{Binding TeamOne_Name} " />
+            <TextBlock Text="2{Binding TeamOne_Score}" />
+            <TextBlock Text=" : " />
+            <TextBlock Text="{Binding TeamTwo_Score} " />
+            <TextBlock Text="{Binding TeamTwo_Name}" />
+        </StackPanel>
+
+        <!-- Row 7: -->
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10">
+            Maps:
+        </TextBlock>
+
+
+        <!-- Row 8: List all teams -->
+        <ItemsControl ItemsSource="{Binding Maps}" Grid.Row="8" Grid.Column="1"
+                      Grid.ColumnSpan="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" >
+                        <TextBlock Text="{Binding MapDescription}" />
+                        <TextBlock Text="{Binding ScoreDescription}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Row 9: -->
+        <ComboBox ItemsSource="{Binding Maps}" Grid.Row="9" Grid.Column="1">
+            <ComboBoxItem>
+                <TextBlock Text="{Binding MapDescription}" />
+            </ComboBoxItem>
+        </ComboBox>
+        
+        <!-- Row 10: -->
+        <Button x:Name="ViewMapDetails" Grid.Row="10" Grid.Column="1"
+                Content="View map details" />
+
+        <Button x:Name="ViewMatchDetails" Grid.Row="10" Grid.Column="2"
+                Content="View match details" />
+
+        
+    </Grid>
+</UserControl>

@@ -8,10 +8,20 @@ namespace TMLibrary.Models
 {
     public class PlayerModel
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Nickname { get; set; }
-        public int Age { get; set; }
-        public string Role { get; set; }
+        public int Id;
+        public string FirstName;
+        public string LastName;
+        public string Nickname;
+        public int Age;
+        public string Role;
+
+        public PlayerModel(string firstName, string lastName, string nickname, int age, string role)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Nickname = nickname;
+            Age = age;
+            Role = role;
+        }
     }
 }
