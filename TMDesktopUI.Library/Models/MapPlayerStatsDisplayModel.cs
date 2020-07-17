@@ -21,6 +21,10 @@ namespace TMDesktopUI.Library.Models
 
         public MapScoreDisplayModel Map;
 
+        public MapPlayerStatsDisplayModel()
+        {
+        }
+
         public MapPlayerStatsDisplayModel(MapPlayerStatsModel model)
         {            
             //MapScoreId = model.MapScoreId;

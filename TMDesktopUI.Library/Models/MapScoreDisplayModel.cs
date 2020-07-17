@@ -48,5 +48,9 @@ namespace TMDesktopUI.Library.Models
             TeamOneScore = model.TeamOneScore;
             TeamTwoScore = model.TeamTwoScore;
         }
+
+        public MapScoreDisplayModel()
+        {
+        }
     }
 }

@@ -45,5 +45,16 @@ namespace TMDesktopUI.Library.Models
             Age = age;
             Role = role;
         }
+
+        public bool Equals(PlayerDisplayModel player)
+        {
+            if (player == null)
+            {
+                return false;
+            }
+            return (FirstName.Equals(player.FirstName)
+                 && LastName.Equals(player.LastName)
+                 && Nickname.Equals(player.Nickname));
+        }
     }
 }

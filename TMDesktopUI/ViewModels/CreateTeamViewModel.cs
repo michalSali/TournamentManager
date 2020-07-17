@@ -13,7 +13,10 @@ namespace TMDesktopUI.ViewModels
 {
     public class CreateTeamViewModel : Conductor<object>
     {
-        public TournamentDisplayModel _tournamentDisplayModel;
+        //private TournamentDisplayModel _tournamentDisplayModel;
+
+        private List<TeamDisplayModel> _createdTeams;
+
 
         private string _teamName;
         private string _coachName;
@@ -78,6 +81,11 @@ namespace TMDesktopUI.ViewModels
 
             AllPlayers = new BindingList<PlayerDisplayModel>(_loader.GetAllPlayers());
             DisplayedPlayers = AllPlayers;
+        }
+
+        public CreateTeamViewModel(List<TeamDisplayModel> createdTeams) : this()
+        {
+            _createdTeams = createdTeams;
         }
 
         public string TeamName
@@ -184,7 +192,8 @@ namespace TMDesktopUI.ViewModels
                 newTeam.TeamName = TeamName;
                 newTeam.CoachName = CoachName;
                 newTeam.Players = selectedPlayers;
-                _saver.SaveTeam(newTeam);
+                _saver.SaveTeam(newTeam); // also sets the team.Id
+                _createdTeams.Add(newTeam);
                 ClearForm();
             }
         }

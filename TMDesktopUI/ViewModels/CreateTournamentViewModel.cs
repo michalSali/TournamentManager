@@ -13,33 +13,32 @@ namespace TMDesktopUI.ViewModels
 {
     public class CreateTournamentViewModel : Conductor<object>
     {
+
+
+        public TournamentDisplayModel Tournament;        
+
+        private List<TournamentDisplayModel> _createdTournaments;
+
+        public CreateTournamentViewModel(List<TournamentDisplayModel> createdTournaments)
+        {            
+            _createdTournaments = createdTournaments;
+        }
+
         /*
-        private TournamentDisplayModel _tournament;
-        public TournamentDisplayModel Tournament
-        { 
-            get
-            {
-                return _tournament;
-            } 
-        }
-
         public CreateTournamentViewModel()
-        {
-            _tournament = new TournamentDisplayModel();
-        }
-
-        public CreateTournament()
         {
            
         }
         */
+       
 
         private string _tournamentName;        
         private string _filterText;
         private int _prizepool;
         private DateTime _startDate;
         private DateTime _endDate;
-
+       
+        
         public int Prizepool 
         {
             get { return _prizepool; }
@@ -114,8 +113,54 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
+        private int _numberOfSelectedTeams = 0;
+        public int NumberOfSelectedTeams
+        {
+            get { return _numberOfSelectedTeams; }
+            set
+            {
+                _numberOfSelectedTeams = value;
+                NotifyOfPropertyChange(() => NumberOfSelectedTeams);
+            }
+        }
+
+        private BindingList<TournamentStandingDisplayModel> _tournamentStandings;
+        public BindingList<TournamentStandingDisplayModel> TournamentStandings
+        {
+            get { return _tournamentStandings; }
+            set
+            {
+                _tournamentStandings = value;
+                NotifyOfPropertyChange(() => TournamentStandings);
+            }
+        }
+
         // is not bound to anything, shouldnt need to NotifyOfPropertyChange        
         public BindingList<TeamDisplayModel> AllTeams;
+
+        private BindingList<MatchDisplayModel> _matches;
+        public BindingList<MatchDisplayModel> Matches
+        {
+            get { return _matches; }
+            set
+            {
+                _matches = value;
+                NotifyOfPropertyChange(() => Matches);
+            }
+        }
+
+        private MatchDisplayModel _selectedMatch;
+        public MatchDisplayModel SelectedMatch
+        {
+            get { return _selectedMatch; }
+            set
+            {
+                _selectedMatch = value;
+                NotifyOfPropertyChange(() => SelectedMatch);
+            }
+        }
+
+        
 
 
         private ModelsQueries _query;
@@ -129,6 +174,7 @@ namespace TMDesktopUI.ViewModels
 
             AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
             DisplayedTeams = AllTeams;
+
         }
 
         public string TournamentName
@@ -149,6 +195,18 @@ namespace TMDesktopUI.ViewModels
                 _filterText = value;
                 NotifyOfPropertyChange(() => FilterText);
             }
+        }
+
+       
+        public void AddCreatedTeam(TeamDisplayModel team)
+        {
+            AllTeams.Add(team);
+            DisplayedTeams.Add(team);
+        }
+
+        public void AddCreatedMatch(MatchDisplayModel match)
+        {
+            Matches.Add(match);
         }
 
         public bool CanApplyFilter(string filterText)
@@ -194,41 +252,86 @@ namespace TMDesktopUI.ViewModels
         }
 
         // can have 16 teams at most / 24?
-        public bool CanAddPlayer()
+        public bool CanAddTeam()
         {
             return (TeamToAdd != null) && (SelectedTeams.Count < 16);
         }
 
-        public void AddPlayer()
+        public void AddTeam()
         {
             SelectedTeams.Add(TeamToAdd);
             DisplayedTeams.Remove(TeamToAdd);
             TeamToAdd = null;
+            NumberOfSelectedTeams++;
         }
+       
 
         // 2nd condition should be useless, since you can choose player only if SelectedPlayers is not empty
-        public bool CanRemovePlayer()
+        public bool CanRemoveTeam()
         {
             return (TeamToRemove != null) && (SelectedTeams.Count > 0);
         }
 
-        public void RemovePlayer()
+        public void RemoveTeam()
         {
             SelectedTeams.Remove(TeamToRemove);
             DisplayedTeams.Add(TeamToRemove);
             TeamToRemove = null;
+            NumberOfSelectedTeams--;
+        }
+        
+
+        // we set predetermined prize distribution for teams with 4, 8 and 16 players (in %, for first to n-th place)
+        private List<double> FourTeamsPrizeDistribution = new List<double> { 55, 30, 15, 10 };
+        private List<double> EightTeamsPrizeDistribution = new List<double> { 30, 20, 15, 12, 9, 6, 4, 4 };
+        private List<double> SixteenTeamsPrizeDistribution = new List<double> {
+            27.2, 17.6, 13.6, 10.4, 8, 6, 4.4, 3.2, 2.4, 1.76, 1.28, 0.96, 0.8, 0.8, 0.8, 0.8 };
+
+
+       
+
+    private void InitializeStandings()
+        {
+
+            List<double> PrizeDistribution = new List<double>(SelectedTeams.Count) { 0 };
+            bool unsupportedTeamSize = false;
+
+            switch (SelectedTeams.Count)
+            {
+                case 4:
+                    PrizeDistribution = FourTeamsPrizeDistribution;
+                    break;
+                case 8:
+                    PrizeDistribution = EightTeamsPrizeDistribution;
+                    break;
+                case 16:
+                    PrizeDistribution = SixteenTeamsPrizeDistribution;
+                    break;
+                default:
+                    unsupportedTeamSize = true;
+                    break;
+            }
+
+            for (int i = 0; i < SelectedTeams.Count; ++i)
+            {
+                TournamentStandingDisplayModel newModel = new TournamentStandingDisplayModel();
+                newModel.Placement = i + 1;
+                newModel.PrizeWon = unsupportedTeamSize ? 0 : (int)(PrizeDistribution[i] / 100 * Prizepool);
+                TournamentStandings.Add(newModel);
+            }            
+
         }
 
         // at least 4 teams should participate - MessageBox
         // Prizepool < 0 - inform user?
-        public bool CanCreateTeam()
+        public bool CanCreateTournament()
         {
             return (!string.IsNullOrWhiteSpace(TournamentName) &&
                     StartDate != null && EndDate != null &&
                     Prizepool >= 0);
         }
 
-        public void CreateTeam()
+        public void CreateTournament()
         {            
             if (_query.ExistsTournament(TournamentName))
             {
@@ -245,8 +348,9 @@ namespace TMDesktopUI.ViewModels
                 newTournament.EndDate = EndDate;
                 newTournament.Prizepool = Prizepool;
                 newTournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
-                newTournament.Matches = ...;
+                newTournament.Matches = new List<MatchDisplayModel>(Matches);
                 _saver.SaveTournament(newTournament);
+                _createdTournaments.Add(newTournament);
                 ClearForm();
             }
         }
@@ -264,14 +368,180 @@ namespace TMDesktopUI.ViewModels
             TeamToRemove = null;
         }
 
+        // either pass "TournamentDisplayModel tournament" as an instance to the constructor of 
+        //    "CreateTeamViewModel", and upon clicking on "CreateTeam", new "TeamDisplayModel"
+        //    will be added to tournament.Teams
+        // OR since newly created teams are automatically saved to database, we can just refresh
+        //    the team list and the newly created teams shall appear
         public void CreateNewTeam()
         {
-            ...;
+            // open the new form and create team(s);
+            //RefreshTeamList();
+
+            List<TeamDisplayModel> createdTeams = new List<TeamDisplayModel>();
+            CreateTeamViewModel _vm = new CreateTeamViewModel(createdTeams);
+            ActivateItem(_vm); // treba aktivovat z ShellViewModel ? nie je oznacena oblast pre ActiveItem ?
+            AllTeams.Union(createdTeams);
+            DisplayedTeams.Union(createdTeams);
+        }
+
+        private void RefreshTeamList()
+        {
+            AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
+            DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams.Except(SelectedTeams).ToList());
         }
 
         public void CreateNewMatch()
         {
+            // it should be possible pass "TournamentDisplayModel" instance as argument in the 
+            //   event (CreateNewMatchEvent)
+
+
+            // ak teraz nastavime StartDate a EndDate, a podla toho zvolime Date pre Match, tak
+            // po pripadnej zmene StartDate / EndDate mozu mat niektore zapasy nezmyselny datum
+            if (StartDate == null || EndDate == null)
+            {
+                MessageBox.Show("You have to first set dates of the tournament.");
+            }
+            TournamentDisplayModel tournament = new TournamentDisplayModel();
+            tournament.StartDate = StartDate;
+            tournament.EndDate = EndDate;
+            tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
+            tournament.TournamentName = TournamentName;
+            // tournament.Prizepool = Prizepool;  - useless info?
+            CreateTeamViewModel _vm = new CreateTeamViewModel(Tournament);
             ...;
         }
+
+        /*
+        private BindingList<MatchDisplayModel> _groupStageMatches;
+        public BindingList<MatchDisplayModel> GroupStageMatches
+        {
+            get { return _groupStageMatches; }
+            set
+            {
+                _groupStageMatches = value;
+                NotifyOfPropertyChange(() => GroupStageMatches);
+            }
+        }
+        */
+
+        private BindingList<MatchDisplayModel> _quarterfinalMatches;
+        public BindingList<MatchDisplayModel> QuarterfinalMatches
+        {
+            get { return _quarterfinalMatches; }
+            set
+            {
+                _quarterfinalMatches = value;
+                NotifyOfPropertyChange(() => QuarterfinalMatches);
+            }
+        }
+
+        private BindingList<MatchDisplayModel> _semifinalMatches;
+        public BindingList<MatchDisplayModel> SemifinalMatches
+        {
+            get { return _semifinalMatches; }
+            set
+            {
+                _semifinalMatches = value;
+                NotifyOfPropertyChange(() => SemifinalMatches);
+            }
+        }
+
+        private MatchDisplayModel _finalMatch;
+        public MatchDisplayModel FinalMatch
+        {
+            get { return _finalMatch; }
+            set
+            {
+                _finalMatch = value;
+                NotifyOfPropertyChange(() => FinalMatch);
+            }
+        }
+
+        private MatchDisplayModel _consolidationFinalMatch;
+        public MatchDisplayModel ConsolidationFinalMatch
+        {
+            get { return _consolidationFinalMatch; }
+            set
+            {
+                _consolidationFinalMatch = value;
+                NotifyOfPropertyChange(() => ConsolidationFinalMatch);
+            }
+        }
+
+
+        // FINAL 
+
+        public bool CanAddFinalMatch()
+        {
+            return SelectedMatch != null && FinalMatch == null;
+        }
+        public void AddFinalMatch()
+        {
+            FinalMatch = SelectedMatch;
+            Matches.Remove(SelectedMatch);
+            SelectedMatch = null;  // funguje, ale vynulluje aj FinalMatch?
+        }
+
+        public bool CanRemoveFinalMatch()
+        {
+            return FinalMatch != null;
+        }
+        public void RemoveFinalMatch()
+        {
+            Matches.Add(FinalMatch);
+            FinalMatch = null;            
+        }
+        
+        // SEMIFINAL 
+
+        public bool CanAddSemifinalMatch()
+        {
+            return SelectedMatch != null && SemifinalMatches.Count < 4;
+        }
+        public void AddSemifinalMatch()
+        {
+            SemifinalMatches.Add(SelectedMatch);
+            Matches.Remove(SelectedMatch);
+            SelectedMatch = null;
+        }
+
+        public bool CanRemoveSemifinalMatch()
+        {
+            return SelectedMatch != null && SemifinalMatches.Contains(SelectedMatch);
+        }
+        public void RemoveSemifinalMatch()
+        {
+            Matches.Add(SelectedMatch);
+            SemifinalMatches.Remove(SelectedMatch);
+            SelectedMatch = null;
+        }
+
+        // QUARTERFINAL
+
+        public bool CanAddQuarterfinalMatch()
+        {
+            return SelectedMatch != null && QuarterfinalMatches.Count < 8;
+        }
+        public void AddQuarterfinalMatch()
+        {
+            QuarterfinalMatches.Add(SelectedMatch);
+            Matches.Remove(SelectedMatch);
+            SelectedMatch = null;
+        }
+
+        public bool CanRemoveQuarterfinalMatch()
+        {
+            return SelectedMatch != null && QuarterfinalMatches.Contains(SelectedMatch);
+        }
+        public void RemoveQuarterfinalMatch()
+        {
+            Matches.Add(SelectedMatch);
+            QuarterfinalMatches.Remove(SelectedMatch);
+            SelectedMatch = null;
+        }
+  
+
     }
 }

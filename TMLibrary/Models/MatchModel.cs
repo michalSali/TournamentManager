@@ -10,6 +10,7 @@ namespace TMLibrary.Models
     {
         public int Id;
         public int TournamentId;
+        public int MatchNumber;
         public DateTime Date;
         public int Format;
         public int TeamOneId;
@@ -17,10 +18,11 @@ namespace TMLibrary.Models
         public int TeamOneScore;
         public int TeamTwoScore;
 
-        public MatchModel(int tournamentId, DateTime date, int format, int teamOneId,
+        public MatchModel(int tournamentId, int matchNumber, DateTime date, int format, int teamOneId,
                           int teamTwoId, int teamOneScore, int teamTwoScore)
         {
             TournamentId = tournamentId;
+            MatchNumber = matchNumber;
             Date = date;
             Format = format;
             TeamOneId = teamOneId;
