@@ -22,7 +22,7 @@ namespace TMDesktopUI.Library.Models
         {
             get 
             { 
-                return $"{FirstName} \"{Nickname}\" {LastName}"; 
+                return $"{FirstName} \'{Nickname}\' {LastName}"; 
             }            
         }
 
@@ -30,6 +30,7 @@ namespace TMDesktopUI.Library.Models
 
         public PlayerDisplayModel(PlayerModel model)
         {
+            Id = model.Id;
             FirstName = model.FirstName;
             LastName = model.LastName;
             Nickname = model.Nickname;

@@ -12,7 +12,7 @@ using TMDesktopUI.EventModels;
 
 namespace TMDesktopUI.ViewModels
 {
-    public class CreateTournamentViewModel : Conductor<object>
+    public class CreateTournamentViewModel : Screen
     {
 
         private string _tournamentName;        
@@ -188,13 +188,15 @@ namespace TMDesktopUI.ViewModels
             _loader = new ModelsLoader();
             _events = events;
 
-            //AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
-            //DisplayedTeams = AllTeams;
+            AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
+            DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);
 
             // testing
+            /*
             AllTeams = new BindingList<TeamDisplayModel>();
             DisplayedTeams = new BindingList<TeamDisplayModel>(); //AllTeams;
             SelectedTeams = new BindingList<TeamDisplayModel>();
+            */
         }
         
                
@@ -354,7 +356,7 @@ namespace TMDesktopUI.ViewModels
                 newTournament.Prizepool = Prizepool;
                 newTournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
                 newTournament.Matches = new List<MatchDisplayModel>(Matches);
-                //_saver.SaveTournament(newTournament);
+                _saver.SaveTournament(newTournament);
                 _events.PublishOnUIThread(new TournamentCreatedEventModel(newTournament));
                 ClearForm();
             } else
@@ -373,7 +375,7 @@ namespace TMDesktopUI.ViewModels
             Matches.Clear();
 
             DisplayedTeams = new BindingList<TeamDisplayModel>(DisplayedTeams.Union(SelectedTeams).ToList());
-            // DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);  // THIS EXACT COMMAND CREATE EXCEPTION IN CreateTeamViewModel
+            // DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);  // THIS EXACT COMMAND CREATED EXCEPTION IN CreateTeamViewModel
             //DisplayedTeams = AllTeams;
             SelectedTeams.Clear();
             TeamToAdd = null;
@@ -399,15 +401,16 @@ namespace TMDesktopUI.ViewModels
                 MessageBox.Show("You have to first set dates of the tournament.");
             }
             TournamentDisplayModel tournament = new TournamentDisplayModel();
-            //tournament.StartDate = StartDate;
-            //tournament.EndDate = EndDate;
-            //tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
+            tournament.StartDate = StartDate;
+            tournament.EndDate = EndDate;
+            tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
 
-            // tournament.TournamentName = TournamentName; // useless info as well?
+            tournament.TournamentName = TournamentName;
             // tournament.Prizepool = Prizepool;  - useless info?
 
             _events.PublishOnUIThread(new CreateMatchEventModel(tournament));                      
         }
+
         public void AddCreatedMatch(MatchDisplayModel match)
         {
             Matches.Add(match);

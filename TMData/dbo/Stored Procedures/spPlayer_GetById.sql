@@ -6,5 +6,5 @@ begin
 
 	select Id, FirstName, LastName, NickName, Age, [Role]
 	from [dbo].[Player]
-	where Id = @Id
+	where @Id = Id
 end

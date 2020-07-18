@@ -8,5 +8,5 @@ begin
 
 	select FirstName, LastName, NickName, Age, Role
 	from [dbo].[Player]
-	where FirstName = @FirstName and LastName = @LastName and NickName = @NickName;
+	where @FirstName = FirstName and @LastName = LastName and @NickName = NickName;
 end

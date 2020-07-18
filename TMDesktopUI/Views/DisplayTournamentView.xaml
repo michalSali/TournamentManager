@@ -35,8 +35,126 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
+
+        <!-- Row 1 -->
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 20"
+                   HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
+            Tournament viewer
+        </TextBlock>
+
+        <!-- Row 2: Invalid input error row -->
+
+        <!-- Row 3: Tournament name row -->
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+            Tournament Name:
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="2" Margin="0 0 0 10"
+                   Text="{Binding Tournament.TournamentName}" />
+       
+
+        <!-- Row 4: Start date row -->
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
+            Tournament Start Date:
+        </TextBlock>
+
+        <TextBlock Grid.Row="4" Grid.Column="2" Margin="0 0 0 10"
+                   Text="{Binding Tournament.StartDate}" />
+       
+
+        <!-- Row 5: Start date row -->
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
+            Tournament End Date:
+        </TextBlock>
+
+        <TextBlock Grid.Row="5" Grid.Column="2" Margin="0 0 0 10"
+                   Text="{Binding Tournament.EndDate}" />
+
+        <!-- Row 6: Tournament prizepool row -->
+        <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10">
+            Tournament Prizepool:
+        </TextBlock>
+
+        <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="$" />
+            <TextBlock Text="{Binding Tournament.Prizepool}" />
+        </StackPanel>
+
+        <!-- Row 7: -->
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10"
+                   HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            Participating teams:
+        </TextBlock>
         
-        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="36"
-                    Text="{Binding TournamentName}" />
+
+        <!-- Row 8: List all teams -->
+        <ListBox ItemsSource="{Binding Tournament.Teams}" Grid.Row="8" Grid.Column="1"
+                 Grid.RowSpan="3"
+                 Margin="10 20 10 10" SelectedItem="{Binding SelectedTeam}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding TeamName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="ViewTeam"  Grid.Row="8" Grid.Column="2" Content="View selected team" />
+        
+
+        <!-- Row 9: -->
+        
+        <Button x:Name="ReturnToMainScreen" Grid.Row="9" Grid.Column="2"
+                HorizontalAlignment="Center" Margin="0 25 0 0">
+            Return to Main Screen
+        </Button>
+
+        <!-- MIDDLE COLUMN -->
+
+        <!-- Row 1: -->
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="0 0 0 10">
+          Tournament Standings:
+        </TextBlock>
+        <!-- Row 2: -->
+        <ListBox ItemsSource="{Binding Tournament.TournamentStandings}" Grid.Row="2" Grid.Column="3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Description}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+       
+        <!-- RIGHT COLUMN -->
+
+        <!-- Row 1: -->
+        <TextBlock Grid.Row="1" Grid.Column="5" Margin="0 0 0 10">
+            Matches:
+        </TextBlock>
+
+        <ListBox ItemsSource="{Binding Tournament.Matches}" Grid.Row="2" Grid.Column="5" 
+                 Grid.RowSpan="6" SelectedItem="{Binding SelectedMatch}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MatchInfo}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+       
+
+        <!-- MATCHES -->
+        <TextBlock Grid.Row="8" Grid.Column="5" Margin="0 0 0 10">
+            Quarterfinal Matches:
+        </TextBlock>
+
+        <ListBox ItemsSource="{Binding QuarterfinalMatches}" Grid.Row="4" Grid.Column="5" 
+                 Grid.RowSpan="5" SelectedItem="{Binding SelectedMatch}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MatchInfo}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
     </Grid>
 </UserControl>

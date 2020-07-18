@@ -29,12 +29,12 @@ namespace TMDesktopUI.Library.Models
             {
                 return $"{Date.ToString("dd.MM.")} - {TeamOne.TeamName} vs. {TeamTwo.TeamName} ({TeamOneScore} : {TeamTwoScore})";
             }                        
-        }       
+        }
 
-        public List<MapScoreDisplayModel> Maps { get; set; }
+        public List<MapScoreDisplayModel> Maps { get; set; } = new List<MapScoreDisplayModel>();
         public TeamDisplayModel TeamOne { get; set; }
         public TeamDisplayModel TeamTwo { get; set; }
-        public TournamentDisplayModel Tournament { get; set; }  // CYCLIC DEPENDENCY ???
+        public TournamentDisplayModel Tournament { get; set; } // CYCLIC DEPENDENCY ???
         
         public MatchDisplayModel(MatchModel model)
         {

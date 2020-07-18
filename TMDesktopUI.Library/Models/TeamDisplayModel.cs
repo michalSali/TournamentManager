@@ -13,7 +13,7 @@ namespace TMDesktopUI.Library.Models
         public int Id { get; set; }
         public string TeamName { get; set; }
         public string CoachName { get; set; }
-        public List<PlayerDisplayModel> Players { get; set; }
+        public List<PlayerDisplayModel> Players { get; set; } = new List<PlayerDisplayModel>();
 
         public TeamDisplayModel() { }
 

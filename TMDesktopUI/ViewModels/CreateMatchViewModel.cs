@@ -32,23 +32,48 @@ namespace TMDesktopUI.ViewModels
         
         public void InitializeValues(TournamentDisplayModel tournament)
         {
-            //DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);
+            DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);
+            TournamentName = tournament.TournamentName;
+            
+            var random = new Random();
+            TimeSpan timeSpan = tournament.EndDate - tournament.StartDate;
+            TimeSpan newSpan = new TimeSpan(0, random.Next(0, (int)timeSpan.TotalMinutes), 0);
+            Date = tournament.StartDate + newSpan;
+        }
+
+        private string _tournamentName;
+        public string TournamentName
+        {
+            get { return _tournamentName; }
+            set
+            {
+                _tournamentName = value;
+                NotifyOfPropertyChange(() => TournamentName);
+            }
         }
 
         //private int _matchNumber;               
         private int _format;
-        private DateTime _date;
+        private DateTime _date = DateTime.Now;
 
         private int _teamOneScore;
         private int _teamTwoScore;
 
-        private BindingList<MapScoreDisplayModel> _maps;
+        private BindingList<MapScoreDisplayModel> _maps = new BindingList<MapScoreDisplayModel>();
         private TeamDisplayModel _teamOne;
-        private TeamDisplayModel _teamTwo;       
+        private TeamDisplayModel _teamTwo;
 
-        
 
-        public BindingList<int> Formats = new BindingList<int> { 1, 3, 5, 7 };
+        private BindingList<int> _formats = new BindingList<int> { 1, 3, 5, 7 };
+        public BindingList<int> Formats
+        {
+            get { return _formats; }
+            set
+            {
+                _formats = value;
+                NotifyOfPropertyChange(() => Formats);
+            }
+        }
 
         private BindingList<string> _mapNames;
         
@@ -186,6 +211,8 @@ namespace TMDesktopUI.ViewModels
                 newMatch.Format = Format;
                 newMatch.TeamOne = TeamOne;
                 newMatch.TeamTwo = TeamTwo;
+                newMatch.TeamOneScore = TeamOneScore;
+                newMatch.TeamTwoScore = TeamTwoScore;
                 //newMatch.Tournament = Tournament;
                 newMatch.MatchImportance = 0;
                 newMatch.Maps = new List<MapScoreDisplayModel>(Maps);
@@ -202,7 +229,12 @@ namespace TMDesktopUI.ViewModels
         private void ClearMatchForm()
         {                        
             Maps.Clear();                        
-            SelectedMap = null;                   
+            SelectedMap = null;
+            TeamOne = null;
+            TeamTwo = null;
+            TeamOneScore = 0;
+            TeamTwoScore = 0;
+            //Format = 0;
         }
 
 
@@ -231,9 +263,9 @@ namespace TMDesktopUI.ViewModels
         
 
         // 2nd condition should be useless, since you can choose player only if SelectedPlayers is not empty
-        public bool CanRemoveMap()
+        public bool CanRemoveMap
         {
-            return (SelectedMap != null) && (Maps.Count > 0);
+            get { return (SelectedMap != null) && (Maps.Count > 0); }               
         }
 
         public void RemoveMap()
@@ -288,6 +320,38 @@ namespace TMDesktopUI.ViewModels
         {
             _events.PublishOnUIThread(new ReturnToTournamentCreationEvent());
         }
+
+
+        // xaml
+        /*
+        <ComboBox ItemsSource = "{Binding DisplayedTeams}" Grid.Row="4" Grid.Column="2" 
+                  Margin="10 10 10 10" SelectedItem="{Binding TeamOne}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush = "Black" >
+                        < StackPanel Orientation="Vertical">
+                            <TextBlock Text = "{Binding TeamName}" />
+                            < ItemsControl ItemsSource="{Binding Players}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation = "Horizontal" />
+                                    </ ItemsPanelTemplate >
+                                </ ItemsControl.ItemsPanel >
+                                < ItemsControl.ItemTemplate >
+                                    < DataTemplate >
+                                        < StackPanel Orientation="Horizontal">
+                                            <TextBlock Text = "{Binding FullName}" FontSize="12" />
+                                            <TextBlock Text = " ; " FontSize="12"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        */
 
     }
 }

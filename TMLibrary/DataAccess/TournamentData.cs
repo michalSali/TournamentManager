@@ -82,7 +82,7 @@ namespace TMLibrary.DataAccess
         public List<TournamentEntryModel> GetTournamentEntries(int tournamentId)
         {
             var p = new { TournamentId = tournamentId };
-            var output = sql.LoadData<TournamentEntryModel, dynamic>("dbo.spTournament_GetAll", p, "TMData");
+            var output = sql.LoadData<TournamentEntryModel, dynamic>("dbo.spTournamentEntry_GetByTournamentId", p, "TMData");
             return output;
         }
 

@@ -10,9 +10,9 @@ using TMDesktopUI.Library.Models;
 
 namespace TMDesktopUI.ViewModels
 {
-	public class MainScreenViewModel : Conductor<object>
+	public class MainScreenViewModel : Screen
 	{
-		private BindingList<TournamentDisplayModel> _tournaments;
+		private BindingList<TournamentDisplayModel> _tournaments = new BindingList<TournamentDisplayModel>();
 		private TournamentDisplayModel _selectedTournament;
 		private IEventAggregator _events;
 		private ModelsLoader _loader;
@@ -22,7 +22,7 @@ namespace TMDesktopUI.ViewModels
 			_events = events;
 			_loader = new ModelsLoader();
 
-			//Tournaments = new BindingList<TournamentDisplayModel>(_loader.GetAllTournaments());
+			Tournaments = new BindingList<TournamentDisplayModel>(_loader.GetAllTournaments());	
 		}
 
 		public TournamentDisplayModel SelectedTournament
@@ -32,6 +32,7 @@ namespace TMDesktopUI.ViewModels
 			{
 				_selectedTournament = value;
 				NotifyOfPropertyChange(() => SelectedTournament);
+				NotifyOfPropertyChange(() => CanViewTournament);
 			}
 		}
 
@@ -42,6 +43,7 @@ namespace TMDesktopUI.ViewModels
 			{
 				_tournaments = value;
 				NotifyOfPropertyChange(() => Tournaments);
+				NotifyOfPropertyChange(() => CanViewTournament);
 			}
 		}
 
@@ -55,9 +57,9 @@ namespace TMDesktopUI.ViewModels
 			Tournaments.Add(tournament);
 		}
 
-		public bool CanViewTournament()
+		public bool CanViewTournament
 		{
-			return SelectedTournament != null;			
+			get { return SelectedTournament != null && Tournaments?.Count > 0; }			
 		}
 		
 

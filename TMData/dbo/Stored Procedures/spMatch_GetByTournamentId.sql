@@ -7,5 +7,5 @@ begin
 	select Id, TournamentId, MatchNumber, [Date], [Format],
            TeamOneId, TeamTwoId, TeamOneScore, TeamTwoScore
 	from [dbo].[Match]
-	where TournamentId = @TournamentId
+	where @TournamentId = TournamentId
 end

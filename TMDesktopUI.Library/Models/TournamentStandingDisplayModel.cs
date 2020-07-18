@@ -14,5 +14,10 @@ namespace TMDesktopUI.Library.Models
 
         public int Placement { get; set; }
         public int PrizeWon { get; set; }
+
+        public string Description
+        {
+            get { return $"{Team.TeamName} - #{Placement} - ${PrizeWon}"; }
+        }
     }
 }

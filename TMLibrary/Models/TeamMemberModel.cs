@@ -17,5 +17,7 @@ namespace TMLibrary.Models
             TeamId = teamId;
             PlayerId = playerId;
         }
+
+        public TeamMemberModel() { }
     }
 }

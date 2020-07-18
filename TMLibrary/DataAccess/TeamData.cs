@@ -33,7 +33,7 @@ namespace TMLibrary.DataAccess
 
         public TeamModel GetTeam(int teamId)
         {
-            var p = new { TeamId = teamId };
+            var p = new { @Id = teamId };
             var output = sql.LoadData<TeamModel, dynamic>("dbo.spTeam_GetById", p, "TMData");
             return output.First();
         }

@@ -17,5 +17,7 @@ namespace TMLibrary.Models
             TeamName = teamName;
             CoachName = coachName;
         }
+
+        public TeamModel() { }
     }
 }

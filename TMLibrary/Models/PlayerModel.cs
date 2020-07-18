@@ -23,5 +23,7 @@ namespace TMLibrary.Models
             Age = age;
             Role = role;
         }
+
+        public PlayerModel() { }
     }
 }

@@ -20,7 +20,8 @@ namespace TMDesktopUI.Library.Models
         {
             get
             {
-                return $"Map {MapNumber}: {MapName}";
+                //return $"Map {MapNumber}: {MapName}";
+                return $"Map: {MapName}";
             }
         }
 
@@ -28,8 +29,8 @@ namespace TMDesktopUI.Library.Models
         {
             get
             {
-                return $"Map {Match.TeamOne.TeamName} - {Match.TeamOneScore} : "
-                        + $"{Match.TeamTwoScore} - {Match.TeamTwo.TeamName}";
+                return $"{Match.TeamOne.TeamName} - {TeamOneScore} : "
+                        + $"{TeamTwoScore} - {Match.TeamTwo.TeamName}";
             }
         }
 
@@ -38,8 +39,8 @@ namespace TMDesktopUI.Library.Models
         //public TeamDisplayModel TeamOne;  // na TeamOne a TeamTwo sa da dostat aj cez Match => Match.TeamOne
         //public TeamDisplayModel TeamTwo;
 
-        public List<MapPlayerStatsDisplayModel> TeamOneStats { get; set; }
-        public List<MapPlayerStatsDisplayModel> TeamTwoStats { get; set; }
+        public List<MapPlayerStatsDisplayModel> TeamOneStats { get; set; } = new List<MapPlayerStatsDisplayModel>();
+        public List<MapPlayerStatsDisplayModel> TeamTwoStats { get; set; } = new List<MapPlayerStatsDisplayModel>();
 
         public MapScoreDisplayModel(MapScoreModel model)
         {

@@ -21,5 +21,7 @@ namespace TMLibrary.Models
             EndDate = endDate;
             Prizepool = prizepool;
         }
+
+        public TournamentModel() { }
     }
 }

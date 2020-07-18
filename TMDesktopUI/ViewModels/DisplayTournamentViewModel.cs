@@ -12,12 +12,37 @@ namespace TMDesktopUI.ViewModels
 {
     public class DisplayTournamentViewModel : Conductor<object>
     {
-        public TournamentDisplayModel Tournament;
-        public DisplayTournamentViewModel(TournamentDisplayModel tournament)
+        
+        private TournamentDisplayModel _tournament;
+        public TournamentDisplayModel Tournament
+        {
+            get { return _tournament; }
+            set
+            {
+                _tournament = value;
+                NotifyOfPropertyChange(() => Tournament);
+            }
+        }
+        /*
+        private List<MatchDisplayModel> _matches;
+        public List<MatchDisplayModel> Matches
+        {
+
+        }
+        */
+
+        private IEventAggregator _events;
+
+        public DisplayTournamentViewModel(IEventAggregator events)
+        {
+            _events = events;
+        }
+
+        public void InitializeValues(TournamentDisplayModel tournament)
         {
             Tournament = tournament;
             //Teams = new BindingList<TeamDisplayModel>(tournament.Teams);
-            //TournamentName = tournament.TournamentName;            
+                
 
         }
 
@@ -32,5 +57,8 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => TournamentName);
             }
         }
+
+        // SelectedTeam
+        // SelectedMatch
     }
 }

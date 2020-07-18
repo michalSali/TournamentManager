@@ -99,6 +99,7 @@
     <Build Include="dbo\Stored Procedures\spTeamMember_GetByTeamId.sql" />
     <Build Include="dbo\Stored Procedures\spTeam_GetByTeamName.sql" />
     <Build Include="dbo\Stored Procedures\spTournament_GetByName.sql" />
+    <Build Include="dbo\Stored Procedures\spTournamentEntry_GetByTournamentId.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TMData.refactorlog" />

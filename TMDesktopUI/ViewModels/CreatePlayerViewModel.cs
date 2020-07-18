@@ -113,8 +113,10 @@ namespace TMDesktopUI.ViewModels
 				Role = "";
 			}		
 			*/
+
+
 			var newPlayer = new PlayerDisplayModel(firstName, lastName, nickname, age, role);
-			//_saver.SavePlayer(new PlayerDisplayModel(firstName, lastName, nickname, age, role));
+			_saver.SavePlayer(newPlayer);
 
 			_events.PublishOnUIThread(new PlayerCreatedEventModel(newPlayer));
 
@@ -125,12 +127,7 @@ namespace TMDesktopUI.ViewModels
 			Role = "";
 
 		}	
-		
-		// ClearForm
-		// CreatedPlayers - add/remove/save
-
-		// TESTING ???
-
+				
 		public void ReturnToTeamCreation()
 		{
 			_events.PublishOnUIThread(new ReturnToTeamCreationEvent());

@@ -72,7 +72,7 @@ namespace TMLibrary.DataAccess
         public List<MapPlayerStatsModel> GetMapPlayerStats(int mapScoreId)
         {
             var p = new { MapScoreId = mapScoreId };
-            var output = sql.LoadData<MapPlayerStatsModel, dynamic>("dbo.spMapScore_GetByMatchId", p, "TMData");
+            var output = sql.LoadData<MapPlayerStatsModel, dynamic>("dbo.spMapPlayerStats_GetByMapScoreId", p, "TMData");
             return output;
         }
 

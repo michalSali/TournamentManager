@@ -50,7 +50,7 @@
         <!-- Row 2: -->
         <TextBlock Grid.Row="2" Grid.Column="1" Margin="0 0 0 10" Grid.ColumnSpan="2"
                    HorizontalAlignment="Center" FontSize="20" FontFamily="Segoe UI Light"
-                   Text="T{Binding Tournament_TournamentName}" />
+                   MinWidth="200" Text="{Binding TournamentName}" />
 
 
         <!-- Row 3: Date row -->
@@ -70,23 +70,7 @@
                   Margin="10 10 10 10" SelectedItem="{Binding TeamOne}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding TeamOne_TeamName}" />
-                            <ItemsControl ItemsSource="{Binding TeamOne_Players}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding FullName}" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Border>
+                    <TextBlock Text="{Binding TeamName}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -101,30 +85,14 @@
                   Margin="10 10 10 10" SelectedItem="{Binding TeamTwo}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding TeamTwo_TeamName}" />
-                            <ItemsControl ItemsSource="{Binding TeamTwo_Players}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding FullName}" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Border>
+                    <TextBlock Text="{Binding TeamName}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
 
         <!-- Row 6: Format row -->
         <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10">
-            Select match format - best of:
+            Select match format <LineBreak/> - best of X:
         </TextBlock>
 
         <ComboBox ItemsSource="{Binding Formats}" Grid.Row="6" Grid.Column="2"
@@ -135,36 +103,21 @@
         <TextBlock Grid.Row="7" Grid.Column="2" Margin="0 0 0 10" Text="Match result" />
         
         <!-- Row 8: -->
-        <TextBlock Grid.Row="8" Grid.Column="1" Margin="0 0 0 10" Text="T{Binding TeamOne_Name}" />
+        <TextBlock Grid.Row="8" Grid.Column="1" Margin="0 0 0 10" Text="{Binding TeamOne.TeamName}" />
 
         <TextBox x:Name="TeamOneScore" Grid.Row="8" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
         
         
         <!-- Row 9: -->       
-        <TextBlock Grid.Row="9" Grid.Column="1" Margin="0 0 0 10" Text="T{Binding TeamTwo_Name}" />
+        <TextBlock Grid.Row="9" Grid.Column="1" Margin="0 0 0 10" Text="{Binding TeamTwo.TeamName}" />
 
         <TextBox x:Name="TeamTwoScore" Grid.Row="9" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
 
-        <!-- Row 10: -->
-        <TextBlock Grid.Row="10" Grid.Column="1" Margin="0 0 0 10" Text="Maps:" />
+        <!--  -->
 
-        <!-- Row 11: -->
-        <ListBox ItemsSource="{Binding CreatedMaps}" Grid.Row="11" Grid.Column="1">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="Black">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding MapDescription}" />
-                            <TextBlock Text="{Binding ScoreDescription}" />
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <StackPanel Grid.Row="12" Grid.Column="2" Orientation="Vertical">
+        <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Vertical">
             <Button x:Name="RemoveMap" Content="Remove Selected Map" Margin="0 10 0 15" />
             <Button x:Name="EditMap" Content="Edit Selected Map" Margin="0 0 0 15" />
             <Button x:Name="SaveChanges" Content="Save Changes" Margin="0 0 0 15" />
@@ -192,98 +145,24 @@
                 Return To <LineBreak/> Tournament Creation
             </TextBlock>
         </Button>
-
-
-        <!-- Right column - map creation -->
-
-        <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" Margin="0 0 0 20"
-                   HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
-            Map Creation Form
-        </TextBlock>
-
-        <!-- Row 2: -->
-        <TextBlock Grid.Row="2" Grid.Column="3" Margin="0 0 0 10">
-            Map Number:
-        </TextBlock>
-        <TextBox x:Name="MapNumber" Grid.Row="9" Grid.Column="4" 
-                 MinWidth="150" Margin="0 0 0 10" />
-
-        <TextBlock Grid.Row="2" Grid.Column="5" Margin="0 0 0 10">
-            Choose map name from official maps:
-        </TextBlock>
-
-        <!-- Row 3: Date row -->
-        <TextBlock Grid.Row="3" Grid.Column="3" Margin="0 0 0 10">
-            Map Name:
-        </TextBlock>
-        <TextBox x:Name="MapName" Grid.Row="9" Grid.Column="4" 
-                 MinWidth="150" Margin="0 0 0 10" />
-
-        <ComboBox ItemsSource="{Binding MapNames}" Grid.Row="3" Grid.Column="5"
-                  SelectedItem="{Binding MapName}" />
-
-
-        <!-- Row 4: -->
-        <TextBlock Grid.Row="4" Grid.Column="4" Margin="0 0 0 10" Text="Map result" />
-
-        <!-- Row 5: -->
-        <TextBlock Grid.Row="5" Grid.Column="3" Margin="0 0 0 10" Text="t{Binding TeamOne_Name}" />
-
-        <TextBox x:Name="TeamOneMapScore" Grid.Row="5" Grid.Column="4" 
-                 MinWidth="150" Margin="0 0 0 10" />
-
-        <!-- Row 6: -->
-        <TextBlock Grid.Row="6" Grid.Column="3" Margin="0 0 0 10" Text="t{Binding TeamTwo_Name}" />
-
-        <TextBox x:Name="TeamTwoMapScore" Grid.Row="6" Grid.Column="4" 
-                 MinWidth="150" Margin="0 0 0 10" />
-
-        <!-- Row 7: -->
-        <TextBlock Grid.Row="7" Grid.Column="3" Margin="0 0 0 10" Text="Player stats:" />
-
-        <!-- Row 8: -->
-        <TextBlock Grid.Row="8" Grid.Column="3" Margin="0 20 0 10"
-                   Text="t{Binding TeamOne_TeamName, StringFormat='{}{0} player stats:'}" />
-
-        <TextBlock Grid.Row="8" Grid.Column="4" Margin="0 0 0 10">
-            <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} player stats:">
-                    <Binding Path="TeamOne_TeamName" />
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
-
-        <!-- Row 9: -->
-        <DataGrid ItemsSource="{Binding TeamOneStats}" Grid.Row="9" Grid.Column="3"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
-                                    Binding="{Binding Path=Player.Nickname}"/>
-                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
-                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
-                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
+        
+        <!-- right column -->
         <!-- Row 10: -->
-        <TextBlock Grid.Row="10" Grid.Column="3" Margin="0 20 0 10"
-                   Text="t{Binding TeamTwo_TeamName, StringFormat='{}{0} player stats:'}" />
+        <TextBlock Grid.Row="3" Grid.Column="3" Margin="0 0 0 10" Text="Maps:" />
 
-                
         <!-- Row 11: -->
-        <DataGrid ItemsSource="{Binding TeamTwoStats}" Grid.Row="11" Grid.Column="3"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
-                                    Binding="{Binding Path=Player.Nickname}"/>
-                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
-                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
-                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListBox ItemsSource="{Binding Maps}" Grid.Row="4" Grid.Column="3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="0 0.5 0 0" Margin="0 5 0 5">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding MapDescription}" />
+                            <TextBlock Text="{Binding ScoreDescription}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
                        
     </Grid>
 </UserControl>

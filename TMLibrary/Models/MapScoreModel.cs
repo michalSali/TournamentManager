@@ -23,5 +23,7 @@ namespace TMLibrary.Models
             TeamOneScore = teamOneScore;
             TeamTwoScore = teamTwoScore;
         }
+
+        public MapScoreModel() { }
     }
 }

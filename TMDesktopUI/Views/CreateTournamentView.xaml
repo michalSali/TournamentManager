@@ -73,11 +73,12 @@
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Row 7: -->
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10"
+                   HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Select participating teams:
         </TextBlock>
 
-        <TextBlock Grid.Row="7" Grid.Column="2" Margin="0 0 0 0"
+        <TextBlock Grid.Row="7" Grid.Column="3" Margin="0 0 0 0"
                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Selected teams:
         </TextBlock>
@@ -171,7 +172,7 @@
             Group Stage / Unlabeled Matches:
         </TextBlock>
        
-        <ComboBox ItemsSource="{Binding Matches}" Grid.Row="2" Grid.Column="5" 
+        <ComboBox ItemsSource="{Binding Matches}" Grid.Row="8" Grid.Column="4" 
                  SelectedItem="{Binding SelectedMatch}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -179,6 +180,15 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+
+        <ListBox ItemsSource="{Binding Matches}" Grid.Row="8" Grid.Column="4" 
+                 SelectedItem="{Binding SelectedMatch}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MatchInfo}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel Grid.Row="3" Grid.Column="5" Orientation="Vertical">
             <Button x:Name="AddQuarterfinalMatch" Content="Add to Quarterfinals" />

@@ -137,6 +137,7 @@ namespace TMDesktopUI.Library.Helpers
         {
             var playerModel = pd.GetPlayer(playerId);
             PlayerDisplayModel newDisplayModel = new PlayerDisplayModel(playerModel);
+            newDisplayModel.Id = playerId;
             return newDisplayModel;
             //newDisplayModel.Team = team;
         }
@@ -167,14 +168,14 @@ namespace TMDesktopUI.Library.Helpers
             foreach (var group in groupedPlayers)
             {
                 var teamModel = tmd.GetTeam(group.TeamId);
-                TeamDisplayModel newDisplayModel = new TeamDisplayModel(teamModel);
-
+                TeamDisplayModel newTeam = new TeamDisplayModel(teamModel);
+                newTeam.Id = group.TeamId;
                 foreach (var playerId in group.PlayerIds)
                 {
-                    newDisplayModel.Players.Add(GetPlayer(playerId, newDisplayModel));
+                    newTeam.Players.Add(GetPlayer(playerId, newTeam));
                 }
 
-                result.Add(newDisplayModel);
+                result.Add(newTeam);
             }
 
             return result;                        

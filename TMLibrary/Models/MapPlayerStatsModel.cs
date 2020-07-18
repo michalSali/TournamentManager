@@ -23,6 +23,8 @@ namespace TMLibrary.Models
             Assists = assists;
             Deaths = deaths;
         }
+
+        public MapPlayerStatsModel() { }
        
     }
 }

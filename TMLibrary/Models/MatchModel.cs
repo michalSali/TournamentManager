@@ -30,5 +30,7 @@ namespace TMLibrary.Models
             TeamOneScore = teamOneScore;
             TeamTwoScore = teamTwoScore;
         }
+
+        public MatchModel() { }
     }
 }

@@ -10,6 +10,6 @@ begin
 
 	insert into [dbo].[MapScore] (MatchId, MapNumber, MapName, TeamOneScore, TeamTwoScore)
 	output INSERTED.[Id]
-	values (MatchId, MapNumber, MapName, TeamOneScore, TeamTwoScore);	
+	values (@MatchId, @MapNumber, @MapName, @TeamOneScore, @TeamTwoScore);	
 	
 end

@@ -12,7 +12,7 @@ using TMDesktopUI.Library.Models;
 
 namespace TMDesktopUI.ViewModels
 {
-    public class CreateTeamViewModel : Conductor<object>
+    public class CreateTeamViewModel : Screen
     {
         //private TournamentDisplayModel _tournamentDisplayModel;
 
@@ -23,7 +23,7 @@ namespace TMDesktopUI.ViewModels
 
         private string _teamName;
         private string _coachName;
-        private string _filterText;
+        private string _filterText = "";
 
         private PlayerDisplayModel _playerToAdd;
         public PlayerDisplayModel PlayerToAdd
@@ -49,7 +49,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        private BindingList<PlayerDisplayModel> _selectedPlayers;
+        private BindingList<PlayerDisplayModel> _selectedPlayers = new BindingList<PlayerDisplayModel>();
         public BindingList<PlayerDisplayModel> SelectedPlayers
         {
             get { return _selectedPlayers; }
@@ -86,13 +86,13 @@ namespace TMDesktopUI.ViewModels
             _loader = new ModelsLoader();
             _events = events;
 
-            //AllPlayers = new BindingList<PlayerDisplayModel>(_loader.GetAllPlayers());
-            //DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers);
+            AllPlayers = new BindingList<PlayerDisplayModel>(_loader.GetAllPlayers());
+            DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers);
 
             // testing
-            AllPlayers = new BindingList<PlayerDisplayModel>();
-            DisplayedPlayers = new BindingList<PlayerDisplayModel>();
-            SelectedPlayers = new BindingList<PlayerDisplayModel>();
+            //AllPlayers = new BindingList<PlayerDisplayModel>();
+            //DisplayedPlayers = new BindingList<PlayerDisplayModel>();
+            //SelectedPlayers = new BindingList<PlayerDisplayModel>();
         }
 
         /*
@@ -141,14 +141,14 @@ namespace TMDesktopUI.ViewModels
         public void ApplyFilter(string filterText)
         {
             List<PlayerDisplayModel> filteredPlayers = new List<PlayerDisplayModel>();
-
+            filterText = filterText.ToLower();
             foreach (var player in AllPlayers.Except(SelectedPlayers))  // -- mali by byt disjunktne mnoziny ?
             
             //foreach (var player in DisplayedPlayers)
             {
-                if (player.FirstName.Contains(filterText) ||
-                    player.LastName.Contains(filterText) ||
-                    player.Nickname.Contains(filterText))
+                if (player.FirstName.ToLower().Contains(filterText) ||
+                    player.LastName.ToLower().Contains(filterText) ||
+                    player.Nickname.ToLower().Contains(filterText))
                 {
                     filteredPlayers.Add(player);
                 }
@@ -251,7 +251,7 @@ namespace TMDesktopUI.ViewModels
             newTeam.TeamName = TeamName;
             newTeam.CoachName = string.IsNullOrWhiteSpace(CoachName) ? "Unknown" : CoachName;
             newTeam.Players = selectedPlayers;
-            //_saver.SaveTeam(newTeam); // also sets the team.Id
+            _saver.SaveTeam(newTeam); // also sets the team.Id
 
             _events.PublishOnUIThread(new TeamCreatedEventModel(newTeam));
             //_createdTeams.Add(newTeam);

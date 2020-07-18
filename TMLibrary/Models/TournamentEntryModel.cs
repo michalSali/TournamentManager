@@ -17,5 +17,7 @@ namespace TMLibrary.Models
             TournamentId = tournamentId;
             TeamId = teamId;
         }
+
+        public TournamentEntryModel() { }
     }
 }
