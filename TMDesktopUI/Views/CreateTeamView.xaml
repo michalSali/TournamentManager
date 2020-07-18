@@ -80,7 +80,7 @@
 
         <!-- Row 8: List all players -->
         <ComboBox x:Name="DisplayedPlayers" Grid.Row="8" Grid.Column="1" 
-                  Margin="10 20 10 10" SelectedItem="{Binding PlayerTO}">
+                  Margin="10 20 10 10" SelectedItem="{Binding PlayerToAdd}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding FullName}" />
@@ -91,12 +91,13 @@
         <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10" >
             <Button x:Name="AddPlayer" Content="Add selected player" Margin="0 0 0 15" />
 
-            <Button x:Name="RemovePlayer" Content="Remove selected team" Margin="0 0 0 15" />
+            <Button x:Name="RemovePlayer" Content="Remove selected player" Margin="0 0 0 15" />
 
-            <Button x:Name="CreatePlayer" Content="Create new player" Margin="0 0 0 0" />
+            <Button x:Name="CreateNewPlayer" Content="Create new player" Margin="0 0 0 0" />
         </StackPanel>
 
-        <ListBox x:Name="SelectedPlayers" Grid.Row="8" Grid.Column="3" Margin="10 20 10 10">
+        <ListBox x:Name="SelectedPlayers" Grid.Row="8" Grid.Column="3" Margin="10 20 10 10"
+                 SelectedItem="{Binding PlayerToRemove}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding FullName}" />
@@ -107,8 +108,13 @@
   
 
         <!-- Row 9: -->
-        <Button x:Name="CreateTeamButton" Grid.Row="9" Grid.Column="1"
-                Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0 20 0 10">
+        <Button x:Name="ReturnToTournamentCreation" Grid.Row="9" Grid.Column="3"
+                HorizontalAlignment="Center" Margin="15">
+            Return to Tournament Creation
+        </Button>
+        
+        <Button x:Name="CreateTeam" Grid.Row="9" Grid.Column="2"
+                HorizontalAlignment="Center" Margin="15">
             Create Team
         </Button>
 

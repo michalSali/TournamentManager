@@ -96,10 +96,10 @@
         <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 10"
                     Orientation="Horizontal" HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <TextBlock Text="Team A{Binding TeamOne_Name} " />
+            <TextBlock Text="Team A{Binding TeamOne_Name}" />
             <TextBlock Text="2{Binding TeamOne_Score}" />
-            <TextBlock Text=" : " />
-            <TextBlock Text="{Binding TeamTwo_Score} " />
+            <TextBlock Text="ff" />
+            <TextBlock Text="{Binding TeamTwo_Score}" />
             <TextBlock Text="{Binding TeamTwo_Name}" />
         </StackPanel>
 

@@ -10,13 +10,13 @@ namespace TMDesktopUI.Library.Models
     public class PlayerDisplayModel
     {
         // player potrebuje id kvoli zapisu do databazy, aby sme mohli vytvorit TeamMembers
-        public int Id;
-        public string FirstName;
-        public string LastName;
-        public string Nickname;
-        public int Age;
-        public string Role;
-        
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Nickname { get; set; }
+        public int Age { get; set; }
+        public string Role { get; set; }
+
 
         public string FullName
         {
@@ -44,6 +44,10 @@ namespace TMDesktopUI.Library.Models
             Nickname = nickname;
             Age = age;
             Role = role;
+        }
+
+        public PlayerDisplayModel()
+        {
         }
 
         public bool Equals(PlayerDisplayModel player)

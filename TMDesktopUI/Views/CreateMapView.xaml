@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="TMDesktopUI.Views.CreateMapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TMDesktopUI.Views"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <!-- Row 1: -->
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
+                   HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
+            Map Creation Form
+        </TextBlock>
+
+        
+        <TextBlock Grid.Row="2" Grid.Column="2" Margin="0 0 0 10">
+            Choose map:
+        </TextBlock>
+
+        <!-- Row 3: Date row -->
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+            Map Name:
+        </TextBlock>
+        <TextBox x:Name="MapName" Grid.Row="9" Grid.Column="4" 
+                 MinWidth="150" Margin="0 0 0 10" />
+
+        <ComboBox ItemsSource="{Binding AvailableMaps}" Grid.Row="3" Grid.Column="2"
+                  SelectedItem="{Binding MapName}" />
+
+
+        <!-- Row 4: -->
+        <TextBlock Grid.Row="4" Grid.Column="2" Margin="0 0 0 10" Text="Map result" />
+
+        <!-- Row 5: -->
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10" Text="{Binding TeamOne.Name}" />
+
+        <TextBox x:Name="TeamOneScore" Grid.Row="5" Grid.Column="2" 
+                 MinWidth="150" Margin="0 0 0 10" />
+
+        <!-- Row 6: -->
+        <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10" Text="{Binding Path=TeamTwo.Name}" />
+
+        <TextBox x:Name="TeamTwoScore" Grid.Row="6" Grid.Column="2" 
+                 MinWidth="150" Margin="0 0 0 10" />
+
+        <!-- Row 7: -->
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10" Text="Player stats:" />
+
+        <!-- Row 8: -->
+        <TextBlock Grid.Row="8" Grid.Column="1" Margin="0 20 0 10"
+                   Text="{Binding Path=TeamOne.TeamName, StringFormat='{}{0} player stats:'}" />
+
+        <TextBlock Grid.Row="8" Grid.Column="2" Margin="0 0 0 10">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} player stats:">
+                    <Binding Path="TeamOne.TeamName" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <!-- Row 9: -->
+        <DataGrid ItemsSource="{Binding TeamOneStats}" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
+                                    Binding="{Binding Path=Player.Nickname}"/>
+                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
+                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
+                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Row 10: -->
+        <TextBlock Grid.Row="10" Grid.Column="1" Margin="0 20 0 10"
+                   Text="{Binding TeamTwo_TeamName, StringFormat='{}{0} player stats:'}" />
+
+
+        <!-- Row 11: -->
+        <DataGrid ItemsSource="{Binding TeamTwoStats}" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
+                                    Binding="{Binding Path=Player.Nickname}"/>
+                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
+                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
+                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <!-- RIGHT SIDE: -->
+        <Button x:Name="CreateMap" Grid.Row="2" Grid.Column="3" >
+            Create map
+        </Button>
+
+        <Button x:Name="ReturnToMatchCreation" Grid.Row="3" Grid.Column="3" >
+            Return to match creation
+        </Button>
+
+
+    </Grid>
+</UserControl>

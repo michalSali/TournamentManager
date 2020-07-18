@@ -12,14 +12,14 @@ namespace TMDesktopUI.Library.Models
         //public int Id;
         //public int MapScoreId;
         //public int PlayerId;
-        public int Kills;
-        public int Assists;
-        public int Deaths;
+        public int Kills { get; set; }
+        public int Assists { get; set; }
+        public int Deaths { get; set; }
 
         // to display player's fullname
-        public PlayerDisplayModel Player;
+        public PlayerDisplayModel Player { get; set; }
 
-        public MapScoreDisplayModel Map;
+        public MapScoreDisplayModel Map { get; set; }
 
         public MapPlayerStatsDisplayModel()
         {

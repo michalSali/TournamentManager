@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TMDesktopUI.Views"
         mc:Ignorable="d" FontSize="18"
-        Title="ShellView" Height="450" Width="800">
+        Title="ShellView" Height="800" Width="1000">
     <DockPanel>
         <Menu DockPanel.Dock="Top" FontSize="18">
             <MenuItem x:Name="HomeScreen" Header="_Home">
@@ -13,29 +13,7 @@
             </MenuItem>
         </Menu>
         <Grid>
-            <!-- <ContentControl x:Name="ActiveItem" Margin="5" /> -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="10" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="10" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding FirstName, Mode=OneWay}" Grid.Row="1" Grid.Column="1" />
-            <TextBlock Text="{Binding LastName, Mode=OneWay}" Grid.Row="2" Grid.Column="1" />
-            <TextBlock Text="{Binding Nickname, Mode=OneWay}" Grid.Row="3" Grid.Column="1" />
+            <ContentControl x:Name="ActiveItem" Margin="5" />
 
 
         </Grid>

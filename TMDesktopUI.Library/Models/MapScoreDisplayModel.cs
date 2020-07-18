@@ -33,13 +33,13 @@ namespace TMDesktopUI.Library.Models
             }
         }
 
-        public MatchDisplayModel Match;
+        public MatchDisplayModel Match { get; set; }
 
         //public TeamDisplayModel TeamOne;  // na TeamOne a TeamTwo sa da dostat aj cez Match => Match.TeamOne
         //public TeamDisplayModel TeamTwo;
 
-        public List<MapPlayerStatsDisplayModel> TeamOneStats;
-        public List<MapPlayerStatsDisplayModel> TeamTwoStats;
+        public List<MapPlayerStatsDisplayModel> TeamOneStats { get; set; }
+        public List<MapPlayerStatsDisplayModel> TeamTwoStats { get; set; }
 
         public MapScoreDisplayModel(MapScoreModel model)
         {

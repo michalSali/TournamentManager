@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TMDesktopUI.EventModels;
 using TMDesktopUI.Library.Helpers;
 using TMDesktopUI.Library.Models;
 using TMLibrary.DataAccess;
@@ -23,11 +24,13 @@ namespace TMDesktopUI.ViewModels
 		private ModelsQueries _query;
 		private ModelsSaver _saver;
 		private ModelsLoader _loader;
-		public CreatePlayerViewModel()
+		private IEventAggregator _events;
+		public CreatePlayerViewModel(IEventAggregator events)
 		{
 			_query = new ModelsQueries();
 			_saver = new ModelsSaver();
 			_loader = new ModelsLoader();
+			_events = events;
 		}
 
 		public string FirstName
@@ -89,7 +92,8 @@ namespace TMDesktopUI.ViewModels
 		}
 
 		public void CreatePlayer(string firstName, string lastName, string nickname, string role="", int age=0)
-		{			
+		{
+			/*
 			if (_query.ExistsPlayer(firstName, lastName, nickname))
 			{
 				MessageBox.Show("Player with the given first name, last name and" +
@@ -97,15 +101,39 @@ namespace TMDesktopUI.ViewModels
 			}
 			else
 			{
-				_saver.SavePlayer(new PlayerDisplayModel(firstName, lastName, nickname, age, role));
+				var newPlayer = new PlayerDisplayModel(firstName, lastName, nickname, age, role);
+				//_saver.SavePlayer(new PlayerDisplayModel(firstName, lastName, nickname, age, role));
+
+				_events.PublishOnUIThread(new PlayerCreatedEventModel(newPlayer));
 
 				FirstName = "";
 				LastName = "";
 				Nickname = "";
 				Age = 0;
 				Role = "";
-			}
-			
-		}		
+			}		
+			*/
+			var newPlayer = new PlayerDisplayModel(firstName, lastName, nickname, age, role);
+			//_saver.SavePlayer(new PlayerDisplayModel(firstName, lastName, nickname, age, role));
+
+			_events.PublishOnUIThread(new PlayerCreatedEventModel(newPlayer));
+
+			FirstName = "";
+			LastName = "";
+			Nickname = "";
+			Age = 0;
+			Role = "";
+
+		}	
+		
+		// ClearForm
+		// CreatedPlayers - add/remove/save
+
+		// TESTING ???
+
+		public void ReturnToTeamCreation()
+		{
+			_events.PublishOnUIThread(new ReturnToTeamCreationEvent());
+		}
 	}
 }

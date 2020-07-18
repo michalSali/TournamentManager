@@ -77,5 +77,11 @@
             Create Player
         </Button>
 
+        <Button x:Name="ReturnToTeamCreation" Grid.Row="9" Grid.Column="1" Padding="20 5"
+                Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            Return to Team Creation
+        </Button>
+
+
     </Grid>
 </UserControl>

@@ -84,7 +84,8 @@
 
 
         <!-- Row 8: List all teams -->
-        <ComboBox x:Name="Teams" Grid.Row="8" Grid.Column="1">
+        <ComboBox x:Name="DisplayedTeams" Grid.Row="8" Grid.Column="1"
+                  Margin="10 20 10 10" SelectedItem="{Binding TeamToAdd}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding TeamName}" />
@@ -92,29 +93,33 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ListBox x:Name="SelectedTeams" Grid.Row="8" Grid.Column="2">
+        <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10" >
+            <Button x:Name="AddTeam" Content="Add selected team" Margin="0 0 0 15" />
+
+            <Button x:Name="RemoveTeam" Content="Remove selected team" Margin="0 0 0 15" />
+
+            <Button x:Name="CreateNewTeam" Content="Create new team" Margin="0 0 0 0" />
+        </StackPanel>
+            
+        <ListBox x:Name="SelectedTeams" Grid.Row="8" Grid.Column="3"
+                 Margin="10 20 10 10" SelectedItem="{Binding TeamToRemove}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding TeamName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <!-- Row 9: AddTeam button -->
-        <Button x:Name="AddTeam" Grid.Row="9" Grid.Column="1"
-                Content="Add selected team" />
-
-        <Button x:Name="RemoveTeam" Grid.Row="9" Grid.Column="2"
-                Content="Remove selected team" />
-
-        <!-- Row 10: CreateTeam button -->
-        <Button x:Name="CreateTeam" Grid.Row="10" Grid.Column="1"
-                Content="Create new team" />
-
+        
+        
         <!-- Row 11: CreateTournament button -->
-        <Button x:Name="CreateTournament" Grid.Row="11" Grid.Column="1"
-                Grid.ColumnSpan="2" HorizontalAlignment="Center">
+        <Button x:Name="CreateTournament" Grid.Row="9" Grid.Column="2"
+                HorizontalAlignment="Center">
             Create Tournament
+        </Button>
+
+        <Button x:Name="ReturnToMainScreen" Grid.Row="9" Grid.Column="3"
+                HorizontalAlignment="Center">
+            Return to Main Screen
         </Button>
 
         <!-- MIDDLE COLUMN -->
@@ -155,6 +160,10 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <!-- Row 3: -->        
+        <Button x:Name="CreateNewMatch" Grid.Row="3" Grid.Column="3"
+                Content="Create new match" />
+        
         <!-- RIGHT COLUMN -->
 
         <!-- Row 1: -->

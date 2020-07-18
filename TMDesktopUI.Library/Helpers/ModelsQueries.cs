@@ -20,6 +20,8 @@ namespace TMDesktopUI.Library.Helpers
             _pd = new PlayerData();
             _tmd = new TeamData();
             _tnd = new TournamentData();
+
+            _loader = new ModelsLoader();
         }
         
         public bool ExistsPlayer(string firstName, string lastName, string nickname)

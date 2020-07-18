@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TMDesktopUI.Views
 {
     /// <summary>
-    /// Interaction logic for MainOptionsView.xaml
+    /// Interaction logic for DisplayTournamentView.xaml
     /// </summary>
-    public partial class MainOptionsView : UserControl
+    public partial class DisplayTournamentView : UserControl
     {
-        public MainOptionsView()
+        public DisplayTournamentView()
         {
             InitializeComponent();
         }

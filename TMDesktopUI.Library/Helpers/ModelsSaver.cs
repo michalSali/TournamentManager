@@ -49,8 +49,9 @@ namespace TMDesktopUI.Library.Helpers
             {
                 int matchId = mtd.CreateMatchReturnId(new MatchModel(
                     tournamentId,
+                    match.MatchNumber,
                     match.Date,
-                    match.Format,
+                    match.Format,             
                     match.TeamOne.Id,
                     match.TeamTwo.Id,
                     match.TeamOneScore,

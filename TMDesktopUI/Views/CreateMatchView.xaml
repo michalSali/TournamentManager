@@ -177,7 +177,23 @@
                 HorizontalAlignment="Center" Margin="0 5 0 5">
             Create Match
         </Button>
-        
+
+        <Button x:Name="CreateNewMap" Grid.Row="13" Grid.Column="2"
+                HorizontalAlignment="Center" Margin="0 5 0 5">
+            Create new map
+        </Button>
+
+
+
+        <!-- Row 14: -->
+        <Button x:Name="ReturnToTournamentCreation" Grid.Row="14" Grid.Column="1"
+                HorizontalAlignment="Center" Margin="0 5 0 5" >
+            <TextBlock>
+                Return To <LineBreak/> Tournament Creation
+            </TextBlock>
+        </Button>
+
+
         <!-- Right column - map creation -->
 
         <!-- Row 1: -->

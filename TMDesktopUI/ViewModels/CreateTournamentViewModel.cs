@@ -8,37 +8,42 @@ using TMDesktopUI.Library.Helpers;
 using TMDesktopUI.Library.Models;
 using Caliburn.Micro;
 using System.Windows;
+using TMDesktopUI.EventModels;
 
 namespace TMDesktopUI.ViewModels
 {
     public class CreateTournamentViewModel : Conductor<object>
     {
 
-
-        public TournamentDisplayModel Tournament;        
-
-        private List<TournamentDisplayModel> _createdTournaments;
-
-        public CreateTournamentViewModel(List<TournamentDisplayModel> createdTournaments)
-        {            
-            _createdTournaments = createdTournaments;
-        }
-
-        /*
-        public CreateTournamentViewModel()
-        {
-           
-        }
-        */
-       
-
         private string _tournamentName;        
         private string _filterText;
-        private int _prizepool;
-        private DateTime _startDate;
-        private DateTime _endDate;
-       
-        
+        private int _prizepool = 0;
+        private DateTime _startDate = DateTime.Now;
+        private DateTime _endDate = DateTime.Now;
+
+        #region >>> Standard Form Attribute Getters & Setters <<<
+        public string TournamentName
+        {
+            get { return _tournamentName; }
+            set
+            {
+                _tournamentName = value;
+                NotifyOfPropertyChange(() => TournamentName);
+                NotifyOfPropertyChange(() => CanCreateTournament);
+            }
+        }
+
+        public string FilterText
+        {
+            get { return _filterText; }
+            set
+            {
+                _filterText = value;
+                NotifyOfPropertyChange(() => FilterText);
+                //NotifyOfPropertyChange(() => CanApplyFilter)
+            }
+        }
+
         public int Prizepool 
         {
             get { return _prizepool; }
@@ -56,6 +61,7 @@ namespace TMDesktopUI.ViewModels
             {
                 _startDate = value;
                 NotifyOfPropertyChange(() => StartDate);
+                NotifyOfPropertyChange(() => CanCreateTournament);
             }
         }
 
@@ -66,8 +72,12 @@ namespace TMDesktopUI.ViewModels
             {
                 _endDate = value;
                 NotifyOfPropertyChange(() => EndDate);
+                NotifyOfPropertyChange(() => CanCreateTournament);
             }
         }
+        #endregion
+
+        #region >>> Team Related Attribute Getters & Setters <<<
 
         private TeamDisplayModel _teamToAdd;
         public TeamDisplayModel TeamToAdd
@@ -77,6 +87,7 @@ namespace TMDesktopUI.ViewModels
             {
                 _teamToAdd = value;
                 NotifyOfPropertyChange(() => TeamToAdd);
+                NotifyOfPropertyChange(() => CanAddTeam);
             }
         }
 
@@ -88,10 +99,11 @@ namespace TMDesktopUI.ViewModels
             {
                 _teamToRemove = value;              
                 NotifyOfPropertyChange(() => TeamToRemove);
+                NotifyOfPropertyChange(() => CanRemoveTeam);
             }
         }
 
-        private BindingList<TeamDisplayModel> _selectedTeams;
+        private BindingList<TeamDisplayModel> _selectedTeams = new BindingList<TeamDisplayModel>();
         public BindingList<TeamDisplayModel> SelectedTeams
         {
             get { return _selectedTeams; }
@@ -113,6 +125,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
+     
         private int _numberOfSelectedTeams = 0;
         public int NumberOfSelectedTeams
         {
@@ -123,6 +136,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => NumberOfSelectedTeams);
             }
         }
+        
 
         private BindingList<TournamentStandingDisplayModel> _tournamentStandings;
         public BindingList<TournamentStandingDisplayModel> TournamentStandings
@@ -138,7 +152,7 @@ namespace TMDesktopUI.ViewModels
         // is not bound to anything, shouldnt need to NotifyOfPropertyChange        
         public BindingList<TeamDisplayModel> AllTeams;
 
-        private BindingList<MatchDisplayModel> _matches;
+        private BindingList<MatchDisplayModel> _matches = new BindingList<MatchDisplayModel>();
         public BindingList<MatchDisplayModel> Matches
         {
             get { return _matches; }
@@ -159,55 +173,31 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => SelectedMatch);
             }
         }
+        #endregion
 
-        
-
+        // ======= CONSTRUCTOR =======================================================================================
 
         private ModelsQueries _query;
         private ModelsSaver _saver;
         private ModelsLoader _loader;
-        public CreateTournamentViewModel()
+        private IEventAggregator _events;
+        public CreateTournamentViewModel(IEventAggregator events)
         {
             _query = new ModelsQueries();
             _saver = new ModelsSaver();
             _loader = new ModelsLoader();
+            _events = events;
 
-            AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
-            DisplayedTeams = AllTeams;
+            //AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
+            //DisplayedTeams = AllTeams;
 
+            // testing
+            AllTeams = new BindingList<TeamDisplayModel>();
+            DisplayedTeams = new BindingList<TeamDisplayModel>(); //AllTeams;
+            SelectedTeams = new BindingList<TeamDisplayModel>();
         }
-
-        public string TournamentName
-        {
-            get { return _tournamentName; }
-            set
-            {
-                _tournamentName = value;
-                NotifyOfPropertyChange(() => TournamentName);
-            }
-        }        
-
-        public string FilterText
-        {
-            get { return _filterText; }
-            set
-            {
-                _filterText = value;
-                NotifyOfPropertyChange(() => FilterText);
-            }
-        }
-
-       
-        public void AddCreatedTeam(TeamDisplayModel team)
-        {
-            AllTeams.Add(team);
-            DisplayedTeams.Add(team);
-        }
-
-        public void AddCreatedMatch(MatchDisplayModel match)
-        {
-            Matches.Add(match);
-        }
+        
+               
 
         public bool CanApplyFilter(string filterText)
         {
@@ -252,9 +242,9 @@ namespace TMDesktopUI.ViewModels
         }
 
         // can have 16 teams at most / 24?
-        public bool CanAddTeam()
+        public bool CanAddTeam
         {
-            return (TeamToAdd != null) && (SelectedTeams.Count < 16);
+            get { return (TeamToAdd != null) && (SelectedTeams?.Count < 16); }
         }
 
         public void AddTeam()
@@ -267,15 +257,15 @@ namespace TMDesktopUI.ViewModels
        
 
         // 2nd condition should be useless, since you can choose player only if SelectedPlayers is not empty
-        public bool CanRemoveTeam()
+        public bool CanRemoveTeam
         {
-            return (TeamToRemove != null) && (SelectedTeams.Count > 0);
+            get { return (TeamToRemove != null) && (SelectedTeams?.Count > 0); }
         }
 
         public void RemoveTeam()
         {
-            SelectedTeams.Remove(TeamToRemove);
             DisplayedTeams.Add(TeamToRemove);
+            SelectedTeams.Remove(TeamToRemove);            
             TeamToRemove = null;
             NumberOfSelectedTeams--;
         }
@@ -324,23 +314,38 @@ namespace TMDesktopUI.ViewModels
 
         // at least 4 teams should participate - MessageBox
         // Prizepool < 0 - inform user?
-        public bool CanCreateTournament()
+        public bool CanCreateTournament
         {
-            return (!string.IsNullOrWhiteSpace(TournamentName) &&
-                    StartDate != null && EndDate != null &&
-                    Prizepool >= 0);
+            get
+            {
+                return (!string.IsNullOrWhiteSpace(TournamentName) &&
+                  StartDate != null && EndDate != null);
+            }
+                    
         }
 
         public void CreateTournament()
-        {            
+        {
+            StringBuilder errorMessage = new StringBuilder();
+
+            /*
             if (_query.ExistsTournament(TournamentName))
             {
-                MessageBox.Show("Tournament with the specific name already exists.");
+                errorMessage.AppendLine("Tournament with the specific name already exists.");
             }
-            else if (SelectedTeams.Count < 4)
+            
+            if (SelectedTeams.Count < 2)  // 2 or 4 teams ?
             {
-                MessageBox.Show("You have to choose at least 4 teams.");
-            } else
+                errorMessage.AppendLine("You have to choose at least 2 teams.");
+            }
+
+            if (Prizepool < 0)
+            {
+                errorMessage.AppendLine("Prizepool cannot be a negative number.");
+            }
+            */
+
+            if (errorMessage.Length == 0)
             {
                 TournamentDisplayModel newTournament = new TournamentDisplayModel();
                 newTournament.TournamentName = TournamentName;
@@ -349,9 +354,12 @@ namespace TMDesktopUI.ViewModels
                 newTournament.Prizepool = Prizepool;
                 newTournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
                 newTournament.Matches = new List<MatchDisplayModel>(Matches);
-                _saver.SaveTournament(newTournament);
-                _createdTournaments.Add(newTournament);
+                //_saver.SaveTournament(newTournament);
+                _events.PublishOnUIThread(new TournamentCreatedEventModel(newTournament));
                 ClearForm();
+            } else
+            {
+                MessageBox.Show(errorMessage.ToString());
             }
         }
 
@@ -361,42 +369,29 @@ namespace TMDesktopUI.ViewModels
             TournamentName = "";           
             FilterText = "";
             Prizepool = 0;
-            SelectedTeams.Clear();
+            
             Matches.Clear();
-            DisplayedTeams = AllTeams;
+
+            DisplayedTeams = new BindingList<TeamDisplayModel>(DisplayedTeams.Union(SelectedTeams).ToList());
+            // DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);  // THIS EXACT COMMAND CREATE EXCEPTION IN CreateTeamViewModel
+            //DisplayedTeams = AllTeams;
+            SelectedTeams.Clear();
             TeamToAdd = null;
             TeamToRemove = null;
-        }
+        }                
 
-        // either pass "TournamentDisplayModel tournament" as an instance to the constructor of 
-        //    "CreateTeamViewModel", and upon clicking on "CreateTeam", new "TeamDisplayModel"
-        //    will be added to tournament.Teams
-        // OR since newly created teams are automatically saved to database, we can just refresh
-        //    the team list and the newly created teams shall appear
-        public void CreateNewTeam()
-        {
-            // open the new form and create team(s);
-            //RefreshTeamList();
-
-            List<TeamDisplayModel> createdTeams = new List<TeamDisplayModel>();
-            CreateTeamViewModel _vm = new CreateTeamViewModel(createdTeams);
-            ActivateItem(_vm); // treba aktivovat z ShellViewModel ? nie je oznacena oblast pre ActiveItem ?
-            AllTeams.Union(createdTeams);
-            DisplayedTeams.Union(createdTeams);
-        }
-
+        // probably wont be used, we will update teams/matches manually
+        /*
         private void RefreshTeamList()
         {
             AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
             DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams.Except(SelectedTeams).ToList());
         }
+        */ 
 
         public void CreateNewMatch()
         {
-            // it should be possible pass "TournamentDisplayModel" instance as argument in the 
-            //   event (CreateNewMatchEvent)
-
-
+           
             // ak teraz nastavime StartDate a EndDate, a podla toho zvolime Date pre Match, tak
             // po pripadnej zmene StartDate / EndDate mozu mat niektore zapasy nezmyselny datum
             if (StartDate == null || EndDate == null)
@@ -404,15 +399,37 @@ namespace TMDesktopUI.ViewModels
                 MessageBox.Show("You have to first set dates of the tournament.");
             }
             TournamentDisplayModel tournament = new TournamentDisplayModel();
-            tournament.StartDate = StartDate;
-            tournament.EndDate = EndDate;
-            tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
-            tournament.TournamentName = TournamentName;
+            //tournament.StartDate = StartDate;
+            //tournament.EndDate = EndDate;
+            //tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
+
+            // tournament.TournamentName = TournamentName; // useless info as well?
             // tournament.Prizepool = Prizepool;  - useless info?
-            CreateTeamViewModel _vm = new CreateTeamViewModel(Tournament);
-            ...;
+
+            _events.PublishOnUIThread(new CreateMatchEventModel(tournament));                      
+        }
+        public void AddCreatedMatch(MatchDisplayModel match)
+        {
+            Matches.Add(match);
+        }
+        
+        public void CreateNewTeam()
+        {
+            _events.PublishOnUIThread(new CreateTeamEvent());
         }
 
+        public void AddCreatedTeam(TeamDisplayModel team)
+        {
+            DisplayedTeams.Add(team);
+            AllTeams.Add(team);            
+        }
+        
+        public void ReturnToMainScreen()
+        {
+            _events.PublishOnUIThread(new ReturnToMainScreenEvent());
+        }
+
+        #region >>> Match Importance Separation <<<
         /*
         private BindingList<MatchDisplayModel> _groupStageMatches;
         public BindingList<MatchDisplayModel> GroupStageMatches
@@ -541,7 +558,7 @@ namespace TMDesktopUI.ViewModels
             QuarterfinalMatches.Remove(SelectedMatch);
             SelectedMatch = null;
         }
-  
+        #endregion
 
     }
 }

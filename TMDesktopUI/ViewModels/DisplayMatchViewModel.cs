@@ -28,15 +28,15 @@ namespace TMDesktopUI.ViewModels
             var teamOneStats = _match.Maps[0].TeamOneStats;
             foreach (var playerStats in teamOneStats)
             {
-                OverallTeamOneStats.Add(
-                    new MapPlayerStatsDisplayModel(0, 0, 0, 0, 0, 0, playerStats.Player));
+                //OverallTeamOneStats.Add(
+                //    new MapPlayerStatsDisplayModel(0, 0, 0, 0, 0, 0, playerStats.Player));
             }
 
             var teamTwoStats = _match.Maps[0].TeamTwoStats;
             foreach (var playerStats in teamTwoStats)
             {
-                OverallTeamOneStats.Add(
-                    new MapPlayerStatsDisplayModel(0, 0, 0, 0, 0, 0, playerStats.Player));
+                //OverallTeamOneStats.Add(
+                //    new MapPlayerStatsDisplayModel(0, 0, 0, 0, 0, 0, playerStats.Player));
             }
 
             for (int i = 0; i < teamOneStats.Count; ++i)
@@ -55,6 +55,6 @@ namespace TMDesktopUI.ViewModels
         }
 
         public MapScoreDisplayModel SelectedMap;
-        public void Handler(DisplayMatch)
+        //public void Handler(DisplayMatch)
     }
 }
