@@ -82,7 +82,9 @@ namespace TMDesktopUI.ViewModels
             _events = events;
 
             AllPlayers = new BindingList<PlayerDisplayModel>(_loader.GetAllPlayers());
-            DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers);
+            //DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers);
+            DisplayedPlayers = new BindingList<PlayerDisplayModel>();
+            DisplayedPlayers = new BindingList<PlayerDisplayModel>(DisplayedPlayers.Union(AllPlayers).ToList());
 
             // testing
             //AllPlayers = new BindingList<PlayerDisplayModel>();

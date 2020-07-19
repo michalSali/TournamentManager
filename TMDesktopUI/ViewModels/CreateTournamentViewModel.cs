@@ -189,7 +189,10 @@ namespace TMDesktopUI.ViewModels
             _events = events;
 
             AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
-            DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);
+            //DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);
+
+            DisplayedTeams = new BindingList<TeamDisplayModel>();
+            DisplayedTeams = new BindingList<TeamDisplayModel>(DisplayedTeams.Union(AllTeams).ToList());
 
             // testing
             /*

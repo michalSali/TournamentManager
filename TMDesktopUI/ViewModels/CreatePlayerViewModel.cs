@@ -20,14 +20,13 @@ namespace TMDesktopUI.ViewModels
 		private int _age;
 
 		private ModelsQueries _query;
-		private ModelsSaver _saver;
-		//private ModelsLoader _loader;
+		private ModelsSaver _saver;		
 		private IEventAggregator _events;
+
 		public CreatePlayerViewModel(IEventAggregator events)
 		{
 			_query = new ModelsQueries();
-			_saver = new ModelsSaver();
-			//_loader = new ModelsLoader();
+			_saver = new ModelsSaver();			
 			_events = events;
 		}
 
@@ -49,8 +48,7 @@ namespace TMDesktopUI.ViewModels
 				_lastName = value;
 				NotifyOfPropertyChange(() => LastName);
 			}
-		}
-		
+		}		
 
 		public string Nickname
 		{
@@ -62,7 +60,6 @@ namespace TMDesktopUI.ViewModels
 			}
 		}
 		
-
 		public string Role
 		{
 			get { return _role; }
@@ -73,7 +70,6 @@ namespace TMDesktopUI.ViewModels
 			}
 		}
 
-
 		public int Age 
 		{
 			get { return _age; }
@@ -83,48 +79,46 @@ namespace TMDesktopUI.ViewModels
 				NotifyOfPropertyChange(() => Age);
 			}
 		}
+		
+		public void CreatePlayer()
+		{			
+			StringBuilder errorMessage = new StringBuilder();
 
-		public bool CanCreatePlayer(string firstName, string lastName, string nickName)
-		{
-			return (firstName?.Length > 0) && (lastName?.Length > 0) && (nickName?.Length > 0);
-		}
-
-		public void CreatePlayer(string firstName, string lastName, string nickname, string role="", int age=0)
-		{
-			/*
-			if (_query.ExistsPlayer(firstName, lastName, nickname))
+			if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName) || string.IsNullOrWhiteSpace(Nickname))
 			{
-				MessageBox.Show("Player with the given first name, last name and" +
-								"nickname already exists!");
+				errorMessage.AppendLine("First name, last name and nickname cannot be empty.");
 			}
-			else
+
+			if (_query.ExistsPlayer(FirstName, LastName, Nickname))
 			{
-				var newPlayer = new PlayerDisplayModel(firstName, lastName, nickname, age, role);
-				//_saver.SavePlayer(new PlayerDisplayModel(firstName, lastName, nickname, age, role));
+				errorMessage.AppendLine("Player with this first name, last name and nickname already exist.");
+			}
 
+			if (errorMessage.Length == 0)
+			{
+				PlayerDisplayModel newPlayer = new PlayerDisplayModel();
+				newPlayer.FirstName = FirstName;
+				newPlayer.LastName = LastName;
+				newPlayer.Nickname = Nickname;
+				newPlayer.Role = string.IsNullOrWhiteSpace(Role) ? "Unknown" : Role;
+
+				_saver.SavePlayer(newPlayer);
 				_events.PublishOnUIThread(new PlayerCreatedEventModel(newPlayer));
+				ClearForm();
+			} else
+			{
+				MessageBox.Show(errorMessage.ToString());
+			}						
+		}	
 
-				FirstName = "";
-				LastName = "";
-				Nickname = "";
-				Age = 0;
-				Role = "";
-			}		
-			*/
-
-
-			var newPlayer = new PlayerDisplayModel(firstName, lastName, nickname, age, role);
-			_saver.SavePlayer(newPlayer);
-
-			_events.PublishOnUIThread(new PlayerCreatedEventModel(newPlayer));
-
+		public void ClearForm()
+		{
 			FirstName = "";
 			LastName = "";
 			Nickname = "";
 			Age = 0;
 			Role = "";
-
-		}	
+		}
 				
 		public void ReturnToTeamCreation()
 		{
