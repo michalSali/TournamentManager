@@ -8,8 +8,7 @@ using TMLibrary.Models;
 namespace TMDesktopUI.Library.Models
 {
     public class PlayerDisplayModel
-    {
-        // player potrebuje id kvoli zapisu do databazy, aby sme mohli vytvorit TeamMembers
+    {        
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

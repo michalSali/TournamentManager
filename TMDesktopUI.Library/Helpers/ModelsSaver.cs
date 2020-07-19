@@ -43,10 +43,7 @@ namespace TMDesktopUI.Library.Helpers
             {
                 tnd.CreateTournamentEntry(new TournamentEntryModel(tournamentId, team.Id));
             }
-
-            //int matchId;
-            //int mapScoreId;
-            
+           
             foreach (var match in tournament.Matches) 
             {
                 int matchId = mtd.CreateMatchReturnId(new MatchModel(
@@ -88,9 +85,7 @@ namespace TMDesktopUI.Library.Helpers
                     }
                 }
 
-            }
-            // save tournament and get id
-            // 
+            }            
         }
 
         // saving players is independent to saving teams (players have to be saved to database first,
@@ -113,22 +108,7 @@ namespace TMDesktopUI.Library.Helpers
                 player.Nickname,
                 player.Age,
                 player.Role));            
-        }
-
-        /*
-        public PlayerDisplayModel SavePlayer(PlayerDisplayModel player)
-        {
-            UserDataAccess da = new UserDataAccess();
-            player.Id = da.SavePlayer(new PlayerModel(
-                player.FirstName,
-                player.LastName,
-                player.Nickname,
-                player.Age,
-                player.Role));
-
-            return player;
-        }
-        */
+        }        
 
     }
 }

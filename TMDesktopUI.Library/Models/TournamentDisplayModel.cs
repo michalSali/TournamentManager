@@ -8,8 +8,7 @@ using TMLibrary.Models;
 namespace TMDesktopUI.Library.Models
 {
     public class TournamentDisplayModel
-    {
-        //public int Id { get; set; }
+    {        
         public string TournamentName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

@@ -28,22 +28,10 @@ namespace TMLibrary.DataAccess.SqlAccess
         {           
             var p = new { Id = id };
             var output = sql.LoadData<PlayerModel, dynamic>("dbo.spPlayer_GetById", p, "TMData");
-
-            // if output is empty, error
-            // or output.Single() ?
             return output.First();
         }
 
-        /*
-        public bool ExistsPlayer(int id)
-        {
-            var p = new { Id = id };
-            var output = sql.LoadData<PlayerModel, dynamic>("dbo.spPlayer_GetById", p, "TMData");
-
-            return output.Count > 0;
-        }
-        */
-
+        
         public bool ExistsPlayer(string firstName, string lastName, string nickName)
         {
             var p = new

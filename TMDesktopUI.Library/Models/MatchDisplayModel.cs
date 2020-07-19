@@ -8,19 +8,13 @@ using TMLibrary.Models;
 namespace TMDesktopUI.Library.Models
 {
     public class MatchDisplayModel
-    {
-        //public int Id { get; set; }
-        //public int TournamentId { get; set; }
+    {        
         public int MatchNumber { get; set; }
         public DateTime Date { get; set; }
-        public int Format { get; set; }
-        //public int TeamOneId { get; set; }
-        //public int TeamTwoId { get; set; }
+        public int Format { get; set; }        
         public int TeamOneScore { get; set; }
         public int TeamTwoScore { get; set; }
-
-        // napr. ak ide o informaciu, ktora nejde zachytit inak:
-        // napr. niektory zapas je o 3. miesto, pricom toto sa neda nijak zachytit
+        
         public string MatchDescription { get; set; }
         public int MatchImportance { get; set; } // 0 - GroupStage/Other, 1 - Quarterfinal, 2 - Semifinal, 3 - Consolidation Final, 4 - Final
         public string MatchInfo
@@ -50,7 +44,7 @@ namespace TMDesktopUI.Library.Models
         public List<MapScoreDisplayModel> Maps { get; set; } = new List<MapScoreDisplayModel>();
         public TeamDisplayModel TeamOne { get; set; }
         public TeamDisplayModel TeamTwo { get; set; }
-        public TournamentDisplayModel Tournament { get; set; } // CYCLIC DEPENDENCY ???
+        public TournamentDisplayModel Tournament { get; set; }
         
         public MatchDisplayModel(MatchModel model)
         {

@@ -77,12 +77,7 @@ namespace TMDesktopUI.Library.Helpers
 
                 newDisplayModel.TeamOneStats = mapStats.Where(stats => teamOneIdList.Contains(stats.Player.Id)).ToList();
                 newDisplayModel.TeamTwoStats = mapStats.Where(stats => teamTwoIdList.Contains(stats.Player.Id)).ToList();
-                
-                //newDisplayModel.TeamOneStats = mapStats.Where(stats => match.TeamOne.Players.Contains(stats.Player)).ToList();
-                //newDisplayModel.TeamTwoStats = mapStats.Where(stats => match.TeamTwo.Players.Contains(stats.Player)).ToList();
-
-                //newDisplayModel.TeamOneStats = GetMapsStats(mapScoreModel.Id);
-                //newDisplayModel.TeamTwoStats = ...;
+                                
                 result.Add(newDisplayModel);
             }
 
@@ -141,13 +136,12 @@ namespace TMDesktopUI.Library.Helpers
 
         // if we dont search for a player within tournament, or a specific match, the player
         // does not have assigned a team (one player can be a part of several teams - roster changes)
-        public PlayerDisplayModel GetPlayer(int playerId)  //, TeamDisplayModel team)
+        public PlayerDisplayModel GetPlayer(int playerId)
         {
             var playerModel = pd.GetPlayer(playerId);
             PlayerDisplayModel newDisplayModel = new PlayerDisplayModel(playerModel);
             newDisplayModel.Id = playerId;
-            return newDisplayModel;
-            //newDisplayModel.Team = team;
+            return newDisplayModel;            
         }
         
         public List<PlayerDisplayModel> GetAllPlayers()

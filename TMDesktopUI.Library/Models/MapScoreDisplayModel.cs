@@ -8,9 +8,7 @@ using TMLibrary.Models;
 namespace TMDesktopUI.Library.Models
 {
     public class MapScoreDisplayModel
-    {
-        //public int Id { get; set; }
-        //public int MatchId { get; set; }
+    {       
         public int MapNumber { get; set; }
         public string MapName { get; set; }
         public int TeamOneScore { get; set; }
@@ -19,8 +17,7 @@ namespace TMDesktopUI.Library.Models
         public string MapDescription
         {
             get
-            {
-                //return $"Map {MapNumber}: {MapName}";
+            {               
                 return $"Map: {MapName}";
             }
         }
@@ -35,10 +32,7 @@ namespace TMDesktopUI.Library.Models
         }
 
         public MatchDisplayModel Match { get; set; }
-
-        //public TeamDisplayModel TeamOne;  // na TeamOne a TeamTwo sa da dostat aj cez Match => Match.TeamOne
-        //public TeamDisplayModel TeamTwo;
-
+       
         public List<MapPlayerStatsDisplayModel> TeamOneStats { get; set; } = new List<MapPlayerStatsDisplayModel>();
         public List<MapPlayerStatsDisplayModel> TeamTwoStats { get; set; } = new List<MapPlayerStatsDisplayModel>();
 

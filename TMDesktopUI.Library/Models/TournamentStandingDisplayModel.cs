@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 namespace TMDesktopUI.Library.Models
 {
     public class TournamentStandingDisplayModel
-    {
-        // id - not in display model
-        public TournamentDisplayModel Tournament { get; set; }  // tournamentId
-        public TeamDisplayModel Team { get; set; }  // teamId
-
+    {        
+        public TournamentDisplayModel Tournament { get; set; }
+        public TeamDisplayModel Team { get; set; }
         public int Placement { get; set; }
         public int PrizeWon { get; set; }
 
