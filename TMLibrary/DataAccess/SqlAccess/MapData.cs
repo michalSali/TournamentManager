@@ -8,7 +8,7 @@ using TMLibrary.Models;
 
 namespace TMLibrary.DataAccess.SqlAccess
 {
-    // mapScore and mapPlayerStats data access
+    // mapScore and mapPlayerStats sql data access
     public class MapData
     {
         private SqlDataAccess sql;

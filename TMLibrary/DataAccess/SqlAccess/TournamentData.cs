@@ -17,13 +17,11 @@ namespace TMLibrary.DataAccess.SqlAccess
         {
             sql = new SqlDataAccess();
         }
-
-        // make one-liners at refactoring
+        
         public List<TournamentModel> GetAllTournaments()
         {
             var output = sql.LoadData<TournamentModel, dynamic>("dbo.spTournament_GetAll", new { }, "TMData");
-            return output;
-            //return sql.LoadData<TournamentModel, dynamic>("dbo.spPlayer_GetAll", new { }, "TMData");
+            return output;            
         }
 
         public bool ExistsTournament(string tournamentName)
