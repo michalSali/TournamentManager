@@ -85,5 +85,38 @@ namespace TMDesktopUI.ViewModels
             </ ItemsControl.ItemTemplate >
         </ ItemsControl >
     </ StackPanel >
+
+
+
+
+
+
+    <ItemsControl ItemsSource="{Binding Map.TeamOneStats}" Grid.Row="6" Grid.Column="1"
+                      Grid.ColumnSpan="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Player.FullName}" />
+                        <TextBlock Text="{Binding Kills}" />
+                        <TextBlock Text="{Binding Assists}" />
+                        <TextBlock Text="{Binding Deaths}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding Map.TeamTwoStats}" Grid.Row="6" Grid.Column="3"
+                      Grid.ColumnSpan="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Player.FullName}" />
+                        <TextBlock Text="{Binding Kills}" />
+                        <TextBlock Text="{Binding Assists}" />
+                        <TextBlock Text="{Binding Deaths}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     */
 }

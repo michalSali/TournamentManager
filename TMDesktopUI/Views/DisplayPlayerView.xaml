@@ -32,6 +32,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
+        
+        <!-- Row 1: -->
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
                    HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
             Player Overview
@@ -50,28 +52,28 @@
         <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
             Last Name:
         </TextBlock>
-        <TextBlock Text="{Binding Player.LastName}" Grid.Row="3" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.LastName}" Grid.Row="4" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Nickname row -->
         <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
             Nickname:
         </TextBlock>
-        <TextBlock Text="{Binding Player.Nickname}" Grid.Row="3" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.Nickname}" Grid.Row="5" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Role in the team row -->
         <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10">
             Role:
         </TextBlock>
-        <TextBlock Text="{Binding Player.Role}" Grid.Row="3" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.Role}" Grid.Row="6" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Age row -->
         <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10">
             Age:
         </TextBlock>
-        <TextBlock Text="{Binding Player.Age}" Grid.Row="3" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.Age}" Grid.Row="7" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         

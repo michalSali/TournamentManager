@@ -21,7 +21,7 @@ namespace TMDesktopUI.Library.Models
         {
             get
             {
-                return $"{StartDate.ToString("dd MM yyyy")}";
+                return $"{StartDate.ToString("dd.MM.yyyy")}";
             }
         }
 
@@ -29,7 +29,7 @@ namespace TMDesktopUI.Library.Models
         {
             get
             {
-                return $"{EndDate.ToString("dd MM yyyy")}";
+                return $"{EndDate.ToString("dd.MM.yyyy")}";
             }
         }
 

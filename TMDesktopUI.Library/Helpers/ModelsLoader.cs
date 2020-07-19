@@ -71,8 +71,15 @@ namespace TMDesktopUI.Library.Helpers
                 newDisplayModel.Match = match;
 
                 List<MapPlayerStatsDisplayModel> mapStats = GetMapPlayerStats(mapScoreModel.Id);
-                newDisplayModel.TeamOneStats = mapStats.Where(stats => match.TeamOne.Players.Contains(stats.Player)).ToList();
-                newDisplayModel.TeamTwoStats = mapStats.Where(stats => match.TeamTwo.Players.Contains(stats.Player)).ToList();
+                var teamOneIdList = match.TeamOne.Players.Select(player => player.Id).ToList();
+                var teamTwoIdList = match.TeamTwo.Players.Select(player => player.Id).ToList();
+
+                newDisplayModel.TeamOneStats = mapStats.Where(stats => teamOneIdList.Contains(stats.Player.Id)).ToList();
+                newDisplayModel.TeamTwoStats = mapStats.Where(stats => teamTwoIdList.Contains(stats.Player.Id)).ToList();
+                
+                //newDisplayModel.TeamOneStats = mapStats.Where(stats => match.TeamOne.Players.Contains(stats.Player)).ToList();
+                //newDisplayModel.TeamTwoStats = mapStats.Where(stats => match.TeamTwo.Players.Contains(stats.Player)).ToList();
+
                 //newDisplayModel.TeamOneStats = GetMapsStats(mapScoreModel.Id);
                 //newDisplayModel.TeamTwoStats = ...;
                 result.Add(newDisplayModel);

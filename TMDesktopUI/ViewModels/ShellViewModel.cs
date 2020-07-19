@@ -143,7 +143,7 @@ namespace TMDesktopUI.ViewModels
         {
             // no need to save the instance, as we wont go back to it
             var displayPlayerVM = _container.GetInstance<DisplayPlayerViewModel>();
-            displayPlayerVM.InitializeValues(message.Tournament, message.Team);
+            displayPlayerVM.InitializeValues(message.Tournament, message.Player);
             ActivateItem(displayPlayerVM);
         }
 

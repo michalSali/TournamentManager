@@ -47,7 +47,7 @@ namespace TMDesktopUI.ViewModels
             Player = player;
         }
 
-        public void ReturnToTournamentViewer()
+        public void ReturnToTeamViewer()
         {
             _events.PublishOnCurrentThread(new ReturnToTeamViewerEvent());
         }

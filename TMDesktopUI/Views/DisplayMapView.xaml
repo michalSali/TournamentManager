@@ -7,34 +7,83 @@
              mc:Ignorable="d" Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="{Binding Map.MapDescription}" />
-            <TextBlock Text="{Binding Map.ScoreDescription}" />
-            <ItemsControl ItemsSource="{Binding Map.TeamOneStats}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Player.FullName}" />
-                            <TextBlock Text="{Binding Kills}" />
-                            <TextBlock Text="{Binding Assists}" />
-                            <TextBlock Text="{Binding Deaths}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        
+        <!-- Row 1: -->
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
+                   HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
+            Map Overview
+        </TextBlock>
 
-            <ItemsControl ItemsSource="{Binding Map.TeamTwoStats}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Player.FullName}" />
-                            <TextBlock Text="{Binding Kills}" />
-                            <TextBlock Text="{Binding Assists}" />
-                            <TextBlock Text="{Binding Deaths}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+        <!-- Row 2: -->
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Map.MapDescription}" />
+
+        <Button x:Name="ReturnToMatchViewer" Grid.Row="2" Grid.Column="2" Content="Return to Match Viewer" />
+
+        <!-- Row 3: -->
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Final Score:" />
+        
+        <!-- Row 4: -->
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Map.ScoreDescription}" />
+
+
+        <!-- Row 5: -->   
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 20 0 10"
+                   Text="{Binding Map.Match.TeamOne.TeamName, StringFormat='{}{0} player stats:'}" />
+
+
+        <TextBlock Grid.Row="5" Grid.Column="3" Margin="0 20 0 10"
+                   Text="{Binding Map.Match.TeamTwo.TeamName, StringFormat='{}{0} player stats:'}" />
+        
+        <!-- Row 6: -->
+
+        <DataGrid ItemsSource="{Binding Map.TeamOneStats}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  AutoGenerateColumns="False" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Player's Nickname" Binding="{Binding Path=Player.Nickname}"/>
+                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
+                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
+                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid ItemsSource="{Binding Map.TeamTwoStats}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  AutoGenerateColumns="False" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
+                                    Binding="{Binding Path=Player.Nickname}"/>
+                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
+                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
+                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+
     </Grid>
 </UserControl>

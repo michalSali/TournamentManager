@@ -43,7 +43,7 @@ namespace TMDesktopUI.Library.Models
         {
             get
             {
-                return $"{Date.ToString("dd MM yyyy")}";
+                return $"{Date.ToString("dd.MM.yyyy")}";
             }
         }
 
