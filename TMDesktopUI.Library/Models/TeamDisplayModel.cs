@@ -7,7 +7,7 @@ using TMLibrary.Models;
 
 namespace TMDesktopUI.Library.Models
 {
-    public class TeamDisplayModel
+    public class PlayerDisplayModel
     {
         // potrebuje id kvoli zapisu do databazy, aby sme mohli vytvorit TournamentEntries
         public int Id { get; set; }
@@ -15,15 +15,15 @@ namespace TMDesktopUI.Library.Models
         public string CoachName { get; set; }
         public List<PlayerDisplayModel> Players { get; set; } = new List<PlayerDisplayModel>();
 
-        public TeamDisplayModel() { }
+        public PlayerDisplayModel() { }
 
-        public TeamDisplayModel(TeamModel model)
+        public PlayerDisplayModel(TeamModel model)
         {
             TeamName = model.TeamName;
             CoachName = model.CoachName;
         }
 
-        public bool Equals(TeamDisplayModel team)
+        public bool Equals(PlayerDisplayModel team)
         {
             if (team == null)
             {

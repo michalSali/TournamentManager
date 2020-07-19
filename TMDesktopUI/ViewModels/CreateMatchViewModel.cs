@@ -32,7 +32,7 @@ namespace TMDesktopUI.ViewModels
         
         public void InitializeValues(TournamentDisplayModel tournament)
         {
-            DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);
+            DisplayedTeams = new BindingList<PlayerDisplayModel>(tournament.Teams);
             TournamentName = tournament.TournamentName;
             
             var random = new Random();
@@ -60,8 +60,8 @@ namespace TMDesktopUI.ViewModels
         private int _teamTwoScore;
 
         private BindingList<MapScoreDisplayModel> _maps = new BindingList<MapScoreDisplayModel>();
-        private TeamDisplayModel _teamOne;
-        private TeamDisplayModel _teamTwo;
+        private PlayerDisplayModel _teamOne;
+        private PlayerDisplayModel _teamTwo;
 
 
         private BindingList<int> _formats = new BindingList<int> { 1, 3, 5, 7 };
@@ -142,7 +142,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        public TeamDisplayModel TeamOne
+        public PlayerDisplayModel TeamOne
         {
             get { return _teamOne; }
             set
@@ -152,7 +152,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        public TeamDisplayModel TeamTwo
+        public PlayerDisplayModel TeamTwo
         {
             get { return _teamTwo; }
             set
@@ -165,8 +165,8 @@ namespace TMDesktopUI.ViewModels
 
         // we will allow to temporarily to choose 2 same teams against each other,
         // but you wont be able to create match like that (so you can switch teams for example)
-        private BindingList<TeamDisplayModel> _displayedTeams;
-        public BindingList<TeamDisplayModel> DisplayedTeams
+        private BindingList<PlayerDisplayModel> _displayedTeams;
+        public BindingList<PlayerDisplayModel> DisplayedTeams
         {
             get { return _displayedTeams; }
             set

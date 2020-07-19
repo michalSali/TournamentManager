@@ -18,7 +18,7 @@ namespace TMDesktopUI.ViewModels
 
         // if we want to keep updating the teams we have created, and
         // then have the option to discard the changes / save the teams etc.
-        private List<TeamDisplayModel> _createdTeams;
+        private List<PlayerDisplayModel> _createdTeams;
 
 
         private string _teamName;
@@ -247,7 +247,7 @@ namespace TMDesktopUI.ViewModels
             }
 
             // testing
-            TeamDisplayModel newTeam = new TeamDisplayModel();
+            PlayerDisplayModel newTeam = new PlayerDisplayModel();
             newTeam.TeamName = TeamName;
             newTeam.CoachName = string.IsNullOrWhiteSpace(CoachName) ? "Unknown" : CoachName;
             newTeam.Players = selectedPlayers;

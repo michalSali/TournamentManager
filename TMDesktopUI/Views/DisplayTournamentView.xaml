@@ -39,7 +39,7 @@
         <!-- Row 1 -->
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 20"
                    HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
-            Tournament viewer
+            Tournament Overview
         </TextBlock>
 
         <!-- Row 2: Invalid input error row -->
@@ -58,7 +58,7 @@
         </TextBlock>
 
         <TextBlock Grid.Row="4" Grid.Column="2" Margin="0 0 0 10"
-                   Text="{Binding Tournament.StartDate}" />
+                   Text="{Binding Tournament.StartDateFormatted}" />
        
 
         <!-- Row 5: Start date row -->
@@ -67,7 +67,7 @@
         </TextBlock>
 
         <TextBlock Grid.Row="5" Grid.Column="2" Margin="0 0 0 10"
-                   Text="{Binding Tournament.EndDate}" />
+                   Text="{Binding Tournament.EndDateFormatted}" />
 
         <!-- Row 6: Tournament prizepool row -->
         <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10">
@@ -98,15 +98,12 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="ViewTeam"  Grid.Row="8" Grid.Column="2" Content="View selected team" />
-        
-
-        <!-- Row 9: -->
-        
-        <Button x:Name="ReturnToMainScreen" Grid.Row="9" Grid.Column="2"
-                HorizontalAlignment="Center" Margin="0 25 0 0">
-            Return to Main Screen
-        </Button>
+        <StackPanel Grid.Row="8" Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical" >
+            <Button x:Name="ViewTeam"  Content="View selected team" Margin="0 20 0 10"/>
+            <Button x:Name="ViewMatch" Content="View selected match"/>
+            <Button x:Name="ReturnToMainScreen" Content="Return to Main Screen" Margin="0 25 0 0" />
+        </StackPanel>
+                     
 
         <!-- MIDDLE COLUMN -->
 

@@ -1,16 +1,14 @@
-﻿<UserControl x:Class="TMDesktopUI.Views.DisplayMatchView"
+﻿<UserControl x:Class="TMDesktopUI.Views.DisplayTeamView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TMDesktopUI.Views"
              mc:Ignorable="d" Background="White"
-             d:DesignHeight="425" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
@@ -36,69 +34,59 @@
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
-        <!-- Row 1 -->
+        <!-- Row 1: -->
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
-                   HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI Light">
-            Match Overview
+                   HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
+            Team Overview
         </TextBlock>
 
-        <!-- Row 2: -->
+        <!-- Row 2: Invalid input error row -->
 
-        <!-- Row 3: Tournament name row -->
+        <!-- Row 3: Team name row -->
         <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
-            Tournament:
+            Team Name:
         </TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Tournament.TournamentName}"
-                 MinWidth="150" Margin="0 0 0 10" />
+        <TextBlock Grid.Row="3" Grid.Column="2" MinWidth="150" 
+                   Margin="0 0 0 10" Text="{Binding Team.TeamName}" />
 
-
-        <!-- Row 4: Match date row -->
+        <!-- Row 4: Team name row -->
         <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
-            Match Date:
+            Coach Name:
         </TextBlock>
-
-        <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Match.DateFormatted}"
-                 MinWidth="150" Margin="0 0 0 10" />
-
-        <!-- Row 5: Start date row -->
-
+        <TextBlock Grid.Row="4" Grid.Column="2" MinWidth="150" 
+                   Margin="0 0 0 10" Text="{Binding Team.CoachName}" />
+               
+        <!-- Row 5: -->
         <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
-            Final Score:
+            Team Players:
         </TextBlock>
         
-
-        <!-- Row 6: Tournament prizepool row -->
-        <TextBlock Text="{Binding Match.ResultInfo}" Grid.Row="6" Grid.Column="1" />
-
-        <!-- Row 7: -->
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10">
-            Maps:
-        </TextBlock>
-                
-
-        <!-- Row 8: List all maps -->
-        <ListBox ItemsSource="{Binding Match.Maps}" Grid.Row="8" Grid.Column="1"
-                 Grid.RowSpan="4" Margin="10 20 10 10" SelectedItem="{Binding SelectedMap}">
+        <!-- Row 6: List all players -->
+        <ListBox ItemsSource="{Binding Team.Players}" Grid.Row="6" Grid.Column="1"
+                 Grid.RowSpan="4" Margin="10 20 10 10" SelectedItem="{Binding SelectedPlayer}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" >
-                        <TextBlock Text="{Binding MapDescription}" />
-                        <TextBlock Text="{Binding ScoreDescription}" />
-                    </StackPanel>
+                    <TextBlock Text="{Binding FullName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10"
-                    Grid.RowSpan="3">
-            <Button x:Name="ViewMap" Content="View selected map" Margin="0 0 0 15" />
+        <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10" >
+            <Button x:Name="ViewPlayer" Content="View selected player" Margin="0 0 0 15" />
             <Button x:Name="ReturnToTournamentViewer" Content="Return to Tournament Viewer"
                     Margin="0 25 0 0" />
         </StackPanel>
+        
+        <!-- RIGHT COLUMN -->
+        
+        <!-- Row 2: -->
+        <TextBlock Grid.Row="2" Grid.Column="3" Margin="0 0 0 10">
+            Team Stats:
+        </TextBlock>
 
+        <TextBlock Grid.Row="3" Grid.Column="3" Margin="0 0 0 10">
+            Tournament Standing:
+        </TextBlock>
 
-        
-        
-        
     </Grid>
 </UserControl>

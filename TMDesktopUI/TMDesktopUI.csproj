@@ -73,14 +73,19 @@
     <Compile Include="EventModels\CreatePlayerEvent.cs" />
     <Compile Include="EventModels\CreateTeamEvent.cs" />
     <Compile Include="EventModels\CreateTournamentEvent.cs" />
+    <Compile Include="EventModels\DisplayPlayerEventModel.cs" />
+    <Compile Include="EventModels\DisplayTeamEventModel.cs" />
     <Compile Include="EventModels\DisplayTournamentEventModel.cs" />
     <Compile Include="EventModels\MapCreatedEventModel.cs" />
     <Compile Include="EventModels\MatchCreatedEventModel.cs" />
     <Compile Include="EventModels\PlayerCreatedEventModel.cs" />
     <Compile Include="EventModels\ReturnToMainScreenEvent.cs" />
     <Compile Include="EventModels\ReturnToMatchCreationEvent.cs" />
+    <Compile Include="EventModels\ReturnToMatchViewerEvent.cs" />
     <Compile Include="EventModels\ReturnToTeamCreationEvent.cs" />
+    <Compile Include="EventModels\ReturnToTeamViewerEvent.cs" />
     <Compile Include="EventModels\ReturnToTournamentCreationEvent.cs" />
+    <Compile Include="EventModels\ReturnToTournamentViewerEvent.cs" />
     <Compile Include="EventModels\TeamCreatedEventModel.cs" />
     <Compile Include="EventModels\TournamentCreatedEventModel.cs" />
     <Compile Include="ViewModels\CreateMapViewModel.cs" />
@@ -88,8 +93,10 @@
     <Compile Include="ViewModels\CreatePlayerViewModel.cs" />
     <Compile Include="ViewModels\CreateTeamViewModel.cs" />
     <Compile Include="ViewModels\CreateTournamentViewModel.cs" />
-    <Compile Include="ViewModels\DisplayMapScoreViewModel.cs" />
+    <Compile Include="ViewModels\DisplayMapViewModel.cs" />
     <Compile Include="ViewModels\DisplayMatchViewModel.cs" />
+    <Compile Include="ViewModels\DisplayPlayerViewModel.cs" />
+    <Compile Include="ViewModels\DisplayTeamViewModel.cs" />
     <Compile Include="ViewModels\DisplayTournamentViewModel.cs" />
     <Compile Include="ViewModels\MainScreenViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -108,11 +115,17 @@
     <Compile Include="Views\CreateTournamentView.xaml.cs">
       <DependentUpon>CreateTournamentView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DisplayMapScoreView.xaml.cs">
-      <DependentUpon>DisplayMapScoreView.xaml</DependentUpon>
+    <Compile Include="Views\DisplayMapView.xaml.cs">
+      <DependentUpon>DisplayMapView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DisplayMatchView.xaml.cs">
       <DependentUpon>DisplayMatchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisplayPlayerView.xaml.cs">
+      <DependentUpon>DisplayPlayerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisplayTeamView.xaml.cs">
+      <DependentUpon>DisplayTeamView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DisplayTournamentView.xaml.cs">
       <DependentUpon>DisplayTournamentView.xaml</DependentUpon>
@@ -147,11 +160,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DisplayMapScoreView.xaml">
+    <Page Include="Views\DisplayMapView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DisplayMatchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayPlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayTeamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

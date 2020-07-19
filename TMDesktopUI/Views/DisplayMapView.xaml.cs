@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TMDesktopUI.Views
 {
     /// <summary>
-    /// Interaction logic for DisplayMapScoreView.xaml
+    /// Interaction logic for DisplayMapView.xaml
     /// </summary>
-    public partial class DisplayMapScoreView : UserControl
+    public partial class DisplayMapView : UserControl
     {
-        public DisplayMapScoreView()
+        public DisplayMapView()
         {
             InitializeComponent();
         }

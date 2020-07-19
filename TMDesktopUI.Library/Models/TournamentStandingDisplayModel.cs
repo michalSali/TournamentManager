@@ -10,7 +10,7 @@ namespace TMDesktopUI.Library.Models
     {
         // id - not in display model
         public TournamentDisplayModel Tournament { get; set; }  // tournamentId
-        public TeamDisplayModel Team { get; set; }  // teamId
+        public PlayerDisplayModel Team { get; set; }  // teamId
 
         public int Placement { get; set; }
         public int PrizeWon { get; set; }

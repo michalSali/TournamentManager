@@ -14,8 +14,24 @@ namespace TMDesktopUI.Library.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Prizepool { get; set; }
-        public List<TeamDisplayModel> Teams { get; set; } = new List<TeamDisplayModel>();
+        public List<PlayerDisplayModel> Teams { get; set; } = new List<PlayerDisplayModel>();
         public List<MatchDisplayModel> Matches { get; set; } = new List<MatchDisplayModel>();
+
+        public string StartDateFormatted
+        {
+            get
+            {
+                return $"{StartDate.ToString("dd MM yyyy")}";
+            }
+        }
+
+        public string EndDateFormatted
+        {
+            get
+            {
+                return $"{EndDate.ToString("dd MM yyyy")}";
+            }
+        }
 
         public TournamentDisplayModel(TournamentModel model)
         {

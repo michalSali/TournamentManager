@@ -31,9 +31,25 @@ namespace TMDesktopUI.Library.Models
             }                        
         }
 
+        public string ResultInfo
+        {
+            get
+            {
+                return $"{TeamOne.TeamName} - {TeamOneScore} : {TeamTwoScore} - {TeamTwo.TeamName}";
+            }
+        }
+
+        public string DateFormatted
+        {
+            get
+            {
+                return $"{Date.ToString("dd MM yyyy")}";
+            }
+        }
+
         public List<MapScoreDisplayModel> Maps { get; set; } = new List<MapScoreDisplayModel>();
-        public TeamDisplayModel TeamOne { get; set; }
-        public TeamDisplayModel TeamTwo { get; set; }
+        public PlayerDisplayModel TeamOne { get; set; }
+        public PlayerDisplayModel TeamTwo { get; set; }
         public TournamentDisplayModel Tournament { get; set; } // CYCLIC DEPENDENCY ???
         
         public MatchDisplayModel(MatchModel model)

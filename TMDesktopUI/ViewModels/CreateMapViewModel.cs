@@ -23,10 +23,10 @@ namespace TMDesktopUI.ViewModels
         private int _teamTwoScore;
         public MatchDisplayModel Match { get; set; }
 
-        private TeamDisplayModel _teamOne;
-        private TeamDisplayModel _teamTwo;
+        private PlayerDisplayModel _teamOne;
+        private PlayerDisplayModel _teamTwo;
 
-        public TeamDisplayModel TeamOne
+        public PlayerDisplayModel TeamOne
         {
             get { return _teamOne; }
             set
@@ -36,7 +36,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        public TeamDisplayModel TeamTwo
+        public PlayerDisplayModel TeamTwo
         {
             get { return _teamTwo; }
             set

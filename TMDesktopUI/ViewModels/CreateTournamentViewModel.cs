@@ -79,8 +79,8 @@ namespace TMDesktopUI.ViewModels
 
         #region >>> Team Related Attribute Getters & Setters <<<
 
-        private TeamDisplayModel _teamToAdd;
-        public TeamDisplayModel TeamToAdd
+        private PlayerDisplayModel _teamToAdd;
+        public PlayerDisplayModel TeamToAdd
         {
             get { return _teamToAdd; }
             set
@@ -91,8 +91,8 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        private TeamDisplayModel _teamToRemove;
-        public TeamDisplayModel TeamToRemove
+        private PlayerDisplayModel _teamToRemove;
+        public PlayerDisplayModel TeamToRemove
         {
             get { return _teamToRemove; }
             set
@@ -103,8 +103,8 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        private BindingList<TeamDisplayModel> _selectedTeams = new BindingList<TeamDisplayModel>();
-        public BindingList<TeamDisplayModel> SelectedTeams
+        private BindingList<PlayerDisplayModel> _selectedTeams = new BindingList<PlayerDisplayModel>();
+        public BindingList<PlayerDisplayModel> SelectedTeams
         {
             get { return _selectedTeams; }
             set
@@ -114,8 +114,8 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        private BindingList<TeamDisplayModel> _displayedTeams;
-        public BindingList<TeamDisplayModel> DisplayedTeams
+        private BindingList<PlayerDisplayModel> _displayedTeams;
+        public BindingList<PlayerDisplayModel> DisplayedTeams
         {
             get { return _displayedTeams; }
             set
@@ -150,7 +150,7 @@ namespace TMDesktopUI.ViewModels
         }
 
         // is not bound to anything, shouldnt need to NotifyOfPropertyChange        
-        public BindingList<TeamDisplayModel> AllTeams;
+        public BindingList<PlayerDisplayModel> AllTeams;
 
         private BindingList<MatchDisplayModel> _matches = new BindingList<MatchDisplayModel>();
         public BindingList<MatchDisplayModel> Matches
@@ -188,8 +188,8 @@ namespace TMDesktopUI.ViewModels
             _loader = new ModelsLoader();
             _events = events;
 
-            AllTeams = new BindingList<TeamDisplayModel>(_loader.GetAllTeams());
-            DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);
+            AllTeams = new BindingList<PlayerDisplayModel>(_loader.GetAllTeams());
+            DisplayedTeams = new BindingList<PlayerDisplayModel>(AllTeams);
 
             // testing
             /*
@@ -209,7 +209,7 @@ namespace TMDesktopUI.ViewModels
         // considers team/coach name, all team players' names
         public void ApplyFilter(string filterText)
         {
-            List<TeamDisplayModel> filteredTeams = new List<TeamDisplayModel>();
+            List<PlayerDisplayModel> filteredTeams = new List<PlayerDisplayModel>();
 
             foreach (var team in DisplayedTeams.Except(SelectedTeams))
             {
@@ -230,7 +230,7 @@ namespace TMDesktopUI.ViewModels
                 }
             }            
 
-            DisplayedTeams = new BindingList<TeamDisplayModel>(filteredTeams);
+            DisplayedTeams = new BindingList<PlayerDisplayModel>(filteredTeams);
         }
 
         public bool CanRemoveFilter(string filterText)
@@ -240,7 +240,7 @@ namespace TMDesktopUI.ViewModels
 
         public void RemoveFilter()
         {
-            DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams.Except(SelectedTeams).ToList());
+            DisplayedTeams = new BindingList<PlayerDisplayModel>(AllTeams.Except(SelectedTeams).ToList());
         }
 
         // can have 16 teams at most / 24?
@@ -354,7 +354,7 @@ namespace TMDesktopUI.ViewModels
                 newTournament.StartDate = StartDate;
                 newTournament.EndDate = EndDate;
                 newTournament.Prizepool = Prizepool;
-                newTournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
+                newTournament.Teams = new List<PlayerDisplayModel>(SelectedTeams);
                 newTournament.Matches = new List<MatchDisplayModel>(Matches);
                 _saver.SaveTournament(newTournament);
                 _events.PublishOnUIThread(new TournamentCreatedEventModel(newTournament));
@@ -374,7 +374,7 @@ namespace TMDesktopUI.ViewModels
             
             Matches.Clear();
 
-            DisplayedTeams = new BindingList<TeamDisplayModel>(DisplayedTeams.Union(SelectedTeams).ToList());
+            DisplayedTeams = new BindingList<PlayerDisplayModel>(DisplayedTeams.Union(SelectedTeams).ToList());
             // DisplayedTeams = new BindingList<TeamDisplayModel>(AllTeams);  // THIS EXACT COMMAND CREATED EXCEPTION IN CreateTeamViewModel
             //DisplayedTeams = AllTeams;
             SelectedTeams.Clear();
@@ -403,7 +403,7 @@ namespace TMDesktopUI.ViewModels
             TournamentDisplayModel tournament = new TournamentDisplayModel();
             tournament.StartDate = StartDate;
             tournament.EndDate = EndDate;
-            tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
+            tournament.Teams = new List<PlayerDisplayModel>(SelectedTeams);
 
             tournament.TournamentName = TournamentName;
             // tournament.Prizepool = Prizepool;  - useless info?
@@ -421,7 +421,7 @@ namespace TMDesktopUI.ViewModels
             _events.PublishOnUIThread(new CreateTeamEvent());
         }
 
-        public void AddCreatedTeam(TeamDisplayModel team)
+        public void AddCreatedTeam(PlayerDisplayModel team)
         {
             DisplayedTeams.Add(team);
             AllTeams.Add(team);            

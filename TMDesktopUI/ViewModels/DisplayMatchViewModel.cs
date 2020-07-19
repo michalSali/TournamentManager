@@ -4,57 +4,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMDesktopUI.EventModels;
 using TMDesktopUI.Library.Models;
 
 namespace TMDesktopUI.ViewModels
 {
-    public class DisplayMatchViewModel : Conductor<object>
+    public class DisplayMatchViewModel : Screen
     {
 
+        private TournamentDisplayModel _tournament;
+        public TournamentDisplayModel Tournament
+        {
+            get { return _tournament; }
+            set
+            {
+                _tournament = value;
+                NotifyOfPropertyChange(() => Tournament);
+            }
+        }
+
         private MatchDisplayModel _match;
-        public List<MapPlayerStatsDisplayModel> OverallTeamOneStats;
-        public List<MapPlayerStatsDisplayModel> OverallTeamTwoStats;
-
-        public DisplayMatchViewModel(MatchDisplayModel match)
+        public MatchDisplayModel Match
         {
-            _match = match;
-            GetOverallStats();
-        }
-
-        public void GetOverallStats()
-        {
-            // setup new List using list in the first map
-            // we set K/D/A to 0, and remember the player instance
-            var teamOneStats = _match.Maps[0].TeamOneStats;
-            foreach (var playerStats in teamOneStats)
+            get { return _match; }
+            set
             {
-                //OverallTeamOneStats.Add(
-                //    new MapPlayerStatsDisplayModel(0, 0, 0, 0, 0, 0, playerStats.Player));
-            }
-
-            var teamTwoStats = _match.Maps[0].TeamTwoStats;
-            foreach (var playerStats in teamTwoStats)
-            {
-                //OverallTeamOneStats.Add(
-                //    new MapPlayerStatsDisplayModel(0, 0, 0, 0, 0, 0, playerStats.Player));
-            }
-
-            for (int i = 0; i < teamOneStats.Count; ++i)
-            {
-                OverallTeamOneStats[i].Kills += teamOneStats[i].Kills;
-                OverallTeamOneStats[i].Assists += teamOneStats[i].Assists;
-                OverallTeamOneStats[i].Deaths += teamOneStats[i].Deaths;
-            }
-
-            for (int i = 0; i < teamTwoStats.Count; ++i)
-            {
-                OverallTeamTwoStats[i].Kills += teamTwoStats[i].Kills;
-                OverallTeamTwoStats[i].Assists += teamTwoStats[i].Assists;
-                OverallTeamTwoStats[i].Deaths += teamTwoStats[i].Deaths;
+                _match = value;
+                NotifyOfPropertyChange(() => Match);
             }
         }
 
-        public MapScoreDisplayModel SelectedMap;
-        //public void Handler(DisplayMatch)
+
+        private IEventAggregator _events;
+
+        public DisplayMatchViewModel(IEventAggregator events)
+        {
+            _events = events;
+        }
+
+        public void InitializeValues(TournamentDisplayModel tournament, MatchDisplayModel match)
+        {
+            Tournament = tournament;
+            Match = match;
+        }
+
+        public bool CanViewMap
+        {
+            get { return SelectedMap != null; }
+        }
+
+        public void ViewMap()
+        {
+            _events.PublishOnCurrentThread(new DisplayMapEventModel(Tournament, SelectedMap));
+        }
+
+
+
+
+        private PlayerDisplayModel _selectedMap;
+        public PlayerDisplayModel SelectedMap
+        {
+            get { return _selectedMap; }
+            set
+            {
+                _selectedMap = value;
+                NotifyOfPropertyChange(() => SelectedMap);
+                NotifyOfPropertyChange(() => CanViewMap);
+            }
+        }
+
+        public void ReturnToTournamentViewer()
+        {
+            _events.PublishOnCurrentThread(new ReturnToMatchViewerEvent());
+        }
     }
 }

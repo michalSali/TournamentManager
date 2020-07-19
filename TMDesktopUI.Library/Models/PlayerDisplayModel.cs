@@ -26,7 +26,7 @@ namespace TMDesktopUI.Library.Models
             }            
         }
 
-        public TeamDisplayModel Team;
+        public PlayerDisplayModel Team;
 
         public PlayerDisplayModel(PlayerModel model)
         {

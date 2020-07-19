@@ -16,7 +16,9 @@ namespace TMDesktopUI.ViewModels
         IHandle<PlayerCreatedEventModel>, IHandle<CreateTeamEvent>, IHandle<TeamCreatedEventModel>,
         IHandle<CreateMatchEventModel>, IHandle<MatchCreatedEventModel>, IHandle<ReturnToTeamCreationEvent>,
         IHandle<ReturnToTournamentCreationEvent>, IHandle<CreateMapEventModel>, IHandle<MapCreatedEventModel>,
-        IHandle<ReturnToMatchCreationEvent>, IHandle<TournamentCreatedEventModel>
+        IHandle<ReturnToMatchCreationEvent>, IHandle<TournamentCreatedEventModel>, IHandle<DisplayTeamEventModel>,
+        IHandle<DisplayPlayerEventModel>, IHandle<ReturnToMatchViewerEvent>, IHandle<ReturnToTournamentViewerEvent>,
+        IHandle<ReturnToTeamViewerEvent>
     {
 
         private CreateTournamentViewModel _createTournamentVM;
@@ -24,6 +26,11 @@ namespace TMDesktopUI.ViewModels
         private CreateMatchViewModel _createMatchVM;
         private CreateMapViewModel _createMapVM;
         private MainScreenViewModel _mainScreenVM;
+
+        private DisplayTournamentViewModel _displayTournamentVM;
+        private DisplayTeamViewModel _displayTeamVM;
+        private DisplayMatchViewModel _displayMatchVM;
+
         private IEventAggregator _events;
         private SimpleContainer _container;
 
@@ -39,10 +46,9 @@ namespace TMDesktopUI.ViewModels
 
         public void Handle(DisplayTournamentEventModel message)
         {
-            var displayTournamentVM = _container.GetInstance<DisplayTournamentViewModel>();
-            displayTournamentVM.InitializeValues(message.Tournament);
-            ActivateItem(displayTournamentVM);
-            //throw new NotImplementedException();
+            _displayTournamentVM = _container.GetInstance<DisplayTournamentViewModel>();
+            _displayTournamentVM.InitializeValues(message.Tournament);
+            ActivateItem(_displayTournamentVM);       
         }
 
         public void Handle(CreateTournamentEvent message)
@@ -124,6 +130,36 @@ namespace TMDesktopUI.ViewModels
         public void Handle(TournamentCreatedEventModel message)
         {
             _mainScreenVM.AddCreatedTournament(message.Tournament);
+        }
+
+        public void Handle(DisplayTeamEventModel message)
+        {
+            _displayTeamVM = _container.GetInstance<DisplayTeamViewModel>();
+            _displayTeamVM.InitializeValues(message.Tournament, message.Team);
+            ActivateItem(_displayTeamVM);
+        }
+
+        public void Handle(DisplayPlayerEventModel message)
+        {
+            // no need to save the instance, as we wont go back to it
+            var displayPlayerVM = _container.GetInstance<DisplayPlayerViewModel>();
+            displayPlayerVM.InitializeValues(message.Tournament, message.Team);
+            ActivateItem(displayPlayerVM);
+        }
+
+        public void Handle(ReturnToMatchViewerEvent message)
+        {
+            ActivateItem(_displayMatchVM);
+        }
+
+        public void Handle(ReturnToTournamentViewerEvent message)
+        {
+            ActivateItem(_displayTournamentVM);
+        }
+
+        public void Handle(ReturnToTeamViewerEvent message)
+        {
+            ActivateItem(_displayTeamVM);
         }
     }
 }
