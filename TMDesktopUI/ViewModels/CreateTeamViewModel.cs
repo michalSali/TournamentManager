@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using TMDesktopUI.EventModels;
-using TMDesktopUI.Library.Helpers.SqlHelpers;
+using TMDesktopUI.Library.Helpers;
 using TMDesktopUI.Library.Models;
 
 namespace TMDesktopUI.ViewModels

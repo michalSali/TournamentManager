@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TMDesktopUI.Library.Models;
 using TMLibrary.DataAccess.SqlAccess;
+//using TMLibrary.DataAccess.TextFileAccess;
 using TMLibrary.Models;
 
-namespace TMDesktopUI.Library.Helpers.SqlHelpers
+namespace TMDesktopUI.Library.Helpers
 {
     public class ModelsLoader
     {

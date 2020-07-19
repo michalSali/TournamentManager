@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TMDesktopUI.EventModels;
-using TMDesktopUI.Library.Helpers.SqlHelpers;
+using TMDesktopUI.Library.Helpers;
 using TMDesktopUI.Library.Models;
-using TMLibrary.DataAccess;
-using TMLibrary.Models;
 
 namespace TMDesktopUI.ViewModels
 {

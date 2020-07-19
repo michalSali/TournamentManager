@@ -50,6 +50,11 @@
     <Compile Include="DataAccess\SqlAccess\PlayerData.cs" />
     <Compile Include="DataAccess\SqlAccess\TeamData.cs" />
     <Compile Include="DataAccess\SqlAccess\TournamentData.cs" />
+    <Compile Include="DataAccess\TextFileAccess\MapData.cs" />
+    <Compile Include="DataAccess\TextFileAccess\MatchData.cs" />
+    <Compile Include="DataAccess\TextFileAccess\PlayerData.cs" />
+    <Compile Include="DataAccess\TextFileAccess\TeamData.cs" />
+    <Compile Include="DataAccess\TextFileAccess\TournamentData.cs" />
     <Compile Include="Internal\DataAccess\SqlDataAccess.cs" />
     <Compile Include="Internal\DataAccess\TextFileDataAccess.cs" />
     <Compile Include="Models\MapPlayerStatsModel.cs" />
@@ -62,9 +67,7 @@
     <Compile Include="Models\TournamentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccess\TextFileAccess\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
