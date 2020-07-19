@@ -12,6 +12,20 @@ namespace TMDesktopUI.ViewModels
     public class DisplayMapViewModel : Screen
     {
 
+        private IEventAggregator _events;
+
+        public DisplayMapViewModel(IEventAggregator events)
+        {
+            _events = events;
+        }
+
+        public void InitializeValues(TournamentDisplayModel tournament, MapScoreDisplayModel map)
+        {
+            Tournament = tournament;
+            Map = map;
+        }
+
+
         private TournamentDisplayModel _tournament;
         public TournamentDisplayModel Tournament
         {
@@ -33,90 +47,12 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => Map);
             }
         }
-
-
-        private IEventAggregator _events;
-
-        public DisplayMapViewModel(IEventAggregator events)
-        {
-            _events = events;
-        }
-
-        public void InitializeValues(TournamentDisplayModel tournament, MapScoreDisplayModel map)
-        {
-            Tournament = tournament;
-            Map = map;
-        }
-
+        
                
         public void ReturnToMatchViewer()
         {
             _events.PublishOnCurrentThread(new ReturnToMatchViewerEvent());
         }
     }
-
-    /*
-    <StackPanel Orientation = "Vertical" >
-        < TextBlock Text="{Binding Map.MapDescription}" />
-        <TextBlock Text = "{Binding Map.ScoreDescription}" />
-        < ItemsControl ItemsSource="{Binding Map.TeamOneStats}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation = "Horizontal" >
-                        < TextBlock Text="{Binding Player.FullName}" />
-                        <TextBlock Text = "{Binding Kills}" />
-                        < TextBlock Text="{Binding Assists}" />
-                        <TextBlock Text = "{Binding Deaths}" />
-                    </ StackPanel >
-                </ DataTemplate >
-            </ ItemsControl.ItemTemplate >
-        </ ItemsControl >
-
-        < ItemsControl ItemsSource="{Binding Map.TeamTwoStats}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation = "Horizontal" >
-                        < TextBlock Text="{Binding Player.FullName}" />
-                        <TextBlock Text = "{Binding Kills}" />
-                        < TextBlock Text="{Binding Assists}" />
-                        <TextBlock Text = "{Binding Deaths}" />
-                    </ StackPanel >
-                </ DataTemplate >
-            </ ItemsControl.ItemTemplate >
-        </ ItemsControl >
-    </ StackPanel >
-
-
-
-
-
-
-    <ItemsControl ItemsSource="{Binding Map.TeamOneStats}" Grid.Row="6" Grid.Column="1"
-                      Grid.ColumnSpan="2">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Player.FullName}" />
-                        <TextBlock Text="{Binding Kills}" />
-                        <TextBlock Text="{Binding Assists}" />
-                        <TextBlock Text="{Binding Deaths}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <ItemsControl ItemsSource="{Binding Map.TeamTwoStats}" Grid.Row="6" Grid.Column="3"
-                      Grid.ColumnSpan="2">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Player.FullName}" />
-                        <TextBlock Text="{Binding Kills}" />
-                        <TextBlock Text="{Binding Assists}" />
-                        <TextBlock Text="{Binding Deaths}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    */
+   
 }

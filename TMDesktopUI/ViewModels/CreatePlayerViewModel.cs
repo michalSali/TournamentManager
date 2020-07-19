@@ -13,15 +13,16 @@ namespace TMDesktopUI.ViewModels
 {
     public class CreatePlayerViewModel : Screen
     {
+
+		private ModelsQueries _query;
+		private ModelsSaver _saver;
+		private IEventAggregator _events;
+
 		private string _firstName;
 		private string _lastName;
 		private string _nickname;
 		private string _role;
-		private int _age;
-
-		private ModelsQueries _query;
-		private ModelsSaver _saver;		
-		private IEventAggregator _events;
+		private int _age;		
 
 		public CreatePlayerViewModel(IEventAggregator events)
 		{

@@ -14,13 +14,34 @@ namespace TMDesktopUI.ViewModels
 {
     public class CreateTeamViewModel : Screen
     {
-        //private TournamentDisplayModel _tournamentDisplayModel;       
+        private ModelsQueries _query;
+        private ModelsSaver _saver;
+        private ModelsLoader _loader;
+        private IEventAggregator _events;
 
         private string _teamName;
         private string _coachName;
         private string _filterText = "";
 
         private PlayerDisplayModel _playerToAdd;
+        private PlayerDisplayModel _playerToRemove;
+
+        private BindingList<PlayerDisplayModel> _selectedPlayers;
+        private BindingList<PlayerDisplayModel> _displayedPlayers;
+
+        public CreateTeamViewModel(IEventAggregator events)
+        {
+            _query = new ModelsQueries();
+            _saver = new ModelsSaver();
+            _loader = new ModelsLoader();
+            _events = events;
+
+            AllPlayers = new BindingList<PlayerDisplayModel>(_loader.GetAllPlayers());
+            DisplayedPlayers = new BindingList<PlayerDisplayModel>();
+            SelectedPlayers = new BindingList<PlayerDisplayModel>();
+            DisplayedPlayers = new BindingList<PlayerDisplayModel>(DisplayedPlayers.Union(AllPlayers).ToList());
+        }
+
         public PlayerDisplayModel PlayerToAdd
         {
             get { return _playerToAdd; }
@@ -30,9 +51,8 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => PlayerToAdd);
                 NotifyOfPropertyChange(() => CanAddPlayer);
             }
-        }
-        
-        private PlayerDisplayModel _playerToRemove;
+        }           
+
         public PlayerDisplayModel PlayerToRemove
         {
             get { return _playerToRemove; }
@@ -42,20 +62,19 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => PlayerToRemove);
                 NotifyOfPropertyChange(() => CanRemovePlayer);
             }
-        }
+        }        
 
-        private BindingList<PlayerDisplayModel> _selectedPlayers = new BindingList<PlayerDisplayModel>();
         public BindingList<PlayerDisplayModel> SelectedPlayers
         {
             get { return _selectedPlayers; }
             set
             {
                 _selectedPlayers = value;
-                NotifyOfPropertyChange(() => SelectedPlayers);               
+                NotifyOfPropertyChange(() => SelectedPlayers);
+                NotifyOfPropertyChange(() => CanAddPlayer);
             }
         }
-
-        private BindingList<PlayerDisplayModel> _displayedPlayers;
+        
         public BindingList<PlayerDisplayModel> DisplayedPlayers
         {
             get { return _displayedPlayers; }
@@ -65,39 +84,8 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => DisplayedPlayers);                   
             }
         }
-
-        // is not bound to anything, shouldnt need to NotifyOfPropertyChange        
-        public BindingList<PlayerDisplayModel> AllPlayers;       
-               
-
-        private ModelsQueries _query;
-        private ModelsSaver _saver;
-        private ModelsLoader _loader;
-        private IEventAggregator _events;
-        public CreateTeamViewModel(IEventAggregator events)
-        {
-            _query = new ModelsQueries();
-            _saver = new ModelsSaver();
-            _loader = new ModelsLoader();
-            _events = events;
-
-            AllPlayers = new BindingList<PlayerDisplayModel>(_loader.GetAllPlayers());
-            //DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers);
-            DisplayedPlayers = new BindingList<PlayerDisplayModel>();
-            DisplayedPlayers = new BindingList<PlayerDisplayModel>(DisplayedPlayers.Union(AllPlayers).ToList());
-
-            // testing
-            //AllPlayers = new BindingList<PlayerDisplayModel>();
-            //DisplayedPlayers = new BindingList<PlayerDisplayModel>();
-            //SelectedPlayers = new BindingList<PlayerDisplayModel>();
-        }
-
-        /*
-        public CreateTeamViewModel(List<TeamDisplayModel> createdTeams) : this()
-        {
-            _createdTeams = createdTeams;
-        }
-        */
+          
+        public BindingList<PlayerDisplayModel> AllPlayers;                              
 
         public string TeamName
         {
@@ -139,9 +127,7 @@ namespace TMDesktopUI.ViewModels
         {
             List<PlayerDisplayModel> filteredPlayers = new List<PlayerDisplayModel>();
             filterText = filterText.ToLower();
-            foreach (var player in AllPlayers.Except(SelectedPlayers))  // -- mali by byt disjunktne mnoziny ?
-            
-            //foreach (var player in DisplayedPlayers)
+            foreach (var player in AllPlayers.Except(SelectedPlayers))  
             {
                 if (player.FirstName.ToLower().Contains(filterText) ||
                     player.LastName.ToLower().Contains(filterText) ||
@@ -170,45 +156,37 @@ namespace TMDesktopUI.ViewModels
             }
             FilterText = "";
         }
-
         
         public bool CanAddPlayer
         {
             get { return (PlayerToAdd != null) && (SelectedPlayers?.Count < 5); } 
         }
-               
+            
         public void AddPlayer()
         {
             SelectedPlayers.Add(PlayerToAdd);
             DisplayedPlayers.Remove(PlayerToAdd);
             PlayerToAdd = null;
         }
-
-        // 2nd condition should be useless, since you can choose player only if SelectedPlayers is not empty
+        
         public bool CanRemovePlayer
         {
-            get { return (PlayerToRemove != null) && (SelectedPlayers?.Count > 0); }
+            get { return (PlayerToRemove != null); }
         }
 
         public void RemovePlayer()
         {
             DisplayedPlayers.Add(PlayerToRemove);
-            SelectedPlayers.Remove(PlayerToRemove);
-            //NotifyOfPropertyChange(() => DisplayedPlayers);
-            //PlayerToRemove = new PlayerDisplayModel();
+            SelectedPlayers.Remove(PlayerToRemove);           
             PlayerToRemove = null;
         }
-
-        
-        // !!!
+                
+        /*
         public bool CanCreateTeam
-        {
-            //get { return !string.IsNullOrWhiteSpace(TeamName) && SelectedPlayers?.Count == 5; }
-            //get { return !string.IsNullOrWhiteSpace(TeamName) && SelectedPlayers?.Count > 0; }
+        {            
             get { return !string.IsNullOrWhiteSpace(TeamName); }
-        }
-               
-        
+        }                       
+        */
 
         public void CreateTeam()
         {
@@ -219,41 +197,33 @@ namespace TMDesktopUI.ViewModels
             {
                 errorMessage.AppendLine("You have to choose 5 players.");
             }
+
+            if (string.IsNullOrWhiteSpace(TeamName))
+            {
+                errorMessage.AppendLine("Team name cannot be empty.");
+            }
+
             /*
             if (_query.ExistsTeam(TeamName, selectedPlayers))
             {
                 MessageBox.Show("Team with the specific name and players already exists.");
             }
+            */            
 
+            if (errorMessage.Length == 0)
             {
                 TeamDisplayModel newTeam = new TeamDisplayModel();
                 newTeam.TeamName = TeamName;
                 newTeam.CoachName = string.IsNullOrWhiteSpace(CoachName) ? "Unknown" : CoachName;
                 newTeam.Players = selectedPlayers;
-                //_saver.SaveTeam(newTeam); // also sets the team.Id
 
-                _events.PublishOnUIThread(new TeamCreatedEventModel(newTeam));
-                //_createdTeams.Add(newTeam);
+                _saver.SaveTeam(newTeam); // also sets the team.Id
+                _events.PublishOnUIThread(new TeamCreatedEventModel(newTeam));               
                 ClearForm();
-            }
-            */
-
-            if (errorMessage.Length != 0)
+            } else
             {
                 MessageBox.Show(errorMessage.ToString());
-            }
-
-            // testing
-            TeamDisplayModel newTeam = new TeamDisplayModel();
-            newTeam.TeamName = TeamName;
-            newTeam.CoachName = string.IsNullOrWhiteSpace(CoachName) ? "Unknown" : CoachName;
-            newTeam.Players = selectedPlayers;
-            _saver.SaveTeam(newTeam); // also sets the team.Id
-
-            _events.PublishOnUIThread(new TeamCreatedEventModel(newTeam));
-            //_createdTeams.Add(newTeam);
-            ClearForm();
-
+            }            
         }
 
         private void ClearForm()
@@ -261,15 +231,8 @@ namespace TMDesktopUI.ViewModels
             TeamName = "";
             CoachName = "";
             FilterText = "";
-            DisplayedPlayers = new BindingList<PlayerDisplayModel>(DisplayedPlayers.Union(SelectedPlayers).ToList());
-
-            // DOES NOT WORK FOR SOME FUCKING REASON => AFTER CREATING NEW TEAM, AND THEN TRYING TO CREATE
-            //    A NEW PLAYER, AddCreatedPlayer RAISES OUT OF RANGE EXCEPTION ?????????????????????
-            //DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers); 
-
-            //SelectedPlayers = new BindingList<PlayerDisplayModel>();
-            SelectedPlayers.Clear();
-            //DisplayedPlayers = new BindingList<PlayerDisplayModel>(AllPlayers);
+            DisplayedPlayers = new BindingList<PlayerDisplayModel>(DisplayedPlayers.Union(SelectedPlayers).ToList());           
+            SelectedPlayers.Clear();           
             PlayerToAdd = null;
             PlayerToRemove = null;
         }
@@ -282,8 +245,7 @@ namespace TMDesktopUI.ViewModels
         public void AddCreatedPlayer(PlayerDisplayModel player)
         {
             DisplayedPlayers.Add(player);
-            AllPlayers.Add(player);
-            //DisplayedPlayers.Add(player);
+            AllPlayers.Add(player);            
         }
 
         public void ReturnToTournamentCreation()

@@ -13,24 +13,6 @@ namespace TMDesktopUI.ViewModels
 {
     public class DisplayTournamentViewModel : Screen
     {
-        
-        private TournamentDisplayModel _tournament;
-        public TournamentDisplayModel Tournament
-        {
-            get { return _tournament; }
-            set
-            {
-                _tournament = value;
-                NotifyOfPropertyChange(() => Tournament);
-            }
-        }
-        /*
-        private List<MatchDisplayModel> _matches;
-        public List<MatchDisplayModel> Matches
-        {
-
-        }
-        */
 
         private IEventAggregator _events;
 
@@ -42,10 +24,19 @@ namespace TMDesktopUI.ViewModels
         public void InitializeValues(TournamentDisplayModel tournament)
         {
             Tournament = tournament;
-            //Teams = new BindingList<TeamDisplayModel>(tournament.Teams);
-                
-
         }
+
+        private TournamentDisplayModel _tournament;
+        public TournamentDisplayModel Tournament
+        {
+            get { return _tournament; }
+            set
+            {
+                _tournament = value;
+                NotifyOfPropertyChange(() => Tournament);
+            }
+        }        
+        
 
         public bool CanViewTeam
         {
@@ -66,20 +57,7 @@ namespace TMDesktopUI.ViewModels
         {
             _events.PublishOnCurrentThread(new DisplayMatchEventModel(Tournament, SelectedMatch));
         }
-
-        //public BindingList<TeamDisplayModel> Teams;
-        /*
-        public string _tournamentName;
-        public string TournamentName
-        {
-            get { return _tournamentName; }
-            set
-            {
-                _tournamentName = value;
-                NotifyOfPropertyChange(() => TournamentName);
-            }
-        }
-        */
+        
 
         private TeamDisplayModel _selectedTeam;
         public TeamDisplayModel SelectedTeam

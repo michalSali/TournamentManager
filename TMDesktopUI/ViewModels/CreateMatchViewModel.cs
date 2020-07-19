@@ -19,6 +19,22 @@ namespace TMDesktopUI.ViewModels
         private ModelsSaver _saver;
         private ModelsLoader _loader;
         private IEventAggregator _events;
+
+        private string _tournamentName;
+        private int _format;
+        private DateTime _date = DateTime.Now;
+        private int _teamOneScore;
+        private int _teamTwoScore;
+        
+        private TeamDisplayModel _teamOne;
+        private TeamDisplayModel _teamTwo;
+        private BindingList<TeamDisplayModel> _displayedTeams;
+
+        private BindingList<int> _formats = new BindingList<int> { 1, 3, 5, 7 };
+        private BindingList<string> _mapNames;
+        private BindingList<MapScoreDisplayModel> _maps = new BindingList<MapScoreDisplayModel>();
+
+
         public CreateMatchViewModel(IEventAggregator events)
         {
             _query = new ModelsQueries();
@@ -28,7 +44,6 @@ namespace TMDesktopUI.ViewModels
 
             MapNames = new BindingList<string> { "Mirage", "Dust 2", "Train", "Nuke", "Inferno", "Overpass", "Vertigo", "Cache", "Cobblestone" };
         }
-
         
         public void InitializeValues(TournamentDisplayModel tournament)
         {
@@ -40,8 +55,7 @@ namespace TMDesktopUI.ViewModels
             TimeSpan newSpan = new TimeSpan(0, random.Next(0, (int)timeSpan.TotalMinutes), 0);
             Date = tournament.StartDate + newSpan;
         }
-
-        private string _tournamentName;
+        
         public string TournamentName
         {
             get { return _tournamentName; }
@@ -51,20 +65,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => TournamentName);
             }
         }
-
-        //private int _matchNumber;               
-        private int _format;
-        private DateTime _date = DateTime.Now;
-
-        private int _teamOneScore;
-        private int _teamTwoScore;
-
-        private BindingList<MapScoreDisplayModel> _maps = new BindingList<MapScoreDisplayModel>();
-        private TeamDisplayModel _teamOne;
-        private TeamDisplayModel _teamTwo;
-
-
-        private BindingList<int> _formats = new BindingList<int> { 1, 3, 5, 7 };
+        
         public BindingList<int> Formats
         {
             get { return _formats; }
@@ -73,9 +74,7 @@ namespace TMDesktopUI.ViewModels
                 _formats = value;
                 NotifyOfPropertyChange(() => Formats);
             }
-        }
-
-        private BindingList<string> _mapNames;
+        }        
         
         public BindingList<string> MapNames
         {
@@ -86,11 +85,9 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => MapNames);
             }
         }
-        //public BindingList<string> MapNames = new BindingList<string> { "Mirage", "Dust 2", "Train", "Nuke", "Inferno", "Overpass", "Vertigo", "Cache", "Cobblestone" };
+        
         public List<int> PossibleMatchScores;
-
        
-
         public int Format
         {
             get { return _format; }
@@ -164,8 +161,7 @@ namespace TMDesktopUI.ViewModels
 
 
         // we will allow to temporarily to choose 2 same teams against each other,
-        // but you wont be able to create match like that (so you can switch teams for example)
-        private BindingList<TeamDisplayModel> _displayedTeams;
+        // but you wont be able to create match like that (so you can switch teams for example)        
         public BindingList<TeamDisplayModel> DisplayedTeams
         {
             get { return _displayedTeams; }
@@ -175,9 +171,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => DisplayedTeams);
             }
         }
-                
-
-      
+                      
         public bool CanCreateMatch()
         {
             return (Date != null && TeamOne != null && TeamTwo != null);
@@ -224,8 +218,7 @@ namespace TMDesktopUI.ViewModels
                 MessageBox.Show(errorMessage.ToString());
             }
         }        
-
-        // what to do with dates?
+       
         private void ClearMatchForm()
         {                        
             Maps.Clear();                        
@@ -236,7 +229,6 @@ namespace TMDesktopUI.ViewModels
             TeamTwoScore = 0;
             //Format = 0;
         }
-
 
         public void CreateNewMap()
         {
@@ -257,12 +249,7 @@ namespace TMDesktopUI.ViewModels
         {
             Maps.Add(map);
         }
-
-
-                          
-        
-
-        // 2nd condition should be useless, since you can choose player only if SelectedPlayers is not empty
+                                    
         public bool CanRemoveMap
         {
             get { return (SelectedMap != null) && (Maps.Count > 0); }               
@@ -273,85 +260,10 @@ namespace TMDesktopUI.ViewModels
             Maps.Remove(SelectedMap);
             SelectedMap = null;
         }
-
-        //public MapScoreDisplayModel CurrentMap;
-        //public MapScoreDisplayModel MapToRemove;
-
-        #region >>> MAP EDITING STUFF <<<
-        public MapScoreDisplayModel MapCreationSavedState;
-        public MapScoreDisplayModel SelectedMapOriginal;
-        public MapScoreDisplayModel SelectedMap;
-
-        public bool CanEditMap()
-        {
-            return SelectedMap != null;
-        }
-        public void EditMap()
-        {
-            // najskor vytvori novu instanciu EditedMatch, ktora si ulozi povodne hodnoty editovanej mapy:
-            //     EditedMap = new MapScoreDisplayModel(MapToEdit.MapName, ...);
-            // nasledne nastavi vsetky hodnoty: [MapName = MapToEdit.MapName, ...]
-            // docasne odstranit MapToEdit z Maps
-            // ak sa pouzije "SaveChanges", tak sa normalne vytvori Map pomocou CreateMap ?
-            // ak sa pouzije "DiscardChanges", tak sa do Maps vlozi EditedMapOriginal,
-            // a nasledne sa nastavia hodnoty spat na MapCreationSavedState
-        }
-
-        // sets values of the Map Creation Form according to the given parameter
-        // used when editing maps, so that all the changes we've made in the Map Creation Form
-        //    are not discarded
-        public void SetValues(MapScoreDisplayModel map)
-        {
-            
-        }
-
-        public void SaveChanges()
-        {
-            //CreateMap();
-        }
-
-        public void DiscardChanges()
-        {
-            
-        }
-        #endregion
-
+        
         public void ReturnToTournamentCreation()
         {
             _events.PublishOnUIThread(new ReturnToTournamentCreationEvent());
-        }
-
-
-        // xaml
-        /*
-        <ComboBox ItemsSource = "{Binding DisplayedTeams}" Grid.Row="4" Grid.Column="2" 
-                  Margin="10 10 10 10" SelectedItem="{Binding TeamOne}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush = "Black" >
-                        < StackPanel Orientation="Vertical">
-                            <TextBlock Text = "{Binding TeamName}" />
-                            < ItemsControl ItemsSource="{Binding Players}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation = "Horizontal" />
-                                    </ ItemsPanelTemplate >
-                                </ ItemsControl.ItemsPanel >
-                                < ItemsControl.ItemTemplate >
-                                    < DataTemplate >
-                                        < StackPanel Orientation="Horizontal">
-                                            <TextBlock Text = "{Binding FullName}" FontSize="12" />
-                                            <TextBlock Text = " ; " FontSize="12"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        */
-
+        }        
     }
 }

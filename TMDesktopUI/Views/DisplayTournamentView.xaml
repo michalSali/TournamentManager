@@ -103,32 +103,16 @@
             <Button x:Name="ViewMatch" Content="View selected match"/>
             <Button x:Name="ReturnToMainScreen" Content="Return to Main Screen" Margin="0 25 0 0" />
         </StackPanel>
-                     
-
-        <!-- MIDDLE COLUMN -->
-
-        <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column="3" Margin="0 0 0 10">
-          Tournament Standings:
-        </TextBlock>
-        <!-- Row 2: -->
-        <ListBox ItemsSource="{Binding Tournament.TournamentStandings}" Grid.Row="2" Grid.Column="3">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Description}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
+                             
        
         <!-- RIGHT COLUMN -->
 
         <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column="5" Margin="0 0 0 10">
+        <TextBlock Grid.Row="3" Grid.Column="5" Margin="0 0 0 10">
             Matches:
         </TextBlock>
 
-        <ListBox ItemsSource="{Binding Tournament.Matches}" Grid.Row="2" Grid.Column="5" 
+        <ListBox ItemsSource="{Binding Tournament.Matches}" Grid.Row="4" Grid.Column="5" 
                  Grid.RowSpan="6" SelectedItem="{Binding SelectedMatch}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -136,22 +120,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-       
-
-        <!-- MATCHES -->
-        <TextBlock Grid.Row="8" Grid.Column="5" Margin="0 0 0 10">
-            Quarterfinal Matches:
-        </TextBlock>
-
-        <ListBox ItemsSource="{Binding QuarterfinalMatches}" Grid.Row="4" Grid.Column="5" 
-                 Grid.RowSpan="5" SelectedItem="{Binding SelectedMatch}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding MatchInfo}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
 
     </Grid>
 </UserControl>

@@ -21,11 +21,14 @@ namespace TMDesktopUI.ViewModels
         private string _mapName;        
         private int _teamOneScore;
         private int _teamTwoScore;
-        public MatchDisplayModel Match { get; set; }
+
+        private BindingList<string> _availableMaps;
+        private List<string> MapNames = new List<string> { "Mirage", "Dust 2", "Train", "Nuke", "Inferno", "Overpass", "Vertigo", "Cache", "Cobblestone" };
 
         private TeamDisplayModel _teamOne;
         private TeamDisplayModel _teamTwo;
 
+        public MatchDisplayModel Match { get; set; }
         public TeamDisplayModel TeamOne
         {
             get { return _teamOne; }
@@ -45,7 +48,6 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => TeamTwo);
             }
         }
-
 
         public int TeamOneScore
         {
@@ -77,9 +79,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => CanCreateMap);
             }
         }
-        
-
-        private BindingList<string> _availableMaps;
+                
         public BindingList<string> AvailableMaps
         {
             get { return _availableMaps; }
@@ -90,8 +90,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        // ======================================================= CONSTRUCTOR ===============================================
-
+        // for better displaying abilities        
         /*
         public CollectionViewSource TeamOneStatsViewSource { get; set; }
         public CollectionViewSource TeamTwoStatsViewSource { get; set; }
@@ -106,21 +105,20 @@ namespace TMDesktopUI.ViewModels
             _events = events;
             _random = new Random();
         }
-
-        
-        private List<string> MapNames = new List<string> { "Mirage", "Dust 2", "Train", "Nuke", "Inferno", "Overpass", "Vertigo", "Cache", "Cobblestone" };
+                
         public void InitializeValues(MatchDisplayModel match)
         {
             TeamOne = match.TeamOne;
             TeamTwo = match.TeamTwo;
             Match = match;
+
             // allows you to choose only map names, that havent been used yet
             AvailableMaps = new BindingList<string>(MapNames.Except(match.Maps.Select(map => map.MapName)).ToList());
 
             InitializeMapPlayerStats();
 
-            /*
-            // testing 
+            // for better display
+            /*             
             StatsCollection = new ObservableCollection<MapPlayerStatsDisplayModel>();
             foreach (var player in TeamOne.Players)
             {
@@ -217,8 +215,7 @@ namespace TMDesktopUI.ViewModels
         {
             get { return !string.IsNullOrWhiteSpace(MapName); }                
         }
-
-        // there cannot be 2 maps with the same name (cant be Map 1: Mirage, and Map 2: Mirage)
+        
         public void CreateMap()
         {
             
@@ -226,15 +223,12 @@ namespace TMDesktopUI.ViewModels
             if (IF SCORES ARE INCORRECT) {
                 MessageBox.Show("...");
             }
-            */
-            
+            */            
 
             MapScoreDisplayModel newMap = new MapScoreDisplayModel();
             newMap.MapName = MapName;         
             newMap.TeamOneScore = TeamOneScore;
             newMap.TeamTwoScore = TeamTwoScore;
-
-            // Match has to saved at initialization ??
             newMap.Match = Match;
             
             CreateMapPlayerStats(newMap);            
@@ -265,43 +259,11 @@ namespace TMDesktopUI.ViewModels
                     break;
                 }
             }
-
-            // MAP PLAYER STATS ARE ALREADY CREATED AND POPULATED, THIS WOULD CREATE 10 STATS FOR EACH TEAM, 20 IN TOTAL
+           
             if (errorMessage.Length == 0)
             {
-
                 map.TeamOneStats = new List<MapPlayerStatsDisplayModel>(TeamOneStats);
-                map.TeamTwoStats = new List<MapPlayerStatsDisplayModel>(TeamTwoStats);
-                //ClearMapPlayerStats();
-
-                /*
-                foreach (var stats in TeamOneStats)
-                {                    
-                    // maybe not neccessary to save the CurrentMap, since it currently does not have "id" anyway
-                    MapPlayerStatsDisplayModel newStats = new MapPlayerStatsDisplayModel();
-                    //newStats.Map = map; ?????
-                    newStats.Player = stats.Player;
-                    newStats.Kills = stats.Kills;
-                    newStats.Assists = stats.Assists;
-                    newStats.Deaths = stats.Deaths;
-                    map.TeamOneStats.Add(newStats);
-                    
-                }
-
-                foreach (var stats in TeamTwoStats)
-                {
-                    // maybe not neccessary to save the CurrentMap, since it currently does not have "id" anyway
-                    MapPlayerStatsDisplayModel newStats = new MapPlayerStatsDisplayModel();
-                    //newStats.Map = map;
-                    newStats.Player = stats.Player;
-                    newStats.Kills = stats.Kills;
-                    newStats.Assists = stats.Assists;
-                    newStats.Deaths = stats.Deaths;
-                    map.TeamTwoStats.Add(newStats);
-                }
-                */
-                // ClearMapPlayerStats();
-
+                map.TeamTwoStats = new List<MapPlayerStatsDisplayModel>(TeamTwoStats);               
             }
             else
             {
@@ -334,28 +296,7 @@ namespace TMDesktopUI.ViewModels
 
             var randomTeamOneStats = new List<MapPlayerStatsDisplayModel>();
             var randomTeamTwoStats = new List<MapPlayerStatsDisplayModel>();
-
-            /*
-            foreach (var stats in TeamOneStats)
-            {
-                MapPlayerStatsDisplayModel newStats = new MapPlayerStatsDisplayModel();
-                newStats.Player = stats.Player;
-                newStats.Kills = random.Next(TeamOneScore/2, maxDeaths);
-                newStats.Assists = random.Next(0, TeamOneScore);
-                newStats.Deaths = random.Next(TeamTwoScore, maxDeaths);
-                randomTeamOneStats.Add(newStats);
-            }
-
-            foreach (var stats in TeamTwoStats)
-            {
-                MapPlayerStatsDisplayModel newStats = new MapPlayerStatsDisplayModel();
-                newStats.Player = stats.Player;
-                newStats.Kills = random.Next(TeamOneScore / 2, maxDeaths);
-                newStats.Assists = random.Next(0, TeamOneScore);
-                newStats.Deaths = random.Next(TeamTwoScore, maxDeaths);
-                randomTeamTwoStats.Add(newStats);
-            }
-            */
+           
 
             foreach (var stats in TeamOneStats)
             {
@@ -373,25 +314,19 @@ namespace TMDesktopUI.ViewModels
 
             NotifyOfPropertyChange(() => TeamOneStats);
             NotifyOfPropertyChange(() => TeamTwoStats);
-
-            
-            //TeamOneStats = TeamOneStats;
-            //TeamTwoStats = TeamTwoStats;
-
         }
 
         private void SetUpScores()
         {
             Random random = new Random();
-
-            //if ((TeamOneScore == 0 && TeamTwoScore == 0) || 
+            
             // correct format score is either: a) 16 : [0, 14],  or b) [0, 14] : 16
             // we wont be dealing with overtimes - overtimes can be setup if the users create the map themselves
             if (!((TeamOneScore == 16 && TeamTwoScore >= 0 && TeamTwoScore <= 14) ||
                   (TeamTwoScore == 16 && TeamOneScore >= 0 && TeamOneScore <= 14)))               
             {
                 
-                /* if we want to choose winning team beforehand
+                /* if we want to choose winning team beforehand, for automatization
                  * 
                 if (isWinningTeamSet)
                 {
@@ -424,8 +359,7 @@ namespace TMDesktopUI.ViewModels
                     {
                         TeamOneScore = random.Next(7);  // [0, 6]
                     }
-                }
-                // randomize team scores (one team = 16, other team 0-14), no overtimes
+                }                
             }
         }
 
@@ -435,6 +369,7 @@ namespace TMDesktopUI.ViewModels
         }
 
 
+        #region xaml code for better display - currently not in use
         // xaml
         /*
         <TextBlock Grid.Row="8" Grid.Column= "4" Margin= "0 0 0 10" >
@@ -485,6 +420,6 @@ namespace TMDesktopUI.ViewModels
             </DataGrid.Columns>
         </DataGrid>
         */
-
+        #endregion
     }
 }
