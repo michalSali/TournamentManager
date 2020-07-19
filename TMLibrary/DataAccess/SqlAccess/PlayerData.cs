@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TMLibrary.Internal.DataAccess;
 using TMLibrary.Models;
 
-namespace TMLibrary.DataAccess
+namespace TMLibrary.DataAccess.SqlAccess
 {
     // player data access
     public class PlayerData

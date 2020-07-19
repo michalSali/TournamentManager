@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TMDesktopUI.Library.Helpers;
+using TMDesktopUI.Library.Helpers.SqlHelpers;
 using TMDesktopUI.Library.Models;
 using Caliburn.Micro;
 using System.Windows;

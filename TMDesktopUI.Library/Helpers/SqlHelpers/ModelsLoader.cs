@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMDesktopUI.Library.Models;
-using TMLibrary.DataAccess;
+using TMLibrary.DataAccess.SqlAccess;
 using TMLibrary.Models;
 
-namespace TMDesktopUI.Library.Helpers
+namespace TMDesktopUI.Library.Helpers.SqlHelpers
 {
     public class ModelsLoader
     {

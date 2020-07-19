@@ -45,12 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\MapData.cs" />
-    <Compile Include="DataAccess\MatchData.cs" />
-    <Compile Include="DataAccess\PlayerData.cs" />
-    <Compile Include="DataAccess\TeamData.cs" />
-    <Compile Include="DataAccess\TournamentData.cs" />
+    <Compile Include="DataAccess\SqlAccess\MapData.cs" />
+    <Compile Include="DataAccess\SqlAccess\MatchData.cs" />
+    <Compile Include="DataAccess\SqlAccess\PlayerData.cs" />
+    <Compile Include="DataAccess\SqlAccess\TeamData.cs" />
+    <Compile Include="DataAccess\SqlAccess\TournamentData.cs" />
     <Compile Include="Internal\DataAccess\SqlDataAccess.cs" />
+    <Compile Include="Internal\DataAccess\TextFileDataAccess.cs" />
     <Compile Include="Models\MapPlayerStatsModel.cs" />
     <Compile Include="Models\MapScoreModel.cs" />
     <Compile Include="Models\MatchModel.cs" />
@@ -61,7 +62,9 @@
     <Compile Include="Models\TournamentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataAccess\TextFileAccess\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

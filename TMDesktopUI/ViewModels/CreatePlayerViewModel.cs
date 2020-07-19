@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TMDesktopUI.EventModels;
-using TMDesktopUI.Library.Helpers;
+using TMDesktopUI.Library.Helpers.SqlHelpers;
 using TMDesktopUI.Library.Models;
 using TMLibrary.DataAccess;
 using TMLibrary.Models;
@@ -23,13 +23,13 @@ namespace TMDesktopUI.ViewModels
 
 		private ModelsQueries _query;
 		private ModelsSaver _saver;
-		private ModelsLoader _loader;
+		//private ModelsLoader _loader;
 		private IEventAggregator _events;
 		public CreatePlayerViewModel(IEventAggregator events)
 		{
 			_query = new ModelsQueries();
 			_saver = new ModelsSaver();
-			_loader = new ModelsLoader();
+			//_loader = new ModelsLoader();
 			_events = events;
 		}
 

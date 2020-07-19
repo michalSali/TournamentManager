@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMDesktopUI.EventModels;
-using TMDesktopUI.Library.Helpers;
+using TMDesktopUI.Library.Helpers.SqlHelpers;
 using TMDesktopUI.Library.Models;
 
 namespace TMDesktopUI.ViewModels

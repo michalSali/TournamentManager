@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMDesktopUI.Library.Models;
-using TMLibrary.DataAccess;
+using TMLibrary.DataAccess.SqlAccess;
 
-namespace TMDesktopUI.Library.Helpers
+namespace TMDesktopUI.Library.Helpers.SqlHelpers
 {
     public class ModelsQueries
     {
