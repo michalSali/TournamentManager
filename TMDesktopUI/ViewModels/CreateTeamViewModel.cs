@@ -247,7 +247,7 @@ namespace TMDesktopUI.ViewModels
             }
 
             // testing
-            PlayerDisplayModel newTeam = new PlayerDisplayModel();
+            TeamDisplayModel newTeam = new TeamDisplayModel();
             newTeam.TeamName = TeamName;
             newTeam.CoachName = string.IsNullOrWhiteSpace(CoachName) ? "Unknown" : CoachName;
             newTeam.Players = selectedPlayers;

@@ -9,8 +9,8 @@ namespace TMDesktopUI.EventModels
 {
     public class TeamCreatedEventModel
     {
-        public PlayerDisplayModel Team;
-        public TeamCreatedEventModel(PlayerDisplayModel team)
+        public TeamDisplayModel Team;
+        public TeamCreatedEventModel(TeamDisplayModel team)
         {
             Team = team;
         }

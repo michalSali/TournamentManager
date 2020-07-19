@@ -95,9 +95,9 @@ namespace TMDesktopUI.Library.Helpers
             return result;
         }
 
-        public List<PlayerDisplayModel> GetTournamentTeams(int tournamentId)
+        public List<TeamDisplayModel> GetTournamentTeams(int tournamentId)
         {
-            List<PlayerDisplayModel> result = new List<PlayerDisplayModel>();
+            List<TeamDisplayModel> result = new List<TeamDisplayModel>();
 
             var tournamentEntryModels = tnd.GetTournamentEntries(tournamentId);
             
@@ -109,11 +109,11 @@ namespace TMDesktopUI.Library.Helpers
             return result;
         }
 
-        public PlayerDisplayModel GetTeam(int teamId)
+        public TeamDisplayModel GetTeam(int teamId)
         {
             var teamModel = tmd.GetTeam(teamId);
             List<TeamMemberModel> teamMemberModels = tmd.GetTeamMembers(teamId);
-            PlayerDisplayModel result = new PlayerDisplayModel(teamModel);
+            TeamDisplayModel result = new TeamDisplayModel(teamModel);
            
             foreach (var memberModel in teamMemberModels)
             {
@@ -123,7 +123,7 @@ namespace TMDesktopUI.Library.Helpers
             return result;
         }
 
-        public PlayerDisplayModel GetPlayer(int playerId, PlayerDisplayModel team)
+        public PlayerDisplayModel GetPlayer(int playerId, TeamDisplayModel team)
         {
             var playerModel = pd.GetPlayer(playerId);
             PlayerDisplayModel newDisplayModel = new PlayerDisplayModel(playerModel);
@@ -155,9 +155,9 @@ namespace TMDesktopUI.Library.Helpers
             return result;
         }
 
-        public List<PlayerDisplayModel> GetAllTeams()
+        public List<TeamDisplayModel> GetAllTeams()
         {
-            List<PlayerDisplayModel> result = new List<PlayerDisplayModel>();           
+            List<TeamDisplayModel> result = new List<TeamDisplayModel>();           
             List<TeamMemberModel> teamMemberModels = tmd.GetAllTeamMembers();
            
             var groupedPlayers = teamMemberModels.GroupBy(
@@ -168,7 +168,7 @@ namespace TMDesktopUI.Library.Helpers
             foreach (var group in groupedPlayers)
             {
                 var teamModel = tmd.GetTeam(group.TeamId);
-                PlayerDisplayModel newTeam = new PlayerDisplayModel(teamModel);
+                TeamDisplayModel newTeam = new TeamDisplayModel(teamModel);
                 newTeam.Id = group.TeamId;
                 foreach (var playerId in group.PlayerIds)
                 {
@@ -181,10 +181,10 @@ namespace TMDesktopUI.Library.Helpers
             return result;                        
         }
 
-        public List<PlayerDisplayModel> GetTeamsByName(string teamName)
+        public List<TeamDisplayModel> GetTeamsByName(string teamName)
         {
             var teams = tmd.GetTeamsByName(teamName);
-            List<PlayerDisplayModel> result = new List<PlayerDisplayModel>();
+            List<TeamDisplayModel> result = new List<TeamDisplayModel>();
 
             foreach (var team in teams)
             {

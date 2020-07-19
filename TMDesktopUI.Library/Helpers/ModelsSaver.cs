@@ -93,7 +93,7 @@ namespace TMDesktopUI.Library.Helpers
 
         // saving players is independent to saving teams (players have to be saved to database first,
         // as we need to know the player's id to create "TeamMember" connection with a team
-        public void SaveTeam(PlayerDisplayModel team)
+        public void SaveTeam(TeamDisplayModel team)
         {           
             team.Id = tmd.CreateTeamReturnId(new TeamModel(team.TeamName, team.CoachName));
 

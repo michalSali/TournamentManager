@@ -48,8 +48,8 @@ namespace TMDesktopUI.Library.Models
         }
 
         public List<MapScoreDisplayModel> Maps { get; set; } = new List<MapScoreDisplayModel>();
-        public PlayerDisplayModel TeamOne { get; set; }
-        public PlayerDisplayModel TeamTwo { get; set; }
+        public TeamDisplayModel TeamOne { get; set; }
+        public TeamDisplayModel TeamTwo { get; set; }
         public TournamentDisplayModel Tournament { get; set; } // CYCLIC DEPENDENCY ???
         
         public MatchDisplayModel(MatchModel model)
