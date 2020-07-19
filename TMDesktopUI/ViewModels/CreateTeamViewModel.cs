@@ -14,12 +14,7 @@ namespace TMDesktopUI.ViewModels
 {
     public class CreateTeamViewModel : Screen
     {
-        //private TournamentDisplayModel _tournamentDisplayModel;
-
-        // if we want to keep updating the teams we have created, and
-        // then have the option to discard the changes / save the teams etc.
-        private List<PlayerDisplayModel> _createdTeams;
-
+        //private TournamentDisplayModel _tournamentDisplayModel;       
 
         private string _teamName;
         private string _coachName;

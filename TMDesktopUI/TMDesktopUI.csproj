@@ -73,6 +73,8 @@
     <Compile Include="EventModels\CreatePlayerEvent.cs" />
     <Compile Include="EventModels\CreateTeamEvent.cs" />
     <Compile Include="EventModels\CreateTournamentEvent.cs" />
+    <Compile Include="EventModels\DisplayMapEventModel.cs" />
+    <Compile Include="EventModels\DisplayMatchEventModel.cs" />
     <Compile Include="EventModels\DisplayPlayerEventModel.cs" />
     <Compile Include="EventModels\DisplayTeamEventModel.cs" />
     <Compile Include="EventModels\DisplayTournamentEventModel.cs" />

@@ -11,7 +11,7 @@ using TMDesktopUI.EventModels;
 
 namespace TMDesktopUI.ViewModels
 {
-    public class DisplayTournamentViewModel : Conductor<object>
+    public class DisplayTournamentViewModel : Screen
     {
         
         private TournamentDisplayModel _tournament;
@@ -81,8 +81,8 @@ namespace TMDesktopUI.ViewModels
         }
         */
 
-        private PlayerDisplayModel _selectedTeam;
-        public PlayerDisplayModel SelectedTeam
+        private TeamDisplayModel _selectedTeam;
+        public TeamDisplayModel SelectedTeam
         {
             get { return _selectedTeam; }
             set

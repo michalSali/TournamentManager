@@ -7,14 +7,14 @@ using TMDesktopUI.Library.Models;
 
 namespace TMDesktopUI.EventModels
 {
-    public class DisplayPlayerEventModel
+    public class DisplayMatchEventModel
     {
         public TournamentDisplayModel Tournament;
-        public PlayerDisplayModel Player;
-        public DisplayPlayerEventModel(TournamentDisplayModel tournament, PlayerDisplayModel player)
+        public MatchDisplayModel Match;
+        public DisplayMatchEventModel(TournamentDisplayModel tournament, MatchDisplayModel match)
         {
             Tournament = tournament;
-            Player = player;
+            Match = match;
         }
     }
 }

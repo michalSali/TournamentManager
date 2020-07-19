@@ -10,8 +10,8 @@ namespace TMDesktopUI.EventModels
     public class DisplayTeamEventModel
     {
         public TournamentDisplayModel Tournament;
-        public PlayerDisplayModel Team;
-        public DisplayTeamEventModel(TournamentDisplayModel tournament, PlayerDisplayModel team)
+        public TeamDisplayModel Team;
+        public DisplayTeamEventModel(TournamentDisplayModel tournament, TeamDisplayModel team)
         {
             Tournament = tournament;
             Team = team;

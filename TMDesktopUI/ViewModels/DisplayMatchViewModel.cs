@@ -61,8 +61,8 @@ namespace TMDesktopUI.ViewModels
 
 
 
-        private PlayerDisplayModel _selectedMap;
-        public PlayerDisplayModel SelectedMap
+        private MapScoreDisplayModel _selectedMap;
+        public MapScoreDisplayModel SelectedMap
         {
             get { return _selectedMap; }
             set
@@ -75,7 +75,7 @@ namespace TMDesktopUI.ViewModels
 
         public void ReturnToTournamentViewer()
         {
-            _events.PublishOnCurrentThread(new ReturnToMatchViewerEvent());
+            _events.PublishOnCurrentThread(new ReturnToTournamentViewerEvent());
         }
     }
 }

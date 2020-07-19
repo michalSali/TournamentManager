@@ -18,7 +18,7 @@ namespace TMDesktopUI.ViewModels
         IHandle<ReturnToTournamentCreationEvent>, IHandle<CreateMapEventModel>, IHandle<MapCreatedEventModel>,
         IHandle<ReturnToMatchCreationEvent>, IHandle<TournamentCreatedEventModel>, IHandle<DisplayTeamEventModel>,
         IHandle<DisplayPlayerEventModel>, IHandle<ReturnToMatchViewerEvent>, IHandle<ReturnToTournamentViewerEvent>,
-        IHandle<ReturnToTeamViewerEvent>
+        IHandle<ReturnToTeamViewerEvent>, IHandle<DisplayMatchEventModel>, IHandle<DisplayMapEventModel>
     {
 
         private CreateTournamentViewModel _createTournamentVM;
@@ -160,6 +160,20 @@ namespace TMDesktopUI.ViewModels
         public void Handle(ReturnToTeamViewerEvent message)
         {
             ActivateItem(_displayTeamVM);
+        }
+
+        public void Handle(DisplayMatchEventModel message)
+        {
+            _displayMatchVM = _container.GetInstance<DisplayMatchViewModel>();
+            _displayMatchVM.InitializeValues(message.Tournament, message.Match);
+            ActivateItem(_displayMatchVM);
+        }
+
+        public void Handle(DisplayMapEventModel message)
+        {
+            var displayMapVM = _container.GetInstance<DisplayMapViewModel>();
+            displayMapVM.InitializeValues(message.Tournament, message.Map);
+            ActivateItem(displayMapVM);
         }
     }
 }

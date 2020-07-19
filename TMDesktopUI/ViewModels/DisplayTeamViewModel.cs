@@ -22,8 +22,8 @@ namespace TMDesktopUI.ViewModels
             }
         }
 
-        private PlayerDisplayModel _team;
-        public PlayerDisplayModel Team
+        private TeamDisplayModel _team;
+        public TeamDisplayModel Team
         {
             get { return _team; }
             set
@@ -41,7 +41,7 @@ namespace TMDesktopUI.ViewModels
             _events = events;
         }
 
-        public void InitializeValues(TournamentDisplayModel tournament, PlayerDisplayModel team)
+        public void InitializeValues(TournamentDisplayModel tournament, TeamDisplayModel team)
         {
             Tournament = tournament;
             Team = team;           
