@@ -39,6 +39,7 @@ namespace TMDesktopUI.Library.Helpers
                 tournament.Prizepool));
 
             // teams and players themselves are already independently saved
+            // prepare a List of Models, then "fire without response"
             foreach (var team in tournament.Teams)
             {
                 tnd.CreateTournamentEntry(new TournamentEntryModel(tournamentId, team.Id));
@@ -99,6 +100,18 @@ namespace TMDesktopUI.Library.Helpers
                 tmd.CreateTeamMember(new TeamMemberModel(team.Id, player.Id));                
             }               
         }
+
+        /*
+        public void SaveTeamAsync(TeamDisplayModel team)
+        {
+            team.Id = await tmd.CreateTeamReturnIdAsync(new TeamModel(team.TeamName, team.CoachName));
+
+            foreach (var player in team.Players)
+            {
+                tmd.CreateTeamMember(new TeamMemberModel(team.Id, player.Id));
+            }
+        }
+        */
 
         public void SavePlayer(PlayerDisplayModel player)
         {            

@@ -94,7 +94,7 @@ namespace TMDesktopUI.ViewModels
             {
                 _teamName = value;
                 NotifyOfPropertyChange(() => TeamName);
-                NotifyOfPropertyChange(() => CanCreateTeam);
+                //NotifyOfPropertyChange(() => CanCreateTeam);
             }
         }
 

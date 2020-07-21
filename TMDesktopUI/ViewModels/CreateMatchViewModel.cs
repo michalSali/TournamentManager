@@ -32,6 +32,7 @@ namespace TMDesktopUI.ViewModels
 
         private BindingList<int> _formats = new BindingList<int> { 1, 3, 5, 7 };
         private BindingList<string> _mapNames;
+        private MapScoreDisplayModel _selectedMap;
         private BindingList<MapScoreDisplayModel> _maps = new BindingList<MapScoreDisplayModel>();
 
 
@@ -136,6 +137,17 @@ namespace TMDesktopUI.ViewModels
             {
                 _maps = value;
                 NotifyOfPropertyChange(() => Maps);
+            }
+        }
+
+        public MapScoreDisplayModel SelectedMap
+        {
+            get { return _selectedMap; }
+            set
+            {
+                _selectedMap = value;
+                NotifyOfPropertyChange(() => SelectedMap);
+                NotifyOfPropertyChange(() => CanRemoveMap);
             }
         }
 

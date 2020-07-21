@@ -83,6 +83,11 @@
             Selected teams:
         </TextBlock>
 
+        <TextBlock Grid.Row="7" Grid.Column="4" Margin="0 0 0 0"
+                   HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            Matches:
+        </TextBlock>
+
 
         <!-- Row 8: List all teams -->
         <ComboBox x:Name="DisplayedTeams" Grid.Row="8" Grid.Column="1"
@@ -110,8 +115,18 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
         
-        
+        <ListBox x:Name="Matches" Grid.Row="8" Grid.Column="4"
+                 Margin="10 20 10 10" SelectedItem="{Binding SelectedMatch}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MatchInfo}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
         <!-- Row 11: CreateTournament button -->
         <Button x:Name="CreateTournament" Grid.Row="9" Grid.Column="2"
                 HorizontalAlignment="Center">
