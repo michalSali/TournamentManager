@@ -52,37 +52,37 @@
 
 
         <!-- Row 3: -->
-        <DataGrid ItemsSource="{Binding Standings}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+        <DataGrid ItemsSource="{Binding StandingsViewSource.View}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                   CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
+                  AutoGenerateColumns="False"  SelectedItem="{Binding SelectedStanding}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Place" IsReadOnly="True"
                                     Binding="{Binding Placement}"/>
 
-                <DataGridTemplateColumn Header="Team">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Team.TeamName}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Path=DisplayedTeams}" SelectedItem="{Binding Team}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="l{Binding Path=TeamName}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-                
+                <DataGridTextColumn Header="Team" IsReadOnly="True"
+                                    Binding="{Binding Team.TeamName}" />
+
                 <DataGridTextColumn Header="PrizeWon" IsReadOnly="True"
-                                    Binding="{Binding Path=PrizeWon}"/>
+                                    Binding="{Binding PrizeWon}"/>
                 
             </DataGrid.Columns>
         </DataGrid>
+
+        <ComboBox ItemsSource="{Binding DisplayedTeams}" Grid.Row="3" Grid.Column="3"
+                  SelectedItem="{Binding SelectedTeam}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding TeamName}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button x:Name="AssignTeam" Grid.Row="3" Grid.Column="4"
+                Content="Assign team" />
+
+        <Button x:Name="RemoveTeamFromStanding" Grid.Row="4" Grid.Column="4"
+                Content="Remove team from standing" />
+
 
         <Button x:Name="CreateStandings" Grid.Row="2" Grid.Column="3" Margin="0 15 0 0"
                 HorizontalAlignment="Center">
@@ -100,41 +100,51 @@
         </Button>
 
 
-
-        <DataGrid ItemsSource="{Binding ViewSource.View}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"
+        <DataGrid ItemsSource = "{Binding Standings}" Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="2"
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   AutoGenerateColumns="False" >
+            <DataGrid.Resources>
+                <DataTemplate x:Key="DisplayName">
+                    <TextBlock Text = "{Binding Team.TeamName}" />
+                </DataTemplate >
+                <DataTemplate x:Key="DisplayTeams">
+                    <ComboBox SelectedItem = "{Binding Team}" ItemsSource="{Binding TeamTwo}" />
+                </DataTemplate>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Place" IsReadOnly="True"
+                <DataGridTextColumn Header = "Place" IsReadOnly="True"
                                     Binding="{Binding Placement}"/>
 
-                <DataGridTemplateColumn Header="Team">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
+                <DataGridTemplateColumn Header = "Team" >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate >
                             <TextBlock Text="{Binding Team.TeamName}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Path=TeamsSource.View}" SelectedItem="{Binding Team}">
+                            <ComboBox ItemsSource = "{Binding Teams}" SelectedItem="{Binding Team}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="l{Binding Path=TeamName}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-                
+                                        <TextBlock Text = "{Binding TeamName}" />
+                                    </DataTemplate >
+                                </ComboBox.ItemTemplate >
+                            </ComboBox >
+                        </DataTemplate >
+                    </DataGridTemplateColumn.CellEditingTemplate >
+                </DataGridTemplateColumn >
 
-                <DataGridTextColumn Header="PrizeWon" IsReadOnly="True"
+                <DataGridTemplateColumn Header="Attempt" 
+                                        CellTemplate="{StaticResource DisplayName}"
+                                        CellEditingTemplate="{StaticResource DisplayTeams}">
+                </DataGridTemplateColumn>
+
+
+                <DataGridTextColumn Header = "PrizeWon" IsReadOnly="True"
                                     Binding="{Binding Path=PrizeWon}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-
-
 
     </Grid>
 </UserControl>
