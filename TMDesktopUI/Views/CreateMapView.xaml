@@ -43,22 +43,20 @@
         </Grid.RowDefinitions>
 
         <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="10 0 0 20"
                    HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
             Map Creation Form
         </TextBlock>
 
         
-        <TextBlock Grid.Row="2" Grid.Column="2" Margin="0 0 0 10">
+        <TextBlock Grid.Row="2" Grid.Column="2" Margin="10 0 0 10">
             Choose map:
         </TextBlock>
 
         <!-- Row 3: Date row -->
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10 0 0 10">
             Map Name:
         </TextBlock>
-        <TextBox x:Name="MapName" Grid.Row="9" Grid.Column="4" 
-                 MinWidth="150" Margin="0 0 0 10" />
 
         <ComboBox ItemsSource="{Binding AvailableMaps}" Grid.Row="3" Grid.Column="2"
                   SelectedItem="{Binding MapName}" />
@@ -68,35 +66,35 @@
         <TextBlock Grid.Row="4" Grid.Column="2" Margin="0 0 0 10" Text="Map result" />
 
         <!-- Row 5: -->
-        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10" Text="{Binding TeamOne.TeamName}" />
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 0 0 10" Text="{Binding TeamOne.TeamName}" />
 
         <TextBox x:Name="TeamOneScore" Grid.Row="5" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
 
-        <Button x:Name="RandomizeStats" Grid.Row="5" Grid.Column="3">
+        <Button x:Name="RandomizeStats" Grid.Row="5" Grid.Column="3" Margin="20 5 5 5">
             Randomize map stats
         </Button>
 
 
         <!-- Row 6: -->
-        <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10" Text="{Binding TeamTwo.TeamName}" />
+        <TextBlock Grid.Row="6" Grid.Column="1" Margin="10 0 0 10" Text="{Binding TeamTwo.TeamName}" />
 
         <TextBox x:Name="TeamTwoScore" Grid.Row="6" Grid.Column="2" 
                  MinWidth="150" Margin="0 0 0 10" />
         
 
         <!-- Row 8: -->
-        <TextBlock Grid.Row="8" Grid.Column="1" Margin="0 20 0 10"
+        <TextBlock Grid.Row="8" Grid.Column="1" Margin="10 20 10 10"
                    Text="{Binding TeamOne.TeamName, StringFormat='{}{0} player stats:'}" />
 
 
-        <TextBlock Grid.Row="8" Grid.Column="3" Margin="0 20 0 10"
+        <TextBlock Grid.Row="8" Grid.Column="3" Margin="20 20 0 10"
                    Text="{Binding TeamTwo.TeamName, StringFormat='{}{0} player stats:'}" />
         
 
         <!-- Row 9: -->
         <DataGrid ItemsSource="{Binding TeamOneStatsViewSource.View}" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" Margin="10 0 10 10"
                   AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
@@ -108,7 +106,7 @@
         </DataGrid>
 
         <DataGrid ItemsSource="{Binding TeamTwoStatsViewSource.View}" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" Margin="20 0 10 10"
                   AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
@@ -121,11 +119,11 @@
         
         
         <!-- RIGHT SIDE: -->
-        <Button x:Name="CreateMap" Grid.Row="2" Grid.Column="3" >
+        <Button x:Name="CreateMap" Grid.Row="2" Grid.Column="3" Margin="20 5 5 5">
             Create map
         </Button>
 
-        <Button x:Name="ReturnToMatchCreation" Grid.Row="3" Grid.Column="3" >
+        <Button x:Name="ReturnToMatchCreation" Grid.Row="3" Grid.Column="3" Margin="20 5 5 5" >
             Return to match creation
         </Button>
 

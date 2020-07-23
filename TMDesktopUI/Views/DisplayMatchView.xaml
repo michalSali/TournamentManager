@@ -45,40 +45,40 @@
         <!-- Row 2: -->
 
         <!-- Row 3: Tournament name row -->
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10 0 0 10">
             Tournament:
         </TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Tournament.TournamentName}"
-                 MinWidth="150" Margin="0 0 0 10" />
+                 MinWidth="150" Margin="0 0 0 10" HorizontalAlignment="Center" />
 
 
         <!-- Row 4: Match date row -->
-        <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="10 0 0 10">
             Match Date:
         </TextBlock>
 
         <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Match.DateFormatted}"
-                 MinWidth="150" Margin="0 0 0 10" />
+                 MinWidth="150" Margin="0 0 0 10" HorizontalAlignment="Center"  />
 
         <!-- Row 5: Start date row -->
 
-        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 5 0 0">
             Final Score:
         </TextBlock>
         
 
         <!-- Row 6: Tournament prizepool row -->
-        <TextBlock Text="{Binding Match.ResultInfo}" Grid.Row="6" Grid.Column="1" />
+        <TextBlock Text="{Binding Match.ResultInfo}" Grid.Row="6" Grid.Column="1" Margin="10 0 0 10"/>
 
         <!-- Row 7: -->
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="10 20 0 10">
             Maps:
         </TextBlock>
                 
 
         <!-- Row 8: List all maps -->
-        <ListBox ItemsSource="{Binding Match.Maps}" Grid.Row="8" Grid.Column="1"
-                 Grid.RowSpan="4" Margin="10 20 10 10" SelectedItem="{Binding SelectedMap}">
+        <ListBox ItemsSource="{Binding Match.Maps}" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.RowSpan="4" Margin="10 0 10 10" SelectedItem="{Binding SelectedMap}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" >
@@ -89,7 +89,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10"
+        <StackPanel Grid.Row="8" Grid.Column="3" Orientation="Vertical" Margin="10 0 10 10"
                     Grid.RowSpan="3">
             <Button x:Name="ViewMap" Content="View selected map" Margin="0 0 0 15" />
             <Button x:Name="ReturnToTournamentViewer" Content="Return to Tournament Viewer"

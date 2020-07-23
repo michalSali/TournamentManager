@@ -43,27 +43,27 @@
         <!-- Row 2: Invalid input error row -->
 
         <!-- Row 3: Team name row -->
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10 0 0 10">
             Team Name:
         </TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="2" MinWidth="150" 
+        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" 
                    Margin="0 0 0 10" Text="{Binding Team.TeamName}" />
 
         <!-- Row 4: Team name row -->
-        <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="10 0 0 10">
             Coach Name:
         </TextBlock>
-        <TextBlock Grid.Row="4" Grid.Column="2" MinWidth="150" 
+        <TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" 
                    Margin="0 0 0 10" Text="{Binding Team.CoachName}" />
                
         <!-- Row 5: -->
-        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 20 0 10">
             Team Players:
         </TextBlock>
         
         <!-- Row 6: List all players -->
-        <ListBox ItemsSource="{Binding Team.Players}" Grid.Row="6" Grid.Column="1"
-                 Grid.RowSpan="4" Margin="10 20 10 10" SelectedItem="{Binding SelectedPlayer}">
+        <ListBox ItemsSource="{Binding Team.Players}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+                 Grid.RowSpan="4" Margin="10 0 10 10" SelectedItem="{Binding SelectedPlayer}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding FullName}" />
@@ -71,22 +71,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10" >
+        <StackPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Margin="10 0 10 10" >
             <Button x:Name="ViewPlayer" Content="View selected player" Margin="0 0 0 15" />
             <Button x:Name="ReturnToTournamentViewer" Content="Return to Tournament Viewer"
                     Margin="0 25 0 0" />
         </StackPanel>
-        
-        <!-- RIGHT COLUMN -->
-        
-        <!-- Row 2: -->
-        <TextBlock Grid.Row="2" Grid.Column="3" Margin="0 0 0 10">
-            Team Stats:
-        </TextBlock>
-
-        <TextBlock Grid.Row="3" Grid.Column="3" Margin="0 0 0 10">
-            Tournament Standing:
-        </TextBlock>
-
+                
     </Grid>
 </UserControl>

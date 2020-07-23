@@ -42,56 +42,45 @@
         <!-- Invalid input error row -->
 
         <!-- First name row -->
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10 0 0 10">
             First Name:
         </TextBlock>
-        <TextBlock Text="{Binding Player.FirstName}" Grid.Row="3" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.FirstName}" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Last name row -->
-        <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="10 0 0 10">
             Last Name:
         </TextBlock>
-        <TextBlock Text="{Binding Player.LastName}" Grid.Row="4" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.LastName}" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Nickname row -->
-        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 0 0 10">
             Nickname:
         </TextBlock>
-        <TextBlock Text="{Binding Player.Nickname}" Grid.Row="5" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.Nickname}" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Role in the team row -->
-        <TextBlock Grid.Row="6" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="6" Grid.Column="1" Margin="10 0 0 10">
             Role:
         </TextBlock>
-        <TextBlock Text="{Binding Player.Role}" Grid.Row="6" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.Role}" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Age row -->
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10">
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="10 0 0 10">
             Age:
         </TextBlock>
-        <TextBlock Text="{Binding Player.Age}" Grid.Row="7" Grid.Column="2" 
+        <TextBlock Text="{Binding Player.Age}" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center" 
                  MinWidth="150" Margin="0 0 0 10" />
 
         
-        <Button x:Name="ReturnToTeamViewer" Grid.Row="8" Grid.Column="2" Margin="10"
+        <Button x:Name="ReturnToTeamViewer" Grid.Row="8" Grid.Column="1" Margin="10"
                 HorizontalAlignment="Center">
             Return to Team Viewer
         </Button>
-
-        <!-- RIGHT COLUMN -->
-
-        <!-- Row 2: -->
-        <TextBlock Grid.Row="2" Grid.Column="3" Margin="0 0 0 10">
-            Player Stats:
-        </TextBlock>
-
-        <TextBlock Grid.Row="3" Grid.Column="3" Margin="0 0 0 10">
-            Matches played:
-        </TextBlock>
-
+        
     </Grid>
 </UserControl>

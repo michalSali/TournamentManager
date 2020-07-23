@@ -34,13 +34,13 @@
         </Grid.RowDefinitions>
 
         <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="10 0 0 20"
                    HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
             Tournament Stats
         </TextBlock>
 
         <!-- Row 2: -->
-        <TextBlock Grid.Row="2" Grid.Column="1">
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="10 0 0 0">
             Tournament Name:
         </TextBlock>
         
@@ -51,7 +51,7 @@
                 Margin="25 0 0 0" Content="Return to Main Screen" />
 
         <!-- Row 3: -->
-        <TextBlock Grid.Row="3" Grid.Column="1">
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10 0 0 0">
             Teams competed:
         </TextBlock>
 
@@ -60,7 +60,7 @@
 
         
         <!-- Row 4: -->
-        <TextBlock Grid.Row="4" Grid.Column="1">
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="10 0 0 0">
             Players competed:
         </TextBlock>
 
@@ -69,7 +69,7 @@
         
         
         <!-- Row 5: -->
-        <TextBlock Grid.Row="5" Grid.Column="1">
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 0 0 0">
             Overall matches played:
         </TextBlock>
 
@@ -77,7 +77,7 @@
                    Text="{Binding Tournament.Matches.Count}" />
 
         <!-- Row 6: -->
-        <TextBlock Grid.Row="6" Grid.Column="1">
+        <TextBlock Grid.Row="6" Grid.Column="1" Margin="10 0 0 0">
             Overall maps played:
         </TextBlock>
 
@@ -86,7 +86,7 @@
 
         <!-- Row 7: -->
 
-        <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4"
+        <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" Margin="10 0 0 0"
                     Orientation="Horizontal">
             <TextBlock Text="Most played map:  " />
             <TextBlock Text="{Binding MostPlayedMap}" />
@@ -96,14 +96,14 @@
         </StackPanel>
 
         <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4"
-                    Orientation="Horizontal"  Margin="0 20 0 0">
+                    Orientation="Horizontal"  Margin="10 20 0 0">
             <TextBlock Text="Most kills got the player:  " />
             <TextBlock Text="{Binding PlayerMostKillsTotal.FullName}" />
             <TextBlock Text=" - in total " />
             <TextBlock Text="{Binding MostKillsTotal}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4"
+        <StackPanel Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" Margin="10 0 0 0"
                     Orientation="Horizontal" >
             <TextBlock Text="The best kills/map ratio achieved the player:  " />
             <TextBlock Text="{Binding PlayerMostKillsPerMap.FullName}" />
@@ -112,8 +112,8 @@
             <TextBlock Text=" kills / map" />
         </StackPanel>
 
-        
-        <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4"
+
+        <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" Margin="10 0 0 0"
                     Orientation="Horizontal" >
             <TextBlock Text="The worst kills/map ratio achieved the player:  " />
             <TextBlock Text="{Binding PlayerLeastKillsPerMap.FullName}" />

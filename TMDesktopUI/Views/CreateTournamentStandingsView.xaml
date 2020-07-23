@@ -43,7 +43,7 @@
         </TextBlock>
 
         <!-- Row 2: -->
-        <TextBlock Grid.Row="2" Grid.Column="1">
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="10 0 0 0">
             Tournament Prizepool:
         </TextBlock>
 
@@ -53,7 +53,7 @@
 
         <!-- Row 3: -->
         <DataGrid ItemsSource="{Binding StandingsViewSource.View}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" Grid.RowSpan="3" Margin="10 0 10 0"
                   AutoGenerateColumns="False"  SelectedItem="{Binding SelectedStanding}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Place" IsReadOnly="True"
@@ -77,24 +77,24 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Button x:Name="AssignTeam" Grid.Row="3" Grid.Column="4"
+        <Button x:Name="AssignTeam" Grid.Row="3" Grid.Column="4" Margin="5"
                 Content="Assign team" />
 
-        <Button x:Name="RemoveTeamFromStanding" Grid.Row="4" Grid.Column="4"
+        <Button x:Name="RemoveTeamFromStanding" Grid.Row="4" Grid.Column="4" Margin="5"
                 Content="Remove team from standing" />
 
 
-        <Button x:Name="CreateStandings" Grid.Row="2" Grid.Column="3" Margin="0 15 0 0"
+        <Button x:Name="CreateStandings" Grid.Row="2" Grid.Column="3" Margin="5"
                 HorizontalAlignment="Center">
             Create Standings
         </Button>
 
-        <Button x:Name="ReturnToTournamentCreation" Grid.Row="2" Grid.Column="4" Margin="0 15 0 0"
+        <Button x:Name="ReturnToTournamentCreation" Grid.Row="2" Grid.Column="4" Margin="5"
                 HorizontalAlignment="Center">
             Return to Tournament Creation
         </Button>
 
-        <Button x:Name="AutoFill" Grid.Row="2" Grid.Column="5" Margin="0 15 0 0"
+        <Button x:Name="AutoFill" Grid.Row="2" Grid.Column="5" Margin="5"
                 HorizontalAlignment="Center">
             Auto-Fill
         </Button>

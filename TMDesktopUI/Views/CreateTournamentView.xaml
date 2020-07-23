@@ -142,16 +142,16 @@
 
         <!-- Row 3: -->        
         <Button x:Name="CreateNewMatch" Grid.Row="5" Grid.Column="4"
-                Content="Create new match" />
+                Content="Create new match" Margin="5" />
 
         <Button x:Name="RemoveMatch" Grid.Row="6" Grid.Column="4"
-                Content="Remove selected match" Margin="0 0 0 0" />
+                Content="Remove selected match" Margin="5" />
 
         <Button x:Name="CreateStandings" Grid.Row="5" Grid.Column="3"
-                Content="Create tournament standings" Margin="0 0 0 0" />
+                Content="Create tournament standings" Margin="10 5 5 5" />
 
         <Button x:Name="CreateMatchSpecifications" Grid.Row="6" Grid.Column="3"
-                Content="Create Match Specifications" Margin="0 0 0 0" />
+                Content="Create Match Specifications" Margin="10 5 5 5" />
 
     </Grid>
 </UserControl>

@@ -40,29 +40,29 @@
         </TextBlock>
 
         <!-- Row 2: -->
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Map.MapDescription}" />
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Map.MapDescription}" Margin="10 0 0 0" />
 
         <Button x:Name="ReturnToMatchViewer" Grid.Row="2" Grid.Column="2" Content="Return to Match Viewer" />
 
         <!-- Row 3: -->
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="Final Score:" />
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Final Score:" Margin="10 5 0 0" />
         
         <!-- Row 4: -->
-        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Map.ScoreDescription}" />
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Map.ScoreDescription}" Margin="10 0 0 0" />
 
 
         <!-- Row 5: -->   
-        <TextBlock Grid.Row="5" Grid.Column="1" Margin="0 20 0 10"
+        <TextBlock Grid.Row="5" Grid.Column="1" Margin="10 20 0 10"
                    Text="{Binding Map.Match.TeamOne.TeamName, StringFormat='{}{0} player stats:'}" />
 
 
-        <TextBlock Grid.Row="5" Grid.Column="3" Margin="0 20 0 10"
+        <TextBlock Grid.Row="5" Grid.Column="3" Margin="20 20 0 10"
                    Text="{Binding Map.Match.TeamTwo.TeamName, StringFormat='{}{0} player stats:'}" />
         
         <!-- Row 6: -->
 
         <DataGrid ItemsSource="{Binding Map.TeamOneStats}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" Margin="10 0 0 0"
                   AutoGenerateColumns="False" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Player's Nickname" Binding="{Binding Path=Player.Nickname}"/>
@@ -73,7 +73,7 @@
         </DataGrid>
 
         <DataGrid ItemsSource="{Binding Map.TeamTwoStats}" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" Margin="20 0 0 0"
                   AutoGenerateColumns="False" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"

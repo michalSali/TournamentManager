@@ -84,7 +84,7 @@
         </StackPanel>
 
         <!-- Row 7: -->
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10"
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 10 0 10"
                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Participating teams:
         </TextBlock>
@@ -93,7 +93,7 @@
         <!-- Row 8: List all teams -->
         <ListBox ItemsSource="{Binding Tournament.Teams}" Grid.Row="8" Grid.Column="1"
                  Grid.RowSpan="3"
-                 Margin="10 20 10 10" SelectedItem="{Binding SelectedTeam}">
+                 Margin="10 0 10 10" SelectedItem="{Binding SelectedTeam}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding TeamName}" />
@@ -102,7 +102,7 @@
         </ListBox>
 
         <StackPanel Grid.Row="8" Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical" >
-            <Button x:Name="ViewTeam"  Content="View selected team" Margin="0 20 0 10"/>
+            <Button x:Name="ViewTeam"  Content="View selected team" Margin="0 0 0 10"/>
             <Button x:Name="ViewMatch" Content="View selected match"/>
             <Button x:Name="ReturnToMainScreen" Content="Return to Main Screen" Margin="0 25 0 0" />
         </StackPanel>
@@ -111,12 +111,12 @@
         <!-- RIGHT COLUMN -->
 
         <!-- Row 1: -->
-        <TextBlock Grid.Row="3" Grid.Column="5" Margin="0 0 0 10">
+        <TextBlock Grid.Row="3" Grid.Column="5" Margin="10 0 10 10">
             Matches:
         </TextBlock>
 
         <ListBox ItemsSource="{Binding Tournament.Matches}" Grid.Row="4" Grid.Column="5" 
-                 Grid.RowSpan="6" SelectedItem="{Binding SelectedMatch}">
+                 Grid.RowSpan="6" SelectedItem="{Binding SelectedMatch}" Margin="10 0 10 0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding MatchInfo}" />
