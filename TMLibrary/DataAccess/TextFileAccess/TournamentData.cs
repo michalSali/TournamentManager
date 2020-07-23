@@ -12,6 +12,7 @@ namespace TMLibrary.DataAccess.TextFileAccess
     {
         private static readonly string TournamentFileName = "TournamentModels.csv";
         private static readonly string TournamentEntryFileName = "TournamentEntryModels.csv";
+        private static readonly string TournamentStandingFileName = "TournamentStandingModels.csv";
 
         public TournamentData() { }        
 
@@ -74,5 +75,35 @@ namespace TMLibrary.DataAccess.TextFileAccess
 
             tournamentEntries.SaveToTournamentEntryFile(TournamentEntryFileName);            
         }
+
+
+        public List<TournamentStandingModel> GetAllTournamentStandings()
+        {
+            var output = TournamentStandingFileName.FullFilePath().LoadFile().ConvertToTournamentStandingModels();
+            return output;
+        }
+        public List<TournamentStandingModel> GetTournamentStandings(int tournamentId)
+        {
+            var output = GetAllTournamentStandings().Where(x => x.TournamentId == tournamentId).ToList();
+            return output;
+        }
+
+        public void CreateTournamentStanding(TournamentStandingModel tournamentStanding)
+        {
+            var tournamentStandings = GetAllTournamentStandings();
+
+            int newId = 1;
+
+            if (tournamentStandings.Count > 0)
+            {
+                newId = tournamentStandings.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+
+            tournamentStanding.Id = newId;
+            tournamentStandings.Add(tournamentStanding);
+
+            tournamentStandings.SaveToTournamentStandingFile(TournamentStandingFileName);
+        }
+
     }
 }

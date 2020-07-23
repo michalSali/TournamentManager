@@ -142,7 +142,7 @@
         <TextBlock Grid.Row="3" Grid.Column="3" Margin="0 0 0 10" Text="Maps:" />
 
         <!-- Row 11: -->
-        <ListBox ItemsSource="{Binding Maps}" Grid.Row="4" Grid.Column="3">
+        <ListBox ItemsSource="{Binding Maps}" Grid.Row="4" Grid.Column="3" Grid.RowSpan="4">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="0 0.5 0 0" Margin="0 5 0 5">

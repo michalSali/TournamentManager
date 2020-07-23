@@ -19,7 +19,8 @@ namespace TMDesktopUI.ViewModels
         IHandle<ReturnToMatchCreationEvent>, IHandle<TournamentCreatedEventModel>, IHandle<DisplayTeamEventModel>,
         IHandle<DisplayPlayerEventModel>, IHandle<ReturnToMatchViewerEvent>, IHandle<ReturnToTournamentViewerEvent>,
         IHandle<ReturnToTeamViewerEvent>, IHandle<DisplayMatchEventModel>, IHandle<DisplayMapEventModel>,
-        IHandle<CreateTournamentStandingsEventModel>, IHandle<TournamentStandingsCreatedEventModel>
+        IHandle<CreateTournamentStandingsEventModel>, IHandle<TournamentStandingsCreatedEventModel>,
+        IHandle<CreateMatchSpecificationsEventModel>, IHandle<MatchSpecificationsCreatedEventModel>
     {
 
         private CreateTournamentViewModel _createTournamentVM;
@@ -33,21 +34,19 @@ namespace TMDesktopUI.ViewModels
         private DisplayMatchViewModel _displayMatchVM;
 
         private IEventAggregator _events;
-        private SimpleContainer _container;
-
-        public ShellViewModel(IEventAggregator events, SimpleContainer container)
+       
+        public ShellViewModel(IEventAggregator events)
         {
             _events = events;
             _events.Subscribe(this);
-            _container = container;
-
-            _mainScreenVM = _container.GetInstance<MainScreenViewModel>();
+            
+            _mainScreenVM = IoC.Get<MainScreenViewModel>();
             ActivateItem(_mainScreenVM);            
         }
 
         public void Handle(DisplayTournamentEventModel message)
         {
-            _displayTournamentVM = _container.GetInstance<DisplayTournamentViewModel>();
+            _displayTournamentVM = IoC.Get<DisplayTournamentViewModel>();
             _displayTournamentVM.InitializeValues(message.Tournament);
             ActivateItem(_displayTournamentVM);       
         }
@@ -55,7 +54,7 @@ namespace TMDesktopUI.ViewModels
         public void Handle(CreateTournamentEvent message)
         {
             // calling from Main Screen will reset the VM
-            _createTournamentVM = _container.GetInstance<CreateTournamentViewModel>();
+            _createTournamentVM = IoC.Get<CreateTournamentViewModel>();
             ActivateItem(_createTournamentVM);
         }
 
@@ -67,7 +66,7 @@ namespace TMDesktopUI.ViewModels
 
         public void Handle(CreatePlayerEvent message)
         {
-            ActivateItem(_container.GetInstance<CreatePlayerViewModel>());
+            ActivateItem(IoC.Get<CreatePlayerViewModel>());
         }
 
         public void Handle(PlayerCreatedEventModel message)
@@ -78,7 +77,7 @@ namespace TMDesktopUI.ViewModels
         public void Handle(CreateTeamEvent message)
         {
             // calling from Tournament Creation Form will reset the VM
-            _createTeamVM = _container.GetInstance<CreateTeamViewModel>();
+            _createTeamVM = IoC.Get<CreateTeamViewModel>();
             ActivateItem(_createTeamVM);
         }
 
@@ -90,7 +89,7 @@ namespace TMDesktopUI.ViewModels
         public void Handle(CreateMatchEventModel message)
         {          
             // calling from Tournament Creation Form will reset the VM
-            _createMatchVM = _container.GetInstance<CreateMatchViewModel>();
+            _createMatchVM = IoC.Get<CreateMatchViewModel>();
             _createMatchVM.InitializeValues(message.Tournament);
             ActivateItem(_createMatchVM);            
         }
@@ -113,7 +112,7 @@ namespace TMDesktopUI.ViewModels
         public void Handle(CreateMapEventModel message)
         {
             // calling from Tournament Creation Form will reset the VM
-            _createMapVM = _container.GetInstance<CreateMapViewModel>();
+            _createMapVM = IoC.Get<CreateMapViewModel>();
             _createMapVM.InitializeValues(message.Match);
             ActivateItem(_createMapVM);
         }
@@ -135,7 +134,7 @@ namespace TMDesktopUI.ViewModels
 
         public void Handle(DisplayTeamEventModel message)
         {
-            _displayTeamVM = _container.GetInstance<DisplayTeamViewModel>();
+            _displayTeamVM = IoC.Get<DisplayTeamViewModel>();
             _displayTeamVM.InitializeValues(message.Tournament, message.Team);
             ActivateItem(_displayTeamVM);
         }
@@ -143,7 +142,7 @@ namespace TMDesktopUI.ViewModels
         public void Handle(DisplayPlayerEventModel message)
         {
             // no need to save the instance, as we wont go back to it
-            var displayPlayerVM = _container.GetInstance<DisplayPlayerViewModel>();
+            var displayPlayerVM = IoC.Get<DisplayPlayerViewModel>();
             displayPlayerVM.InitializeValues(message.Tournament, message.Player);
             ActivateItem(displayPlayerVM);
         }
@@ -165,14 +164,14 @@ namespace TMDesktopUI.ViewModels
 
         public void Handle(DisplayMatchEventModel message)
         {
-            _displayMatchVM = _container.GetInstance<DisplayMatchViewModel>();
+            _displayMatchVM = IoC.Get<DisplayMatchViewModel>();
             _displayMatchVM.InitializeValues(message.Tournament, message.Match);
             ActivateItem(_displayMatchVM);
         }
 
         public void Handle(DisplayMapEventModel message)
         {
-            var displayMapVM = _container.GetInstance<DisplayMapViewModel>();
+            var displayMapVM = IoC.Get<DisplayMapViewModel>();
             displayMapVM.InitializeValues(message.Tournament, message.Map);
             ActivateItem(displayMapVM);
         }
@@ -187,6 +186,19 @@ namespace TMDesktopUI.ViewModels
         public void Handle(TournamentStandingsCreatedEventModel message)
         {
             _createTournamentVM.SetStandings(message.Standings);
+            ActivateItem(_createTournamentVM);
+        }
+
+        public void Handle(CreateMatchSpecificationsEventModel message)
+        {
+            var createMatchSpecificationsVM = IoC.Get<CreateMatchSpecificationsViewModel>();
+            createMatchSpecificationsVM.InitializeValues(message.Tournament);
+            ActivateItem(createMatchSpecificationsVM);
+        }
+
+        public void Handle(MatchSpecificationsCreatedEventModel message)
+        {
+            _createTournamentVM.AddMatchSpecifications(message.Matches);
             ActivateItem(_createTournamentVM);
         }
     }

@@ -310,6 +310,7 @@ namespace TMDesktopUI.ViewModels
                 newTournament.Prizepool = Prizepool;
                 newTournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
                 newTournament.Matches = new List<MatchDisplayModel>(Matches);
+                newTournament.Standings = _tournamentStandings;
 
                 _saver.SaveTournament(newTournament);
                 _events.PublishOnUIThread(new TournamentCreatedEventModel(newTournament));
@@ -391,6 +392,19 @@ namespace TMDesktopUI.ViewModels
         {
             _tournamentStandings = standings;
         }
+
+        public void CreateMatchSpecifications()
+        {
+            TournamentDisplayModel tournament = new TournamentDisplayModel();
+            tournament.Matches = new List<MatchDisplayModel>(Matches);
+            _events.PublishOnUIThread(new CreateMatchSpecificationsEventModel(tournament));
+        }
+
+        public void AddMatchSpecifications(List<MatchDisplayModel> matches)
+        {
+            Matches = new BindingList<MatchDisplayModel>(matches);
+        }
+
 
         public void ReturnToMainScreen()
         {

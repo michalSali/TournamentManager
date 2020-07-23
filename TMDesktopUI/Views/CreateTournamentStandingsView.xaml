@@ -39,7 +39,7 @@
         <!-- Row 1: -->
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Margin="0 0 0 20"
                    HorizontalAlignment="Center" FontSize="28" FontFamily="Segoe UI Light">
-            Map Creation Form
+            Tournament Standings Creation Form
         </TextBlock>
 
         <!-- Row 2: -->
@@ -98,53 +98,7 @@
                 HorizontalAlignment="Center">
             Auto-Fill
         </Button>
-
-
-        <DataGrid ItemsSource = "{Binding Standings}" Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Resources>
-                <DataTemplate x:Key="DisplayName">
-                    <TextBlock Text = "{Binding Team.TeamName}" />
-                </DataTemplate >
-                <DataTemplate x:Key="DisplayTeams">
-                    <ComboBox SelectedItem = "{Binding Team}" ItemsSource="{Binding TeamTwo}" />
-                </DataTemplate>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header = "Place" IsReadOnly="True"
-                                    Binding="{Binding Placement}"/>
-
-                <DataGridTemplateColumn Header = "Team" >
-                    <DataGridTemplateColumn.CellTemplate >
-                        <DataTemplate >
-                            <TextBlock Text="{Binding Team.TeamName}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource = "{Binding Teams}" SelectedItem="{Binding Team}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text = "{Binding TeamName}" />
-                                    </DataTemplate >
-                                </ComboBox.ItemTemplate >
-                            </ComboBox >
-                        </DataTemplate >
-                    </DataGridTemplateColumn.CellEditingTemplate >
-                </DataGridTemplateColumn >
-
-                <DataGridTemplateColumn Header="Attempt" 
-                                        CellTemplate="{StaticResource DisplayName}"
-                                        CellEditingTemplate="{StaticResource DisplayTeams}">
-                </DataGridTemplateColumn>
-
-
-                <DataGridTextColumn Header = "PrizeWon" IsReadOnly="True"
-                                    Binding="{Binding Path=PrizeWon}"/>
-
-            </DataGrid.Columns>
-        </DataGrid>
+        
 
     </Grid>
 </UserControl>

@@ -33,10 +33,10 @@ namespace TMDesktopUI.Library.Helpers
         public void SaveTournament(TournamentDisplayModel tournament)
         {
             int tournamentId = tnd.CreateTournamentReturnId(new TournamentModel(
-                tournament.TournamentName,
-                tournament.StartDate,
-                tournament.EndDate,
-                tournament.Prizepool));
+                                                                    tournament.TournamentName,
+                                                                    tournament.StartDate,
+                                                                    tournament.EndDate,
+                                                                    tournament.Prizepool));
 
             // teams and players themselves are already independently saved
             // prepare a List of Models, then "fire without response"
@@ -45,6 +45,15 @@ namespace TMDesktopUI.Library.Helpers
                 tnd.CreateTournamentEntry(new TournamentEntryModel(tournamentId, team.Id));
             }
            
+            foreach (var standing in tournament.Standings)
+            {
+                tnd.CreateTournamentStanding(new TournamentStandingModel(
+                                                                tournamentId, 
+                                                                standing.Team.Id, 
+                                                                standing.Placement, 
+                                                                standing.PrizeWon));
+            }
+
             foreach (var match in tournament.Matches) 
             {
                 int matchId = mtd.CreateMatchReturnId(new MatchModel(

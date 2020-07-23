@@ -10,8 +10,7 @@ namespace TMLibrary.Internal.DataAccess
 {
     public static class TextFileDataAccess
     {        
-        private static readonly string DataPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TMTextFileDatabase"));
-        //private static readonly string DataPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\TournamentManager\TMTextFileDatabase\"));
+        private static readonly string DataPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TMTextFileDatabase"));        
 
         public static string FullFilePath(this string fileName)
         {
@@ -324,12 +323,42 @@ namespace TMLibrary.Internal.DataAccess
             File.WriteAllLines(fileName.FullFilePath(), lines);
         }
 
-        /*
+
+        // ================== TOURNAMENT_STANDING MODEL ====================
+        
         public static List<TournamentStandingModel> ConvertToTournamentStandingModels(this List<string> lines)
         {
-            
+            List<TournamentStandingModel> output = new List<TournamentStandingModel>();
+
+            foreach (string line in lines)
+            {
+                string[] columns = line.Split(';');
+
+                TournamentStandingModel standing = new TournamentStandingModel();
+                standing.Id = int.Parse(columns[0]);
+                standing.TournamentId = int.Parse(columns[1]);
+                standing.TeamId = int.Parse(columns[2]);
+                standing.Placement = int.Parse(columns[3]);
+                standing.PrizeWon = int.Parse(columns[4]);                
+
+                output.Add(standing);
+            }
+
+            return output;
         }
-        */
+
+        public static void SaveToTournamentStandingFile(this List<TournamentStandingModel> models, string fileName = "TournamentStandingModels.csv")
+        {
+            List<string> lines = new List<string>();
+
+            foreach (var m in models)
+            {
+                lines.Add($"{m.Id};{m.TournamentId};{m.TeamId};{m.Placement};{m.PrizeWon}");
+            }
+
+            File.WriteAllLines(fileName.FullFilePath(), lines);
+        }
+
 
 
     }

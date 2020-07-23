@@ -70,6 +70,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="EventModels\CreateMapEventModel.cs" />
     <Compile Include="EventModels\CreateMatchEventModel.cs" />
+    <Compile Include="EventModels\CreateMatchSpecificationsEventModel.cs" />
     <Compile Include="EventModels\CreatePlayerEvent.cs" />
     <Compile Include="EventModels\CreateTeamEvent.cs" />
     <Compile Include="EventModels\CreateTournamentEvent.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="EventModels\DisplayTournamentEventModel.cs" />
     <Compile Include="EventModels\MapCreatedEventModel.cs" />
     <Compile Include="EventModels\MatchCreatedEventModel.cs" />
+    <Compile Include="EventModels\MatchSpecificationsCreatedEventModel.cs" />
     <Compile Include="EventModels\PlayerCreatedEventModel.cs" />
     <Compile Include="EventModels\ReturnToMainScreenEvent.cs" />
     <Compile Include="EventModels\ReturnToMatchCreationEvent.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="EventModels\TournamentCreatedEventModel.cs" />
     <Compile Include="EventModels\TournamentStandingsCreatedEventModel.cs" />
     <Compile Include="ViewModels\CreateMapViewModel.cs" />
+    <Compile Include="ViewModels\CreateMatchSpecificationsViewModel.cs" />
     <Compile Include="ViewModels\CreateMatchViewModel.cs" />
     <Compile Include="ViewModels\CreatePlayerViewModel.cs" />
     <Compile Include="ViewModels\CreateTeamViewModel.cs" />
@@ -107,6 +110,9 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\CreateMapView.xaml.cs">
       <DependentUpon>CreateMapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateMatchSpecificationsView.xaml.cs">
+      <DependentUpon>CreateMatchSpecificationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateMatchView.xaml.cs">
       <DependentUpon>CreateMatchView.xaml</DependentUpon>
@@ -149,6 +155,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CreateMapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateMatchSpecificationsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

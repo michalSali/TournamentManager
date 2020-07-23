@@ -91,14 +91,14 @@ namespace TMDesktopUI.ViewModels
         }
 
         // for better displaying abilities        
-        /*
+        
         public CollectionViewSource TeamOneStatsViewSource { get; set; }
         public CollectionViewSource TeamTwoStatsViewSource { get; set; }
 
         // Gets or sets the ObservableCollection
         public ObservableCollection<MapPlayerStatsDisplayModel> TeamOneStatsCollection { get; set; }
         public ObservableCollection<MapPlayerStatsDisplayModel> TeamTwoStatsCollection { get; set; }
-        */
+        
 
         public CreateMapViewModel(IEventAggregator events)
         {
@@ -116,7 +116,7 @@ namespace TMDesktopUI.ViewModels
             AvailableMaps = new BindingList<string>(MapNames.Except(match.Maps.Select(map => map.MapName)).ToList());
 
             InitializeMapPlayerStats();
-
+            
             // for better display
             /*             
             StatsCollection = new ObservableCollection<MapPlayerStatsDisplayModel>();
@@ -163,6 +163,35 @@ namespace TMDesktopUI.ViewModels
         }
         private void InitializeMapPlayerStats()
         {
+            TeamOneStatsCollection = new ObservableCollection<MapPlayerStatsDisplayModel>();
+            TeamTwoStatsCollection = new ObservableCollection<MapPlayerStatsDisplayModel>();
+            
+            foreach (var player in TeamOne.Players)
+            {
+                MapPlayerStatsDisplayModel newModel = new MapPlayerStatsDisplayModel();
+                newModel.Player = player;
+                TeamOneStatsCollection.Add(newModel);
+            }
+
+            foreach (var player in TeamTwo.Players)
+            {
+                MapPlayerStatsDisplayModel newModel = new MapPlayerStatsDisplayModel();
+                newModel.Player = player;
+                TeamTwoStatsCollection.Add(newModel);
+            }
+
+            TeamOneStatsViewSource = new CollectionViewSource();
+            TeamOneStatsViewSource.Source = TeamOneStatsCollection;
+
+            TeamTwoStatsViewSource = new CollectionViewSource();
+            TeamTwoStatsViewSource.Source = TeamTwoStatsCollection;
+
+            ClearMapPlayerStats();
+        }
+
+        /*
+        private void InitializeMapPlayerStats()
+        {
             TeamOneStats = new List<MapPlayerStatsDisplayModel>();
             TeamTwoStats = new List<MapPlayerStatsDisplayModel>();
 
@@ -182,7 +211,29 @@ namespace TMDesktopUI.ViewModels
 
             ClearMapPlayerStats();
         }
+        */
 
+        private void ClearMapPlayerStats()
+        {
+            foreach (var stats in TeamOneStatsCollection)
+            {
+                stats.Kills = 0;
+                stats.Assists = 0;
+                stats.Deaths = 0;
+            }
+
+            foreach (var stats in TeamTwoStatsCollection)
+            {
+                stats.Kills = 0;
+                stats.Assists = 0;
+                stats.Deaths = 0;
+            }
+
+            TeamOneStatsViewSource.View.Refresh();
+            TeamTwoStatsViewSource.View.Refresh();
+        }
+
+        /*
         private void ClearMapPlayerStats()
         {
             foreach (var stats in TeamOneStats)
@@ -199,6 +250,7 @@ namespace TMDesktopUI.ViewModels
                 stats.Deaths = 0;
             }
         }
+        */
 
         private void ClearMapForm()
         {
@@ -208,7 +260,7 @@ namespace TMDesktopUI.ViewModels
             TeamTwoScore = 0;
 
             InitializeMapPlayerStats();
-            ClearMapPlayerStats();
+            ClearMapPlayerStats();            
         }
 
         public bool CanCreateMap
@@ -246,7 +298,7 @@ namespace TMDesktopUI.ViewModels
             {
                 if (stats.Kills < 0 || stats.Assists < 0 || stats.Deaths < 0)
                 {
-                    errorMessage.AppendLine($"{TeamOne.TeamName}'s stats contains a negative number.");
+                    errorMessage.AppendLine($"{TeamOne.TeamName}'s stats contain a negative number.");
                     break;
                 }
             }
@@ -255,15 +307,15 @@ namespace TMDesktopUI.ViewModels
             {
                 if (stats.Kills < 0 || stats.Assists < 0 || stats.Deaths < 0)
                 {
-                    errorMessage.AppendLine($"{TeamTwo.TeamName}'s stats contains a negative number.");
+                    errorMessage.AppendLine($"{TeamTwo.TeamName}'s stats contain a negative number.");
                     break;
                 }
             }
            
             if (errorMessage.Length == 0)
-            {
-                map.TeamOneStats = new List<MapPlayerStatsDisplayModel>(TeamOneStats);
-                map.TeamTwoStats = new List<MapPlayerStatsDisplayModel>(TeamTwoStats);               
+            {               
+                map.TeamOneStats = new List<MapPlayerStatsDisplayModel>(TeamOneStatsCollection);
+                map.TeamTwoStats = new List<MapPlayerStatsDisplayModel>(TeamTwoStatsCollection);                
             }
             else
             {
@@ -283,37 +335,30 @@ namespace TMDesktopUI.ViewModels
 
             SetUpScores();
 
-            /*
-            int lowerRangeMin;
-            int lowerRangeMax;
-            int middleRangeMin;
-            int middleRangeMax;
-            int upperRangeMin;
-            int upperRangeMax;
-            */
-
             int maxDeaths = TeamOneScore + TeamTwoScore;
 
-            var randomTeamOneStats = new List<MapPlayerStatsDisplayModel>();
-            var randomTeamTwoStats = new List<MapPlayerStatsDisplayModel>();
-           
-
-            foreach (var stats in TeamOneStats)
+            foreach (var stats in TeamOneStatsCollection)
             {
-                stats.Kills = random.Next(TeamTwoScore / 2, maxDeaths);
-                stats.Assists = random.Next(0, TeamTwoScore);
-                stats.Deaths = random.Next(TeamOneScore, maxDeaths);
+                stats.Kills = random.Next(TeamOneScore/2, Math.Max(maxDeaths, maxDeaths + (2*TeamOneScore - 3*TeamTwoScore)/2));
+                stats.Assists = random.Next(0, 2 + TeamOneScore/3);
+                stats.Deaths = random.Next(TeamTwoScore, Math.Min(maxDeaths, maxDeaths - (TeamOneScore - TeamTwoScore)/2));
             }
 
-            foreach (var stats in TeamTwoStats)
+            foreach (var stats in TeamTwoStatsCollection)
             {
-                stats.Kills = random.Next(TeamTwoScore / 2, maxDeaths);
-                stats.Assists = random.Next(0, TeamTwoScore);
-                stats.Deaths = random.Next(TeamOneScore, maxDeaths);
+                stats.Kills = random.Next(TeamTwoScore/2, Math.Max(maxDeaths, maxDeaths + (2*TeamTwoScore - 3*TeamOneScore)/2));
+                stats.Assists = random.Next(0, 2 + TeamTwoScore/3);
+                stats.Deaths = random.Next(TeamOneScore, Math.Min(maxDeaths, maxDeaths - (TeamTwoScore - TeamOneScore)/2));
             }
 
             NotifyOfPropertyChange(() => TeamOneStats);
             NotifyOfPropertyChange(() => TeamTwoStats);
+
+            TeamOneStatsViewSource.SortDescriptions.Add(new SortDescription("Kills", ListSortDirection.Descending));           
+            TeamOneStatsViewSource.View.Refresh();
+
+            TeamTwoStatsViewSource.SortDescriptions.Add(new SortDescription("Kills", ListSortDirection.Descending));
+            TeamTwoStatsViewSource.View.Refresh();
         }
 
         private void SetUpScores()

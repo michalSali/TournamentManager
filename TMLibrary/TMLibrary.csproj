@@ -65,6 +65,7 @@
     <Compile Include="Models\TeamModel.cs" />
     <Compile Include="Models\TournamentEntryModel.cs" />
     <Compile Include="Models\TournamentModel.cs" />
+    <Compile Include="Models\TournamentStandingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
