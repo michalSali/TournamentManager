@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMLibrary.Models;
 
-namespace TMDesktopUI.Library.Models
+namespace TMDesktopUI.Models
 {
     public class PlayerDisplayModel
     {        
@@ -50,22 +50,15 @@ namespace TMDesktopUI.Library.Models
         {
         }
 
-        
-        // so that we can use PlayerDisplayModel as a key in a dictionary
-        public override int GetHashCode()
+        public bool Equals(PlayerDisplayModel player)
         {
-            return Id;
+            if (player == null)
+            {
+                return false;
+            }
+            return (FirstName.Equals(player.FirstName)
+                 && LastName.Equals(player.LastName)
+                 && Nickname.Equals(player.Nickname));
         }
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as PlayerDisplayModel);
-        }
-
-        public bool Equals(PlayerDisplayModel obj)
-        {
-            return obj != null && obj.Id == this.Id;
-        }
-                   
-        
     }
 }

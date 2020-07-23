@@ -46,7 +46,7 @@
                 Content="View tournament" />
        
         <!-- Row 3 -->
-        <ListBox x:Name="Tournaments" Grid.Row="3" Grid.Column="2" Grid.RowSpan="3"
+        <ListBox x:Name="Tournaments" Grid.Row="3" Grid.Column="2" Grid.RowSpan="5"
                   SelectedItem="{Binding SelectedTournament}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -55,7 +55,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="ExportTournamentAsync" Grid.Row="3" Grid.Column="3" 
+        <Button x:Name="ViewStats" Grid.Row="3" Grid.Column="3" 
+                Content="View stats" />
+        
+        <Button x:Name="ExportTournamentAsync" Grid.Row="4" Grid.Column="3" 
                 Content="Export selected tournament" />
         
     </Grid>

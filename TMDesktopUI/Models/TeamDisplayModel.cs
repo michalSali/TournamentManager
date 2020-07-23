@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMLibrary.Models;
 
-namespace TMDesktopUI.Library.Models
+namespace TMDesktopUI.Models
 {
     public class TeamDisplayModel
     {        
@@ -22,7 +22,6 @@ namespace TMDesktopUI.Library.Models
             CoachName = model.CoachName;
         }
 
-        /*
         public bool Equals(TeamDisplayModel team)
         {
             if (team == null)
@@ -44,22 +43,6 @@ namespace TMDesktopUI.Library.Models
             }
 
             return true;
-        }
-        */
-
-        // so that we can use PlayerDisplayModel as a key in a dictionary
-        public override int GetHashCode()
-        {
-            return Id;
-        }
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as TeamDisplayModel);
-        }
-
-        public bool Equals(TeamDisplayModel obj)
-        {
-            return obj != null && obj.Id == this.Id;
         }
 
     }

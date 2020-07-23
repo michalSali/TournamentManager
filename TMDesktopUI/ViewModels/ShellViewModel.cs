@@ -20,7 +20,8 @@ namespace TMDesktopUI.ViewModels
         IHandle<DisplayPlayerEventModel>, IHandle<ReturnToMatchViewerEvent>, IHandle<ReturnToTournamentViewerEvent>,
         IHandle<ReturnToTeamViewerEvent>, IHandle<DisplayMatchEventModel>, IHandle<DisplayMapEventModel>,
         IHandle<CreateTournamentStandingsEventModel>, IHandle<TournamentStandingsCreatedEventModel>,
-        IHandle<CreateMatchSpecificationsEventModel>, IHandle<MatchSpecificationsCreatedEventModel>
+        IHandle<CreateMatchSpecificationsEventModel>, IHandle<MatchSpecificationsCreatedEventModel>,
+        IHandle<DisplayTournamentStatsEventModel>
     {
 
         private CreateTournamentViewModel _createTournamentVM;
@@ -200,6 +201,13 @@ namespace TMDesktopUI.ViewModels
         {
             _createTournamentVM.AddMatchSpecifications(message.Matches);
             ActivateItem(_createTournamentVM);
+        }
+
+        public void Handle(DisplayTournamentStatsEventModel message)
+        {
+            var displayTournamentStatsVM = IoC.Get<DisplayTournamentStatsViewModel>();
+            displayTournamentStatsVM.Initialize(message.Tournament);
+            ActivateItem(displayTournamentStatsVM);
         }
     }
 }

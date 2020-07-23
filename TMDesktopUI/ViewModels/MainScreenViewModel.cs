@@ -36,6 +36,7 @@ namespace TMDesktopUI.ViewModels
 				NotifyOfPropertyChange(() => SelectedTournament);
 				NotifyOfPropertyChange(() => CanViewTournament);
 				NotifyOfPropertyChange(() => CanExportTournamentAsync);
+				NotifyOfPropertyChange(() => CanViewStats);
 			}
 		}
 
@@ -85,30 +86,15 @@ namespace TMDesktopUI.ViewModels
 			MessageBox.Show($"Tournament has been exported to {fileName.FullFilePath()}.");
 		}
 
-		//TournamentExporter.
-
-		/*
-		public async Task<int> test()
+		public bool CanViewStats
 		{
-			await Task.Factory.StartNew(() => help1());
-			return 5;
+			get { return SelectedTournament != null; }
 		}
 
-		public void help1()
+		public void ViewStats()
 		{
-			Task.Factory.StartNew(() => help2());
+			_events.PublishOnUIThread(new DisplayTournamentStatsEventModel(SelectedTournament));
 		}
-
-		public void help2()
-		{
-			
-		}
-
-		public async Task<string> test2()
-		{
-			string tt = await Task.FromResult("hehe");
-			return tt;
-		}
-		*/
+		
 	}
 }

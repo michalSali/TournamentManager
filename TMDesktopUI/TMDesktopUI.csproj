@@ -80,6 +80,7 @@
     <Compile Include="EventModels\DisplayPlayerEventModel.cs" />
     <Compile Include="EventModels\DisplayTeamEventModel.cs" />
     <Compile Include="EventModels\DisplayTournamentEventModel.cs" />
+    <Compile Include="EventModels\DisplayTournamentStatsEventModel.cs" />
     <Compile Include="EventModels\MapCreatedEventModel.cs" />
     <Compile Include="EventModels\MatchCreatedEventModel.cs" />
     <Compile Include="EventModels\MatchSpecificationsCreatedEventModel.cs" />
@@ -142,6 +143,9 @@
     <Compile Include="Views\DisplayTeamView.xaml.cs">
       <DependentUpon>DisplayTeamView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DisplayTournamentStatsView.xaml.cs">
+      <DependentUpon>DisplayTournamentStatsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DisplayTournamentView.xaml.cs">
       <DependentUpon>DisplayTournamentView.xaml</DependentUpon>
     </Compile>
@@ -196,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DisplayTeamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayTournamentStatsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,8 +19,7 @@ namespace TMDesktopUI.ViewModels
         private ModelsSaver _saver;
         private ModelsLoader _loader;
         private IEventAggregator _events;
-
-        private string _tournamentName;
+        
         private int _format;
         private DateTime _date = DateTime.Now;
         private int _teamOneScore;
@@ -48,26 +47,14 @@ namespace TMDesktopUI.ViewModels
         
         public void InitializeValues(TournamentDisplayModel tournament)
         {
-            DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);
-            //TournamentName = tournament.TournamentName;
+            DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);            
             
             var random = new Random();
             TimeSpan timeSpan = tournament.EndDate - tournament.StartDate;
             TimeSpan newSpan = new TimeSpan(0, random.Next(0, (int)timeSpan.TotalMinutes), 0);
             Date = tournament.StartDate + newSpan;
         }
-        
-        /*
-        public string TournamentName
-        {
-            get { return _tournamentName; }
-            set
-            {
-                _tournamentName = value;
-                NotifyOfPropertyChange(() => TournamentName);
-            }
-        }
-        */
+               
         
         public BindingList<int> Formats
         {
