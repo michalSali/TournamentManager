@@ -95,6 +95,11 @@ namespace TMDesktopUI.ViewModels
 				errorMessage.AppendLine("Player with this first name, last name and nickname already exist.");
 			}
 
+			if ((FirstName + LastName + Nickname + Role).Contains(";"))
+			{
+				errorMessage.AppendLine("You can't use the symbol ';' in any of the fields.");
+			}
+
 			if (errorMessage.Length == 0)
 			{
 				PlayerDisplayModel newPlayer = new PlayerDisplayModel();

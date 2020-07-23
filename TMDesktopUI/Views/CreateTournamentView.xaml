@@ -73,17 +73,17 @@
                  MinWidth="150" Margin="0 0 0 10" />
 
         <!-- Row 7: -->
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 0 0 10"
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0 10 0 0"
                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Select participating teams:
         </TextBlock>
 
-        <TextBlock Grid.Row="7" Grid.Column="3" Margin="0 0 0 0"
+        <TextBlock Grid.Row="7" Grid.Column="3" Margin="10 0 0 0"
                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Selected teams:
         </TextBlock>
 
-        <TextBlock Grid.Row="7" Grid.Column="4" Margin="0 0 0 0"
+        <TextBlock Grid.Row="7" Grid.Column="4" Margin="10 0 0 0"
                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Matches:
         </TextBlock>
@@ -91,7 +91,7 @@
 
         <!-- Row 8: List all teams -->
         <ComboBox x:Name="DisplayedTeams" Grid.Row="8" Grid.Column="1"
-                  Margin="10 20 10 10" SelectedItem="{Binding TeamToAdd}">
+                  Margin="10 10 10 10" SelectedItem="{Binding TeamToAdd}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding TeamName}" />
@@ -99,16 +99,16 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Vertical" Margin="10 20 10 10" >
-            <Button x:Name="AddTeam" Content="Add selected team" Margin="0 0 0 15" />
+        <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Vertical" Margin="10 10 10 10" >
+            <Button x:Name="AddTeam" Content="Add selected team" Margin="0 0 0 10" />
 
-            <Button x:Name="RemoveTeam" Content="Remove selected team" Margin="0 0 0 15" />
+            <Button x:Name="RemoveTeam" Content="Remove selected team" Margin="0 0 0 25" />
 
             <Button x:Name="CreateNewTeam" Content="Create new team" Margin="0 0 0 0" />
         </StackPanel>
             
         <ListBox x:Name="SelectedTeams" Grid.Row="8" Grid.Column="3"
-                 Margin="10 20 10 10" SelectedItem="{Binding TeamToRemove}">
+                 Margin="10 10 10 10" SelectedItem="{Binding TeamToRemove}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding TeamName}" />
@@ -118,7 +118,7 @@
 
         
         <ListBox x:Name="Matches" Grid.Row="8" Grid.Column="4"
-                 Margin="10 20 10 10" SelectedItem="{Binding SelectedMatch}">
+                 Margin="10 10 10 10" SelectedItem="{Binding SelectedMatch}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding MatchInfo}" />
@@ -128,12 +128,12 @@
 
 
         <!-- Row 11: CreateTournament button -->
-        <Button x:Name="CreateTournament" Grid.Row="9" Grid.Column="2"
+        <Button x:Name="CreateTournament" Grid.Row="9" Grid.Column="2" Margin="0 15 0 0"
                 HorizontalAlignment="Center">
             Create Tournament
         </Button>
 
-        <Button x:Name="ReturnToMainScreen" Grid.Row="9" Grid.Column="3"
+        <Button x:Name="ReturnToMainScreen" Grid.Row="9" Grid.Column="3" Margin="0 15 0 0"
                 HorizontalAlignment="Center">
             Return to Main Screen
         </Button>
@@ -143,7 +143,12 @@
         <!-- Row 3: -->        
         <Button x:Name="CreateNewMatch" Grid.Row="3" Grid.Column="3"
                 Content="Create new match" />
-                                        
 
+        <Button x:Name="RemoveMatch" Grid.Row="4" Grid.Column="3"
+                Content="Remove selected match" Margin="0 0 0 0" />
+
+        <Button x:Name="CreateStandings" Grid.Row="5" Grid.Column="3"
+                Content="Create tournament standings" Margin="0 0 0 0" />
+        
     </Grid>
 </UserControl>

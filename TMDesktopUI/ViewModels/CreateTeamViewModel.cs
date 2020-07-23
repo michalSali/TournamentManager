@@ -208,7 +208,12 @@ namespace TMDesktopUI.ViewModels
             {
                 MessageBox.Show("Team with the specific name and players already exists.");
             }
-            */            
+            */
+
+            if ((TeamName + CoachName).Contains(";"))
+            {
+                errorMessage.AppendLine("You can't use the symbol ';' in any of the fields.");
+            }
 
             if (errorMessage.Length == 0)
             {

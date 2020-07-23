@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TMDesktopUI.EventModels;
 using TMDesktopUI.Library.Helpers;
 using TMDesktopUI.Library.Models;
+using static TMDesktopUI.Library.Exporters.TournamentExporter;
 
 namespace TMDesktopUI.ViewModels
 {
@@ -66,6 +68,39 @@ namespace TMDesktopUI.ViewModels
 		public void ViewTournament()
 		{						
 			_events.PublishOnUIThread(new DisplayTournamentEventModel(SelectedTournament));
+		}
+
+		public async Task ExportTournamentAsync()
+		{			
+			string filePath = SelectedTournament.TournamentName.GetTournamentFileName().FullFilePath();
+
+			await Task.Factory.StartNew(() => SelectedTournament.ExportTournament(filePath));
+			MessageBox.Show($"Tournament has been exported to {filePath}.");			
+		}
+
+		//TournamentExporter.
+
+		
+		public async Task<int> test()
+		{
+			await Task.Factory.StartNew(() => help1());
+			return 5;
+		}
+
+		public void help1()
+		{
+			Task.Factory.StartNew(() => help2());
+		}
+
+		public void help2()
+		{
+			
+		}
+
+		public async Task<string> test2()
+		{
+			string tt = await Task.FromResult("hehe");
+			return tt;
 		}
 		
 	}

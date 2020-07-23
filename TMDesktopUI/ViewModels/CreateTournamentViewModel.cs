@@ -35,7 +35,9 @@ namespace TMDesktopUI.ViewModels
         private MatchDisplayModel _selectedMatch;
         private BindingList<MatchDisplayModel> _matches;
 
-        private BindingList<TournamentStandingDisplayModel> _tournamentStandings;
+        //private BindingList<TournamentStandingDisplayModel> _tournamentStandings;
+        private List<TournamentStandingDisplayModel> _tournamentStandings;
+
 
 
         #region >>> Attribute Getters & Setters <<<
@@ -144,6 +146,7 @@ namespace TMDesktopUI.ViewModels
             }
         }
                 
+        /*
         public BindingList<TournamentStandingDisplayModel> TournamentStandings
         {
             get { return _tournamentStandings; }
@@ -153,6 +156,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => TournamentStandings);
             }
         }
+        */
 
         // is not bound to anything, shouldnt need to NotifyOfPropertyChange        
         public BindingList<TeamDisplayModel> AllTeams;
@@ -260,43 +264,7 @@ namespace TMDesktopUI.ViewModels
             TeamToRemove = null;
             NumberOfSelectedTeams--;
         }        
-
-        // we set predetermined prize distribution for teams with 4, 8 and 16 players (in %, for first to n-th place)
-        private List<double> FourTeamsPrizeDistribution = new List<double> { 55, 30, 15, 10 };
-        private List<double> EightTeamsPrizeDistribution = new List<double> { 30, 20, 15, 12, 9, 6, 4, 4 };
-        private List<double> SixteenTeamsPrizeDistribution = new List<double> {
-            27.2, 17.6, 13.6, 10.4, 8, 6, 4.4, 3.2, 2.4, 1.76, 1.28, 0.96, 0.8, 0.8, 0.8, 0.8 };
-
-        private void InitializeStandings()
-        {
-            List<double> PrizeDistribution = new List<double>(SelectedTeams.Count) { 0 };
-            bool unsupportedTeamSize = false;
-
-            switch (SelectedTeams.Count)
-            {
-                case 4:
-                    PrizeDistribution = FourTeamsPrizeDistribution;
-                    break;
-                case 8:
-                    PrizeDistribution = EightTeamsPrizeDistribution;
-                    break;
-                case 16:
-                    PrizeDistribution = SixteenTeamsPrizeDistribution;
-                    break;
-                default:
-                    unsupportedTeamSize = true;
-                    break;
-            }
-
-            for (int i = 0; i < SelectedTeams.Count; ++i)
-            {
-                TournamentStandingDisplayModel newModel = new TournamentStandingDisplayModel();
-                newModel.Placement = i + 1;
-                newModel.PrizeWon = unsupportedTeamSize ? 0 : (int)(PrizeDistribution[i] / 100 * Prizepool);
-                TournamentStandings.Add(newModel);
-            }            
-        }
-        
+               
         public bool CanCreateTournament
         {
             get
@@ -326,7 +294,12 @@ namespace TMDesktopUI.ViewModels
             if (Prizepool < 0)
             {
                 errorMessage.AppendLine("Prizepool cannot be a negative number.");
-            }            
+            }
+
+            if (TournamentName.Contains(";"))
+            {
+                errorMessage.AppendLine("You can't use the symbol ';' in any of the fields.");
+            }
 
             if (errorMessage.Length == 0)
             {
@@ -399,140 +372,32 @@ namespace TMDesktopUI.ViewModels
             AllTeams.Add(team);            
         }
         
+        public void CreateStandings()
+        {
+
+            if (SelectedTeams?.Count < 2)
+            {
+                MessageBox.Show("You have to select at least 2 teams before you can create standings.");
+                return;
+            }
+
+            TournamentDisplayModel tournament = new TournamentDisplayModel();
+            tournament.Prizepool = Prizepool;
+            tournament.Teams = new List<TeamDisplayModel>(SelectedTeams);
+            _events.PublishOnUIThread(new CreateTournamentStandingsEventModel(tournament));
+        }
+
+        public void SetStandings(List<TournamentStandingDisplayModel> standings)
+        {
+            _tournamentStandings = standings;
+        }
+
         public void ReturnToMainScreen()
         {
             _events.PublishOnUIThread(new ReturnToMainScreenEvent());
         }
 
-        // currently not in use
-        #region >>> Match Importance Separation <<<
         
-        private BindingList<MatchDisplayModel> _groupStageMatches;
-        public BindingList<MatchDisplayModel> GroupStageMatches
-        {
-            get { return _groupStageMatches; }
-            set
-            {
-                _groupStageMatches = value;
-                NotifyOfPropertyChange(() => GroupStageMatches);
-            }
-        }        
-
-        private BindingList<MatchDisplayModel> _quarterfinalMatches;
-        public BindingList<MatchDisplayModel> QuarterfinalMatches
-        {
-            get { return _quarterfinalMatches; }
-            set
-            {
-                _quarterfinalMatches = value;
-                NotifyOfPropertyChange(() => QuarterfinalMatches);
-            }
-        }
-
-        private BindingList<MatchDisplayModel> _semifinalMatches;
-        public BindingList<MatchDisplayModel> SemifinalMatches
-        {
-            get { return _semifinalMatches; }
-            set
-            {
-                _semifinalMatches = value;
-                NotifyOfPropertyChange(() => SemifinalMatches);
-            }
-        }
-
-        private MatchDisplayModel _finalMatch;
-        public MatchDisplayModel FinalMatch
-        {
-            get { return _finalMatch; }
-            set
-            {
-                _finalMatch = value;
-                NotifyOfPropertyChange(() => FinalMatch);
-            }
-        }
-
-        private MatchDisplayModel _consolidationFinalMatch;
-        public MatchDisplayModel ConsolidationFinalMatch
-        {
-            get { return _consolidationFinalMatch; }
-            set
-            {
-                _consolidationFinalMatch = value;
-                NotifyOfPropertyChange(() => ConsolidationFinalMatch);
-            }
-        }
-
-
-        // FINAL 
-
-        public bool CanAddFinalMatch()
-        {
-            return SelectedMatch != null && FinalMatch == null;
-        }
-        public void AddFinalMatch()
-        {
-            FinalMatch = SelectedMatch;
-            Matches.Remove(SelectedMatch);
-            SelectedMatch = null;
-        }
-
-        public bool CanRemoveFinalMatch()
-        {
-            return FinalMatch != null;
-        }
-        public void RemoveFinalMatch()
-        {
-            Matches.Add(FinalMatch);
-            FinalMatch = null;            
-        }
-        
-        // SEMIFINAL 
-
-        public bool CanAddSemifinalMatch()
-        {
-            return SelectedMatch != null && SemifinalMatches.Count < 4;
-        }
-        public void AddSemifinalMatch()
-        {
-            SemifinalMatches.Add(SelectedMatch);
-            Matches.Remove(SelectedMatch);
-            SelectedMatch = null;
-        }
-
-        public bool CanRemoveSemifinalMatch()
-        {
-            return SelectedMatch != null && SemifinalMatches.Contains(SelectedMatch);
-        }
-        public void RemoveSemifinalMatch()
-        {
-            Matches.Add(SelectedMatch);
-            SemifinalMatches.Remove(SelectedMatch);
-            SelectedMatch = null;
-        }
-
-        // QUARTERFINAL
-
-        public bool CanAddQuarterfinalMatch()
-        {
-            return SelectedMatch != null && QuarterfinalMatches.Count < 8;
-        }
-        public void AddQuarterfinalMatch()
-        {
-            QuarterfinalMatches.Add(SelectedMatch);
-            Matches.Remove(SelectedMatch);
-            SelectedMatch = null;
-        }
-
-        public bool CanRemoveQuarterfinalMatch()
-        {
-            return SelectedMatch != null && QuarterfinalMatches.Contains(SelectedMatch);
-        }
-        public void RemoveQuarterfinalMatch()
-        {
-            Matches.Add(SelectedMatch);
-            QuarterfinalMatches.Remove(SelectedMatch);
-            SelectedMatch = null;
-        }
 
         // xaml
         /*
@@ -622,8 +487,7 @@ namespace TMDesktopUI.ViewModels
                                     Binding= "{Binding Path=PrizeWon}" />
             </ DataGrid.Columns >
         </ DataGrid >
-        */
-        #endregion
+        */        
 
     }
 }

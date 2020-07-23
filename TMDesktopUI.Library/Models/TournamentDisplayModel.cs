@@ -16,6 +16,8 @@ namespace TMDesktopUI.Library.Models
         public List<TeamDisplayModel> Teams { get; set; } = new List<TeamDisplayModel>();
         public List<MatchDisplayModel> Matches { get; set; } = new List<MatchDisplayModel>();
 
+        public List<TournamentStandingDisplayModel> Standings { get; set; } = new List<TournamentStandingDisplayModel>();
+
         public string StartDateFormatted
         {
             get

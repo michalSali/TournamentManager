@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exporters\TournamentExporter.cs" />
     <Compile Include="Helpers\ModelsLoader.cs" />
     <Compile Include="Helpers\ModelsQueries.cs" />
     <Compile Include="Helpers\ModelsSaver.cs" />

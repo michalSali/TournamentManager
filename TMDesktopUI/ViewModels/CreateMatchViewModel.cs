@@ -49,7 +49,7 @@ namespace TMDesktopUI.ViewModels
         public void InitializeValues(TournamentDisplayModel tournament)
         {
             DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);
-            TournamentName = tournament.TournamentName;
+            //TournamentName = tournament.TournamentName;
             
             var random = new Random();
             TimeSpan timeSpan = tournament.EndDate - tournament.StartDate;
@@ -57,6 +57,7 @@ namespace TMDesktopUI.ViewModels
             Date = tournament.StartDate + newSpan;
         }
         
+        /*
         public string TournamentName
         {
             get { return _tournamentName; }
@@ -66,6 +67,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => TournamentName);
             }
         }
+        */
         
         public BindingList<int> Formats
         {

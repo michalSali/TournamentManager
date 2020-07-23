@@ -50,7 +50,7 @@
         <!-- Row 2: -->
         <TextBlock Grid.Row="2" Grid.Column="1" Margin="0 0 0 10" Grid.ColumnSpan="2"
                    HorizontalAlignment="Center" FontSize="20" FontFamily="Segoe UI Light"
-                   MinWidth="200" Text="{Binding TournamentName}" />
+                   MinWidth="200" Text="{Binding Tournament.TournamentName}" />
 
 
         <!-- Row 3: Date row -->

@@ -73,6 +73,7 @@
     <Compile Include="EventModels\CreatePlayerEvent.cs" />
     <Compile Include="EventModels\CreateTeamEvent.cs" />
     <Compile Include="EventModels\CreateTournamentEvent.cs" />
+    <Compile Include="EventModels\CreateTournamentStandingsEventModel.cs" />
     <Compile Include="EventModels\DisplayMapEventModel.cs" />
     <Compile Include="EventModels\DisplayMatchEventModel.cs" />
     <Compile Include="EventModels\DisplayPlayerEventModel.cs" />
@@ -90,10 +91,12 @@
     <Compile Include="EventModels\ReturnToTournamentViewerEvent.cs" />
     <Compile Include="EventModels\TeamCreatedEventModel.cs" />
     <Compile Include="EventModels\TournamentCreatedEventModel.cs" />
+    <Compile Include="EventModels\TournamentStandingsCreatedEventModel.cs" />
     <Compile Include="ViewModels\CreateMapViewModel.cs" />
     <Compile Include="ViewModels\CreateMatchViewModel.cs" />
     <Compile Include="ViewModels\CreatePlayerViewModel.cs" />
     <Compile Include="ViewModels\CreateTeamViewModel.cs" />
+    <Compile Include="ViewModels\CreateTournamentStandingsViewModel.cs" />
     <Compile Include="ViewModels\CreateTournamentViewModel.cs" />
     <Compile Include="ViewModels\DisplayMapViewModel.cs" />
     <Compile Include="ViewModels\DisplayMatchViewModel.cs" />
@@ -113,6 +116,9 @@
     </Compile>
     <Compile Include="Views\CreateTeamView.xaml.cs">
       <DependentUpon>CreateTeamView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateTournamentStandingsView.xaml.cs">
+      <DependentUpon>CreateTournamentStandingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateTournamentView.xaml.cs">
       <DependentUpon>CreateTournamentView.xaml</DependentUpon>
@@ -155,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateTeamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateTournamentStandingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,7 +15,7 @@ namespace TMDesktopUI.Library.Models
 
         public string Description
         {
-            get { return $"{Team.TeamName} - #{Placement} - ${PrizeWon}"; }
+            get { return $"#{Placement} - {Team.TeamName} - ${PrizeWon}"; }
         }
     }
 }
