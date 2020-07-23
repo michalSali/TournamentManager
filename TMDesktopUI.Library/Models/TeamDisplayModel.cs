@@ -21,31 +21,7 @@ namespace TMDesktopUI.Library.Models
             TeamName = model.TeamName;
             CoachName = model.CoachName;
         }
-
-        /*
-        public bool Equals(TeamDisplayModel team)
-        {
-            if (team == null)
-            {
-                return false;
-            }
-
-            if (TeamName != team.TeamName)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < Players.Count; ++i)
-            {
-                if (!Players[i].Equals(team.Players[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        */
+       
 
         // so that we can use PlayerDisplayModel as a key in a dictionary
         public override int GetHashCode()

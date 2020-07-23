@@ -51,28 +51,7 @@ namespace TMLibrary.DataAccess.TextFileAccess
             teams.SaveToTeamFile(TeamFileName);
             return newId;
         }
-
-        /*
-        public int CreateTeamReturnIdAsync(TeamModel team)
-        {
-            var teams = GetAllTeams();
-
-            int newId = 1;
-
-            if (teams.Count > 0)
-            {
-                newId = teams.OrderByDescending(x => x.Id).First().Id + 1;
-            }
-
-            team.Id = newId;
-            teams.Add(team);
-
-            // fire and forget
-            // or wait to check if was successful ?
-            Task.Factory.StartNew(() => teams.SaveToTeamFile(TeamFileName));
-            return newId;
-        }
-        */
+        
 
         public List<TeamMemberModel> GetAllTeamMembers()
         {

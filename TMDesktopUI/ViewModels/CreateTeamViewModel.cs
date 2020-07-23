@@ -93,8 +93,7 @@ namespace TMDesktopUI.ViewModels
             set
             {
                 _teamName = value;
-                NotifyOfPropertyChange(() => TeamName);
-                //NotifyOfPropertyChange(() => CanCreateTeam);
+                NotifyOfPropertyChange(() => TeamName);                
             }
         }
 
@@ -181,13 +180,7 @@ namespace TMDesktopUI.ViewModels
             PlayerToRemove = null;
         }
                 
-        /*
-        public bool CanCreateTeam
-        {            
-            get { return !string.IsNullOrWhiteSpace(TeamName); }
-        }                       
-        */
-
+       
         public void CreateTeam()
         {
             var selectedPlayers = new List<PlayerDisplayModel>(SelectedPlayers);
@@ -222,7 +215,7 @@ namespace TMDesktopUI.ViewModels
                 newTeam.CoachName = string.IsNullOrWhiteSpace(CoachName) ? "Unknown" : CoachName;
                 newTeam.Players = selectedPlayers;
 
-                _saver.SaveTeam(newTeam); // also sets the team.Id
+                _saver.SaveTeam(newTeam);
                 _events.PublishOnUIThread(new TeamCreatedEventModel(newTeam));               
                 ClearForm();
             } else

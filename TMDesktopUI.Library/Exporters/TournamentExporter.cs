@@ -10,7 +10,8 @@ namespace TMDesktopUI.Library.Exporters
 {
     // exporters have to be located inside of the TMDesktopUI.Library, since it references TMLibrary
     // if we put exporters inside TMLibrary, we could not use DisplayModels (such as the one for the tournament), as using
-    //   a reference to TMDesktopUI.Library would create a cyclic dependency
+    //   a reference to TMDesktopUI.Library would create a cyclic dependency (the same reason why display models 
+    //   are located in UI.Library as well, due to ModelsLoader/Saver/Query)
     public static class TournamentExporter
     {
         private static readonly string DataPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\ExportedFiles"));        

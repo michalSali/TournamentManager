@@ -106,23 +106,7 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => FinalMatches);
             }
         }
-
-        /*
-        private MatchDisplayModel _consolidationFinalMatch;
-        public MatchDisplayModel ConsolidationFinalMatch
-        {
-            get { return _consolidationFinalMatch; }
-            set
-            {
-                _consolidationFinalMatch = value;
-                NotifyOfPropertyChange(() => ConsolidationFinalMatch);
-            }
-        }
-        */
-
-
-        // FINAL 
-
+       
 
         public void SaveSpecification()
         {
@@ -154,6 +138,9 @@ namespace TMDesktopUI.ViewModels
             _events.PublishOnUIThread(new ReturnToTournamentCreationEvent());
         }
 
+
+        // ========= FINAL ============
+
         public bool CanAddFinalMatch
         {
             get { return SelectedMatch != null && Matches.Contains(SelectedMatch) && FinalMatches?.Count == 0; }
@@ -178,7 +165,7 @@ namespace TMDesktopUI.ViewModels
             SelectedMatch = null;
         }
 
-        // SEMIFINAL 
+        // ========= SEMIFINAL ========
 
         public bool CanAddSemifinalMatch
         {
@@ -203,7 +190,7 @@ namespace TMDesktopUI.ViewModels
             SelectedMatch = null;
         }
 
-        // QUARTERFINAL
+        // ========== QUARTERFINAL ===========
 
         public bool CanAddQuarterfinalMatch
         {

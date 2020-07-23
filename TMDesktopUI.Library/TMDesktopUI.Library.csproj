@@ -49,7 +49,6 @@
     <Compile Include="Models\MapScoreDisplayModel.cs" />
     <Compile Include="Models\MatchDisplayModel.cs" />
     <Compile Include="Models\PlayerDisplayModel.cs" />
-    <Compile Include="Models\PlayerStatsModel.cs" />
     <Compile Include="Models\TeamDisplayModel.cs" />
     <Compile Include="Models\TournamentDisplayModel.cs" />
     <Compile Include="Models\TournamentStandingDisplayModel.cs" />

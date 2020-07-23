@@ -107,68 +107,35 @@ namespace TMDesktopUI.ViewModels
         }
 
 
-
-
         public CreateTournamentStandingsViewModel(IEventAggregator events)
-        {
-            //_query = new ModelsQueries();
-            //_saver = new ModelsSaver();
-            //_loader = new ModelsLoader();
+        {           
             _events = events;
             _random = new Random();
             
         }
 
 
-
-        // testing
         public CollectionViewSource StandingsViewSource { get; set; }
         public ObservableCollection<TournamentStandingDisplayModel> StandingsCollection { get; set; }
 
-        /*
-        public CollectionViewSource TeamsSource { get; set; }
-        public ObservableCollection<TeamDisplayModel> TeamsCollection { get; set; }
-
-        public ObservableCollection<TeamDisplayModel> TeamsTwo { get; set; }
-        */
-
+      
         public void InitializeValues(TournamentDisplayModel tournament)
         {
             Tournament = tournament;
-            DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);
-            //DisplayedTeams.Add(new TeamDisplayModel());
+            DisplayedTeams = new BindingList<TeamDisplayModel>(tournament.Teams);            
 
             // add one empty team
             SelectedTeams = new BindingList<TeamDisplayModel>{ new TeamDisplayModel() };
 
-            //Matches = new BindingList<MatchDisplayModel>(tournament.Matches);
-
-            //Standings = new BindingList<TournamentStandingDisplayModel>();
-            //InitializeStandings();
-
-
-            //testing
-            /*
-            TeamsTwo = new ObservableCollection<TeamDisplayModel>(tournament.Teams);
-
-
-            TeamsCollection = new ObservableCollection<TeamDisplayModel>(tournament.Teams);
-            TeamsSource = new CollectionViewSource();
-            TeamsSource.Source = TeamsCollection;
-            TeamsSource.View.Refresh();
-            */
-            Init();
+           
+            InitializeStandings();
             
         }
 
-
-
-        // testing
-        private void Init()
+        
+        private void InitializeStandings()
         {
-            StandingsCollection = new ObservableCollection<TournamentStandingDisplayModel>();
-            // List<double> PrizeDistribution = new List<double>(DisplayedTeams.Count) { 0 };
-            // nakolko na zaciatku Init pridavame prazdneho hraca, pocet sa zdvihne napr. zo 4 na 5
+            StandingsCollection = new ObservableCollection<TournamentStandingDisplayModel>();           
             List<double> PrizeDistribution = new List<double>(DisplayedTeams.Count) { 0 };
             bool unsupportedTeamSize = false;
 
@@ -195,7 +162,7 @@ namespace TMDesktopUI.ViewModels
             {
                 TournamentStandingDisplayModel newModel = new TournamentStandingDisplayModel();
                 newModel.Placement = i + 1;
-                newModel.PrizeWon = unsupportedTeamSize ? 0 : (int)(PrizeDistribution[i] / 100 * Tournament.Prizepool);
+                newModel.PrizeWon = unsupportedTeamSize ? 0 : (int)(PrizeDistribution[i] * Tournament.Prizepool / 100);
                 StandingsCollection.Add(newModel);
             }
 
@@ -205,59 +172,18 @@ namespace TMDesktopUI.ViewModels
             StandingsViewSource.SortDescriptions.Add(new SortDescription("Placement", ListSortDirection.Ascending));
             StandingsViewSource.View.Refresh();
         }
-
-
-
-        private void InitializeStandings()
-        {
-            List<double> PrizeDistribution = new List<double>(DisplayedTeams.Count) { 0 };
-            bool unsupportedTeamSize = false;
-
-            switch (DisplayedTeams.Count)
-            {
-                case 2:
-                    PrizeDistribution = TwoTeamsPrizeDistribution;
-                    break;
-                case 4:
-                    PrizeDistribution = FourTeamsPrizeDistribution;
-                    break;
-                case 8:
-                    PrizeDistribution = EightTeamsPrizeDistribution;
-                    break;
-                case 16:
-                    PrizeDistribution = SixteenTeamsPrizeDistribution;
-                    break;
-                default:
-                    unsupportedTeamSize = true;
-                    break;
-            }
-
-            for (int i = 0; i < DisplayedTeams.Count; ++i)
-            {
-                TournamentStandingDisplayModel newModel = new TournamentStandingDisplayModel();
-                newModel.Placement = i + 1;
-                newModel.PrizeWon = unsupportedTeamSize ? 0 : (int)(PrizeDistribution[i] / 100 * Tournament.Prizepool);
-
-                // testing
-                //newModel.Teams = DisplayedTeams;
-                Standings.Add(newModel);
-            }
-        }
+        
 
         public void AutoFill()
-        {
-            //var RemainingTeams = new BindingList<TeamDisplayModel>(Tournament.Teams.Except(SelectedTeams).ToList());
-
+        {            
             var WithoutEmptyPlayer = new BindingList<TeamDisplayModel>(DisplayedTeams.Where(x => !string.IsNullOrEmpty(x.TeamName)).ToList());
 
             // fills in fields, where a team has not been chosen / "EmptyTeam"
-            //foreach (var standing in Standings)
             foreach (var standing in StandingsCollection)
             {
                 if (standing.Team == null || string.IsNullOrEmpty(standing.Team?.TeamName))
                     {
-                        standing.Team = WithoutEmptyPlayer[_random.Next(WithoutEmptyPlayer.Count)];
-                        //SelectedTeams.Add(standing.Team);
+                        standing.Team = WithoutEmptyPlayer[_random.Next(WithoutEmptyPlayer.Count)];                       
                         WithoutEmptyPlayer.Remove(standing.Team);
                         DisplayedTeams.Remove(standing.Team);
                     }                
@@ -289,8 +215,7 @@ namespace TMDesktopUI.ViewModels
 
             if (errorMessage.Length == 0)
             {
-                _events.PublishOnUIThread(new TournamentStandingsCreatedEventModel(new List<TournamentStandingDisplayModel>(StandingsCollection)));
-                //_events.PublishOnUIThread(new ReturnToTournamentCreationEvent());
+                _events.PublishOnUIThread(new TournamentStandingsCreatedEventModel(new List<TournamentStandingDisplayModel>(StandingsCollection)));                
             }
         }
 
@@ -328,119 +253,6 @@ namespace TMDesktopUI.ViewModels
 
             StandingsViewSource.View.Refresh();
         }
-
-
-        /*
-        
-
-        /*
-        <!-- Row 3: -->
-        <DataGrid ItemsSource = "{Binding Standings}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Resources>
-                <DataTemplate x:Key="DisplayName">
-                    <TextBlock Text = "{Binding Team.TeamName}" />
-                </ DataTemplate >
-                < DataTemplate x:Key="DisplayTeams">
-                    <ComboBox SelectedItem = "{Binding Team}" ItemsSource="{Binding TeamTwo}" />
-                </DataTemplate>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header = "Place" IsReadOnly="True"
-                                    Binding="{Binding Placement}"/>
-
-                <DataGridTemplateColumn Header = "Team" >
-                    < DataGridTemplateColumn.CellTemplate >
-                        < DataTemplate >
-                            < TextBlock Text="{Binding Team.TeamName}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource = "{Binding Teams}" SelectedItem="{Binding Team}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text = "{Binding TeamName}" />
-                                    </ DataTemplate >
-                                </ ComboBox.ItemTemplate >
-                            </ ComboBox >
-                        </ DataTemplate >
-                    </ DataGridTemplateColumn.CellEditingTemplate >
-                </ DataGridTemplateColumn >
-
-                < DataGridTemplateColumn Header="Attempt" 
-                                        CellTemplate="{StaticResource DisplayName}"
-                                        CellEditingTemplate="{StaticResource DisplayTeams}">
-                </DataGridTemplateColumn>
-                
-                
-                <DataGridTextColumn Header = "PrizeWon" IsReadOnly="True"
-                                    Binding="{Binding Path=PrizeWon}"/>
-                
-            </DataGrid.Columns>
-        </DataGrid>
-
-
-
-
-
-
-
-
-
-
-        <DataGrid ItemsSource="{Binding ViewSource.View}" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Place" IsReadOnly="True"
-                                    Binding="{Binding Placement}"/>
-
-                <DataGridTemplateColumn Header="Team">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Team.TeamName}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Path=TeamsSource.View}" SelectedItem="{Binding Team}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="l{Binding Path=TeamName}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-                
-
-                <DataGridTextColumn Header="PrizeWon" IsReadOnly="True"
-                                    Binding="{Binding Path=PrizeWon}"/>
-
-            </DataGrid.Columns>
-        </DataGrid>
-
-
-
-
-        <DataGrid ItemsSource="{Binding ViewSource.View}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False"  SelectedItem="{Binding SelectedStanding}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Place" IsReadOnly="True"
-                                    Binding="{Binding Placement}"/>
-
-                <DataGridTextColumn Header="Team" IsReadOnly="True"
-                                    Binding="{Binding Team.TeamName}" />
-
-                <DataGridTextColumn Header="PrizeWon" IsReadOnly="True"
-                                    Binding="{Binding PrizeWon}"/>
-                
-            </DataGrid.Columns>
-        </DataGrid>
-        */
+    
     }
 }

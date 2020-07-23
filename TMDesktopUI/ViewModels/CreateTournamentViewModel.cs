@@ -34,8 +34,7 @@ namespace TMDesktopUI.ViewModels
 
         private MatchDisplayModel _selectedMatch;
         private BindingList<MatchDisplayModel> _matches;
-
-        //private BindingList<TournamentStandingDisplayModel> _tournamentStandings;
+        
         private List<TournamentStandingDisplayModel> _tournamentStandings;
 
 
@@ -410,98 +409,5 @@ namespace TMDesktopUI.ViewModels
         {
             _events.PublishOnUIThread(new ReturnToMainScreenEvent());
         }
-
-        
-
-        // xaml
-        /*
-        <!-- RIGHT COLUMN -->
-
-        <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column= "5" Margin= "0 0 0 10" >
-            Group Stage / Unlabeled Matches:
-        </TextBlock>
-       
-        <ComboBox ItemsSource = "{Binding Matches}" Grid.Row= "8" Grid.Column= "4"
-                 SelectedItem= "{Binding SelectedMatch}" >
-            < ComboBox.ItemTemplate >
-                < DataTemplate >
-                    < TextBlock Text= "{Binding MatchInfo}" />
-                </ DataTemplate >
-            </ ComboBox.ItemTemplate >
-        </ ComboBox >
-
-        < ListBox ItemsSource= "{Binding Matches}" Grid.Row= "8" Grid.Column= "4"
-                 SelectedItem= "{Binding SelectedMatch}" >
-            < ListBox.ItemTemplate >
-                < DataTemplate >
-                    < TextBlock Text= "{Binding MatchInfo}" />
-                </ DataTemplate >
-            </ ListBox.ItemTemplate >
-        </ ListBox >
-
-        < StackPanel Grid.Row= "3" Grid.Column= "5" Orientation= "Vertical" >
-            < Button x:Name= "AddQuarterfinalMatch" Content= "Add to Quarterfinals" />
-            < Button x:Name= "AddSemifinalMatch" Content= "Add to Semifinals" />
-            < Button x:Name= "AddFinalMatch" Content= "Add to Final" />
-        </ StackPanel >
-
-
-        < !--MATCHES-- >
-        < TextBlock Grid.Row= "1" Grid.Column= "6" Margin= "0 0 0 10" >
-            Quarterfinal Matches:
-        </TextBlock>
-
-        <ListBox ItemsSource = "{Binding QuarterfinalMatches}" Grid.Row= "2" Grid.Column= "5"
-                 SelectedItem= "{Binding SelectedMatch}" >
-            < ListBox.ItemTemplate >
-                < DataTemplate >
-                    < TextBlock Text= "{Binding MatchInfo}" />
-                </ DataTemplate >
-            </ ListBox.ItemTemplate >
-        </ ListBox >
-        */
-
-        // tournament standings xaml
-        /*
-        <!-- MIDDLE COLUMN -->
-        
-        <!-- Row 1: -->
-        <TextBlock Grid.Row="1" Grid.Column= "3" Margin= "0 0 0 10" >
-            Set Tournament Standings:
-        </TextBlock>
-        <!-- Row 2: -->
-        <DataGrid ItemsSource = "{Binding TournamentStandings}" Grid.Row= "2" Grid.Column= "3"
-                  Grid.ColumnSpan= "2" AlternatingRowBackground= "LightGray"
-                  CanUserAddRows= "False" CanUserDeleteRows= "False"
-                  AutoGenerateColumns= "False" >
-            < DataGrid.Columns >
-                < DataGridTextColumn Header= "Placement" IsReadOnly= "True"
-                                    Binding= "{Binding Path=Placement}" />
-                < DataGridTemplateColumn Header= "Team" >
-                    < DataGridTemplateColumn.CellTemplate >
-                        < DataTemplate >
-                            < TextBlock Text= "{Binding Path=Team.TeamName}" />
-                        </ DataTemplate >
-                    </ DataGridTemplateColumn.CellTemplate >
-                    < DataGridTemplateColumn.CellEditingTemplate >
-                        < DataTemplate >
-                            < ComboBox ItemsSource= "{Binding Path=SelectedTeams}"
-                                      SelectedItem= "{Binding Path=Team}" >
-                                < ComboBox.ItemTemplate >
-                                    < DataTemplate >
-                                        < TextBlock Text= "{Binding Path=Team.Name}" />
-                                    </ DataTemplate >
-                                </ ComboBox.ItemTemplate >
-                            </ ComboBox >
-                        </ DataTemplate >
-                    </ DataGridTemplateColumn.CellEditingTemplate >
-                </ DataGridTemplateColumn >
-                < DataGridTextColumn Header= "PrizeWon" IsReadOnly= "True"
-                                    Binding= "{Binding Path=PrizeWon}" />
-            </ DataGrid.Columns >
-        </ DataGrid >
-        */        
-
     }
 }

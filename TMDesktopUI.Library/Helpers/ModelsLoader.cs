@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMDesktopUI.Library.Models;
 using TMLibrary.Models;
-//using TMLibrary.DataAccess.SqlAccess;
+//using TMLibrary.DataAccess.SqlAccess; -- SqlAccess is already obsolete - not updated to handle TournamentStandingModels
 using TMLibrary.DataAccess.TextFileAccess;
 
 namespace TMDesktopUI.Library.Helpers

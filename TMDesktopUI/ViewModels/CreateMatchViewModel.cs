@@ -161,8 +161,7 @@ namespace TMDesktopUI.ViewModels
         }
 
 
-        // we will allow to temporarily to choose 2 same teams against each other,
-        // but you wont be able to create match like that (so you can switch teams for example)        
+        // user is allowed to choose the same team twice, it is up to the user to use it wisely    
         public BindingList<TeamDisplayModel> DisplayedTeams
         {
             get { return _displayedTeams; }
@@ -207,8 +206,7 @@ namespace TMDesktopUI.ViewModels
                 newMatch.TeamOne = TeamOne;
                 newMatch.TeamTwo = TeamTwo;
                 newMatch.TeamOneScore = TeamOneScore;
-                newMatch.TeamTwoScore = TeamTwoScore;
-                //newMatch.Tournament = Tournament;
+                newMatch.TeamTwoScore = TeamTwoScore;               
                 newMatch.MatchImportance = 0;
                 newMatch.Maps = new List<MapScoreDisplayModel>(Maps);
 
@@ -227,8 +225,7 @@ namespace TMDesktopUI.ViewModels
             TeamOne = null;
             TeamTwo = null;
             TeamOneScore = 0;
-            TeamTwoScore = 0;
-            //Format = 0;
+            TeamTwoScore = 0;           
         }
 
         public void CreateNewMap()

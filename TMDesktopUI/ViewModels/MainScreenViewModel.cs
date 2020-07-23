@@ -81,8 +81,7 @@ namespace TMDesktopUI.ViewModels
 		{
 			string fileName = SelectedTournament.TournamentName.GetTournamentFileName();
 
-			await Task.Factory.StartNew(() => SelectedTournament.ExportTournament(fileName));
-			//MessageBox.Show($"Tournament has been exported to \\TournamentManager\\ExportedFiles\\{fileName}.");
+			await Task.Factory.StartNew(() => SelectedTournament.ExportTournament(fileName));			
 			MessageBox.Show($"Tournament has been exported to {fileName.FullFilePath()}.");
 		}
 

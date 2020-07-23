@@ -109,18 +109,7 @@ namespace TMDesktopUI.Library.Helpers
                 tmd.CreateTeamMember(new TeamMemberModel(team.Id, player.Id));                
             }               
         }
-
-        /*
-        public void SaveTeamAsync(TeamDisplayModel team)
-        {
-            team.Id = await tmd.CreateTeamReturnIdAsync(new TeamModel(team.TeamName, team.CoachName));
-
-            foreach (var player in team.Players)
-            {
-                tmd.CreateTeamMember(new TeamMemberModel(team.Id, player.Id));
-            }
-        }
-        */
+        
 
         public void SavePlayer(PlayerDisplayModel player)
         {            

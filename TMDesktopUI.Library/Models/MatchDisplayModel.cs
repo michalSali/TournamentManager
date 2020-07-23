@@ -16,7 +16,7 @@ namespace TMDesktopUI.Library.Models
         public int TeamTwoScore { get; set; }
         
         public string MatchDescription { get; set; }
-        public int MatchImportance { get; set; } // 0 - GroupStage/Other, 1 - Quarterfinal, 2 - Semifinal, 3 - Consolidation Final, 4 - Final
+        public int MatchImportance { get; set; } // 0 - GroupStage/Other, 1 - Quarterfinal, 2 - Semifinal, 3 - Final
         public string MatchInfo
         {
             get

@@ -16,8 +16,7 @@ namespace TMDesktopUI.ViewModels
     public class CreateMapViewModel : Screen
     {
         private IEventAggregator _events;
-        private Random _random;
-
+       
         private string _mapName;        
         private int _teamOneScore;
         private int _teamTwoScore;
@@ -89,21 +88,17 @@ namespace TMDesktopUI.ViewModels
                 NotifyOfPropertyChange(() => AvailableMaps);
             }
         }
-
-        // for better displaying abilities        
         
         public CollectionViewSource TeamOneStatsViewSource { get; set; }
         public CollectionViewSource TeamTwoStatsViewSource { get; set; }
-
-        // Gets or sets the ObservableCollection
+       
         public ObservableCollection<MapPlayerStatsDisplayModel> TeamOneStatsCollection { get; set; }
         public ObservableCollection<MapPlayerStatsDisplayModel> TeamTwoStatsCollection { get; set; }
         
 
         public CreateMapViewModel(IEventAggregator events)
         {
-            _events = events;
-            _random = new Random();
+            _events = events;           
         }
                 
         public void InitializeValues(MatchDisplayModel match)
@@ -114,30 +109,7 @@ namespace TMDesktopUI.ViewModels
 
             // allows you to choose only map names, that havent been used yet
             AvailableMaps = new BindingList<string>(MapNames.Except(match.Maps.Select(map => map.MapName)).ToList());
-
-            InitializeMapPlayerStats();
-            
-            // for better display
-            /*             
-            StatsCollection = new ObservableCollection<MapPlayerStatsDisplayModel>();
-            foreach (var player in TeamOne.Players)
-            {
-                MapPlayerStatsDisplayModel stats = new MapPlayerStatsDisplayModel();
-                stats.Player = player;
-                stats.Kills = _random.Next(10, 30);
-                stats.Assists = _random.Next(13);
-                stats.Deaths = _random.Next(10, 25);
-                StatsCollection.Add(stats);
-            }
-
-            ViewSource = new CollectionViewSource();
-            ViewSource.Source = StatsCollection;
-
-            ViewSource.SortDescriptions.Add(new SortDescription("Kills", ListSortDirection.Descending));
-
-            // Let the UI control refresh in order for changes to take place.
-            ViewSource.View.Refresh();
-            */
+            InitializeMapPlayerStats();                       
         }
 
         private List<MapPlayerStatsDisplayModel> _teamOneStats = new List<MapPlayerStatsDisplayModel>();
@@ -188,30 +160,7 @@ namespace TMDesktopUI.ViewModels
 
             ClearMapPlayerStats();
         }
-
-        /*
-        private void InitializeMapPlayerStats()
-        {
-            TeamOneStats = new List<MapPlayerStatsDisplayModel>();
-            TeamTwoStats = new List<MapPlayerStatsDisplayModel>();
-
-            foreach (var player in TeamOne.Players)
-            {
-                MapPlayerStatsDisplayModel newModel = new MapPlayerStatsDisplayModel();
-                newModel.Player = player;
-                TeamOneStats.Add(newModel);
-            }
-
-            foreach (var player in TeamTwo.Players)
-            {
-                MapPlayerStatsDisplayModel newModel = new MapPlayerStatsDisplayModel();
-                newModel.Player = player;
-                TeamTwoStats.Add(newModel);
-            }
-
-            ClearMapPlayerStats();
-        }
-        */
+       
 
         private void ClearMapPlayerStats()
         {
@@ -233,25 +182,7 @@ namespace TMDesktopUI.ViewModels
             TeamTwoStatsViewSource.View.Refresh();
         }
 
-        /*
-        private void ClearMapPlayerStats()
-        {
-            foreach (var stats in TeamOneStats)
-            {
-                stats.Kills = 0;
-                stats.Assists = 0;
-                stats.Deaths = 0;
-            }
-
-            foreach (var stats in TeamTwoStats)
-            {
-                stats.Kills = 0;
-                stats.Assists = 0;
-                stats.Deaths = 0;
-            }
-        }
-        */
-
+       
         private void ClearMapForm()
         {
             AvailableMaps.Remove(MapName);
@@ -270,24 +201,32 @@ namespace TMDesktopUI.ViewModels
         
         public void CreateMap()
         {
-            
-            /*
-            if (IF SCORES ARE INCORRECT) {
-                MessageBox.Show("...");
+            StringBuilder errorMessage = new StringBuilder();
+
+            // we won't be checking for anything else, as in overtimes, it would be difficult to check for correctness,
+            //   it is up to the user
+            if (TeamOneScore == TeamTwoScore)
+            {
+                errorMessage.AppendLine("Ties are not allowed - one of the teams has to win in regular time or overtime.");
             }
-            */            
 
-            MapScoreDisplayModel newMap = new MapScoreDisplayModel();
-            newMap.MapName = MapName;         
-            newMap.TeamOneScore = TeamOneScore;
-            newMap.TeamTwoScore = TeamTwoScore;
-            newMap.Match = Match;
-            
-            CreateMapPlayerStats(newMap);            
+            if (errorMessage.Length == 0)
+            {
+                MapScoreDisplayModel newMap = new MapScoreDisplayModel();
+                newMap.MapName = MapName;
+                newMap.TeamOneScore = TeamOneScore;
+                newMap.TeamTwoScore = TeamTwoScore;
+                newMap.Match = Match;
 
-            _events.PublishOnUIThread(new MapCreatedEventModel(newMap));
-            ClearMapForm();
-            //ClearMapPlayerStats();
+                CreateMapPlayerStats(newMap);
+
+                _events.PublishOnUIThread(new MapCreatedEventModel(newMap));
+                ClearMapForm();
+            } else
+            {
+                MessageBox.Show(errorMessage.ToString());
+            }            
+                     
         }
 
         public void CreateMapPlayerStats(MapScoreDisplayModel map)
@@ -369,15 +308,7 @@ namespace TMDesktopUI.ViewModels
             // we wont be dealing with overtimes - overtimes can be setup if the users create the map themselves
             if (!((TeamOneScore == 16 && TeamTwoScore >= 0 && TeamTwoScore <= 14) ||
                   (TeamTwoScore == 16 && TeamOneScore >= 0 && TeamOneScore <= 14)))               
-            {
-                
-                /* if we want to choose winning team beforehand, for automatization
-                 * 
-                if (isWinningTeamSet)
-                {
-                    bool firstTeamWins = firstTeam;
-                }
-                */
+            {                               
                 bool firstTeamWins = (random.Next(2) == 0 ? false : true);
                 if (firstTeamWins)
                 {
@@ -412,59 +343,6 @@ namespace TMDesktopUI.ViewModels
         {
             _events.PublishOnUIThread(new ReturnToMatchCreationEvent());
         }
-
-
-        #region xaml code for better display - currently not in use
-        // xaml
-        /*
-        <TextBlock Grid.Row="8" Grid.Column= "4" Margin= "0 0 0 10" >
-            < TextBlock.Text >
-                < MultiBinding StringFormat= "{}{0} player stats:" >
-                    < Binding Path= "TeamOne.TeamName" />
-                </ MultiBinding >
-            </ TextBlock.Text >
-        </ TextBlock >
-        */
-
-        /*
-        <DataGrid ItemsSource = "{Binding TeamOneStats}" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header = "Player's Nickname" IsReadOnly="True"
-                                    Binding="{Binding Path=Player.Nickname}"/>
-                <DataGridTextColumn Header = "Kills" Binding="{Binding Path=Kills}"/>
-                <DataGridTextColumn Header = "Assists" Binding="{Binding Path=Assists}"/>
-                <DataGridTextColumn Header = "Deaths" Binding="{Binding Path=Deaths}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <DataGrid x:Name="TeamTwoStatsDataGrid" ItemsSource="{Binding TeamTwoStats}" Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header = "Player's Nickname" IsReadOnly="True"
-                                    Binding="{Binding Path=Player.Nickname}"/>
-                <DataGridTextColumn Header = "Kills" Binding="{Binding Path=Kills}"/>
-                <DataGridTextColumn Header = "Assists" Binding="{Binding Path=Assists}"/>
-                <DataGridTextColumn Header = "Deaths" Binding="{Binding Path=Deaths}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-
-
-        <DataGrid ItemsSource="{Binding ViewSource.View}" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Player's Nickname" IsReadOnly="True"
-                                    Binding="{Binding Path=Player.Nickname}"/>
-                <DataGridTextColumn Header="Kills" Binding="{Binding Path=Kills}"/>
-                <DataGridTextColumn Header="Assists" Binding="{Binding Path=Assists}"/>
-                <DataGridTextColumn Header="Deaths" Binding="{Binding Path=Deaths}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        */
-        #endregion
+        
     }
 }
