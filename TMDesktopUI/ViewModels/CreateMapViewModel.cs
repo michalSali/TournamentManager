@@ -341,14 +341,14 @@ namespace TMDesktopUI.ViewModels
             {
                 stats.Kills = random.Next(TeamOneScore/2, Math.Max(maxDeaths, maxDeaths + (2*TeamOneScore - 3*TeamTwoScore)/2));
                 stats.Assists = random.Next(0, 2 + TeamOneScore/3);
-                stats.Deaths = random.Next(TeamTwoScore, Math.Min(maxDeaths, maxDeaths - (TeamOneScore - TeamTwoScore)/2));
+                stats.Deaths = random.Next(TeamTwoScore/2, Math.Min(maxDeaths, maxDeaths - (TeamOneScore - TeamTwoScore)/2));
             }
 
             foreach (var stats in TeamTwoStatsCollection)
             {
                 stats.Kills = random.Next(TeamTwoScore/2, Math.Max(maxDeaths, maxDeaths + (2*TeamTwoScore - 3*TeamOneScore)/2));
                 stats.Assists = random.Next(0, 2 + TeamTwoScore/3);
-                stats.Deaths = random.Next(TeamOneScore, Math.Min(maxDeaths, maxDeaths - (TeamTwoScore - TeamOneScore)/2));
+                stats.Deaths = random.Next(TeamOneScore/2, Math.Min(maxDeaths, maxDeaths - (TeamTwoScore - TeamOneScore)/2));
             }
 
             NotifyOfPropertyChange(() => TeamOneStats);

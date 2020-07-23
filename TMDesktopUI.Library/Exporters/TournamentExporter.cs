@@ -13,7 +13,7 @@ namespace TMDesktopUI.Library.Exporters
     //   a reference to TMDesktopUI.Library would create a cyclic dependency
     public static class TournamentExporter
     {
-        private static readonly string DataPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\ExportedFiles"));        
+        private static readonly string DataPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\ExportedFiles"));        
 
         public static string FullFilePath(this string fileName)
         {
@@ -37,9 +37,9 @@ namespace TMDesktopUI.Library.Exporters
 
             lines.AddTournamentInfo(tournament);
             lines.AddTeamRelatedInfo(tournament);
-                                    
-            
+            lines.AddMatchRelatedInfo(tournament);
 
+            File.WriteAllLines(fileName.FullFilePath(), lines);
         }
 
         private static void AddTournamentInfo(this List<string> lines, TournamentDisplayModel tournament)
@@ -47,7 +47,7 @@ namespace TMDesktopUI.Library.Exporters
             lines.Add($"Tournament name: {tournament.TournamentName}");
             lines.Add($"Start date: {tournament.StartDateFormatted}");
             lines.Add($"End date: {tournament.EndDateFormatted}");
-            lines.Add($"Prizepool: {tournament.Prizepool}");
+            lines.Add($"Prizepool: ${tournament.Prizepool}");
             lines.Add(string.Empty);
         }
 
@@ -69,7 +69,7 @@ namespace TMDesktopUI.Library.Exporters
             {
                 foreach (var standing in tournament.Standings.OrderBy(x => x.Placement).ToList())
                 {
-                    lines.Add($"{standing.Description}");
+                    lines.Add(standing.Description);
                 }
             }
 
@@ -85,31 +85,38 @@ namespace TMDesktopUI.Library.Exporters
             }
             else
             {
-                lines.Add("Groupstage / unlabeled matches:");
-                var groupStageMatches = tournament.Matches?.Where(x => x.MatchImportance == 0).ToList();
-                if (groupStageMatches?.Count == 0)
-                {
-                    lines.Add(" -- No group stage / unlabeled matches have been recorded. -- ");
-                } else
-                {
-                    foreach (var match in groupStageMatches)
-                    {
-                        lines.Add(match.MatchInfo);
-                    }
-                }
+                lines.Add(">> Groupstage / unlabeled matches:");
+                lines.AddMatchGroupInfo(tournament, 0, "group stage / unlabeled");
+                lines.Add(string.Empty);
 
-                lines.Add("Quarterfinal matches:");
-                var quarterfinalMatches = tournament.Matches?.Where(x => x.MatchImportance == 0).ToList();
-                if (groupStageMatches?.Count == 0)
+                lines.Add(">> Quarterfinal matches:");
+                lines.AddMatchGroupInfo(tournament, 1, "quarterfinal");
+                lines.Add(string.Empty);
+                
+                lines.Add(">> Semifinal matches:");
+                lines.AddMatchGroupInfo(tournament, 2, "semifinal");
+                lines.Add(string.Empty);                
+
+                lines.Add(">> Final match:");
+                lines.AddMatchGroupInfo(tournament, 3, "final");
+                lines.Add(string.Empty);               
+            }
+
+            lines.Add(string.Empty);
+        }
+
+        private static void AddMatchGroupInfo(this List<string> lines, TournamentDisplayModel tournament, int importance, string group)
+        {
+            var matches = tournament.Matches?.Where(x => x.MatchImportance == importance).OrderBy(x => x.Date).ToList();
+            if (matches?.Count == 0)
+            {
+                lines.Add($" -- No {group} matches have been recorded. -- ");
+            }
+            else
+            {
+                foreach (var match in matches)
                 {
-                    lines.Add(" -- No group stage / unlabeled matches have been recorded. -- ");
-                }
-                else
-                {
-                    foreach (var match in groupStageMatches)
-                    {
-                        lines.Add(match.MatchInfo);
-                    }
+                    lines.Add(match.MatchInfo);
                 }
             }
         }

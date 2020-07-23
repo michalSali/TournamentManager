@@ -35,6 +35,7 @@ namespace TMDesktopUI.ViewModels
 				_selectedTournament = value;
 				NotifyOfPropertyChange(() => SelectedTournament);
 				NotifyOfPropertyChange(() => CanViewTournament);
+				NotifyOfPropertyChange(() => CanExportTournamentAsync);
 			}
 		}
 
@@ -70,17 +71,23 @@ namespace TMDesktopUI.ViewModels
 			_events.PublishOnUIThread(new DisplayTournamentEventModel(SelectedTournament));
 		}
 
-		public async Task ExportTournamentAsync()
-		{			
-			string filePath = SelectedTournament.TournamentName.GetTournamentFileName().FullFilePath();
+		public bool CanExportTournamentAsync
+		{
+			get { return SelectedTournament != null; }
+		}
 
-			await Task.Factory.StartNew(() => SelectedTournament.ExportTournament(filePath));
-			MessageBox.Show($"Tournament has been exported to {filePath}.");			
+		public async Task ExportTournamentAsync()
+		{
+			string fileName = SelectedTournament.TournamentName.GetTournamentFileName();
+
+			await Task.Factory.StartNew(() => SelectedTournament.ExportTournament(fileName));
+			//MessageBox.Show($"Tournament has been exported to \\TournamentManager\\ExportedFiles\\{fileName}.");
+			MessageBox.Show($"Tournament has been exported to {fileName.FullFilePath()}.");
 		}
 
 		//TournamentExporter.
 
-		
+		/*
 		public async Task<int> test()
 		{
 			await Task.Factory.StartNew(() => help1());
@@ -102,6 +109,6 @@ namespace TMDesktopUI.ViewModels
 			string tt = await Task.FromResult("hehe");
 			return tt;
 		}
-		
+		*/
 	}
 }

@@ -35,8 +35,27 @@ namespace TMDesktopUI.Library.Helpers
             foreach (var tournamentModel in tournamentModels)
             {
                 TournamentDisplayModel newDisplayModel = new TournamentDisplayModel(tournamentModel);
+                newDisplayModel.Standings = GetTournamentStandings(tournamentModel.Id, newDisplayModel);
                 newDisplayModel.Teams = GetTournamentTeams(tournamentModel.Id);
                 newDisplayModel.Matches = GetTournamentMatches(tournamentModel.Id, newDisplayModel);
+                result.Add(newDisplayModel);
+            }
+
+            return result;
+        }
+
+        public List<TournamentStandingDisplayModel> GetTournamentStandings(int tournamentId, TournamentDisplayModel tournament)
+        {
+            List<TournamentStandingDisplayModel> result = new List<TournamentStandingDisplayModel>();
+            List<TournamentStandingModel> standingModels = tnd.GetTournamentStandings(tournamentId);
+
+            foreach (var standingModel in standingModels)
+            {
+                TournamentStandingDisplayModel newDisplayModel = new TournamentStandingDisplayModel();
+                newDisplayModel.Tournament = tournament;
+                newDisplayModel.Team = GetTeam(standingModel.TeamId);
+                newDisplayModel.Placement = standingModel.Placement;
+                newDisplayModel.PrizeWon = standingModel.PrizeWon;
                 result.Add(newDisplayModel);
             }
 

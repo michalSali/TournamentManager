@@ -49,6 +49,7 @@
             Tournament Name:
         </TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="2" Margin="0 0 0 10"
+                   HorizontalAlignment="Center"
                    Text="{Binding Tournament.TournamentName}" />
        
 
@@ -58,6 +59,7 @@
         </TextBlock>
 
         <TextBlock Grid.Row="4" Grid.Column="2" Margin="0 0 0 10"
+                   HorizontalAlignment="Center"
                    Text="{Binding Tournament.StartDateFormatted}" />
        
 
@@ -66,7 +68,8 @@
             Tournament End Date:
         </TextBlock>
 
-        <TextBlock Grid.Row="5" Grid.Column="2" Margin="0 0 0 10"
+        <TextBlock Grid.Row="5" Grid.Column="2" Margin="0 0 0 10" 
+                   HorizontalAlignment="Center"
                    Text="{Binding Tournament.EndDateFormatted}" />
 
         <!-- Row 6: Tournament prizepool row -->
@@ -85,7 +88,7 @@
                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
             Participating teams:
         </TextBlock>
-        
+                
 
         <!-- Row 8: List all teams -->
         <ListBox ItemsSource="{Binding Tournament.Teams}" Grid.Row="8" Grid.Column="1"
@@ -120,6 +123,25 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        
+        <TextBlock Grid.Row="3" Grid.Column="6" Margin="0 0 0 10">
+            Tournament final standings:
+        </TextBlock>
+
+        <ItemsControl ItemsSource="{Binding Tournament.Standings}" Grid.Row="4" Grid.Column="6" 
+                      BorderBrush="Black" BorderThickness="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="ForestGreen" BorderThickness="0 0.5 0 0.5" Margin="0 0 0 0">
+                        <TextBlock Text="{Binding Description}" />
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+   
+        
+
 
     </Grid>
 </UserControl>

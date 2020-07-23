@@ -87,6 +87,36 @@ namespace TMDesktopUI.ViewModels
         {
             _events.PublishOnCurrentThread(new ReturnToMainScreenEvent());
         }
-       
+
+        /*
+        <DataGrid ItemsSource="{Binding Tournament.Standings}" Grid.Row="4" Grid.Column="6" 
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  AutoGenerateColumns="False" IsReadOnly="True" >>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Place" Binding="{Binding Path=Placement}" />
+                <DataGridTextColumn Header="Team" Binding="{Binding Path=Team.TeamName}" />
+                <DataGridTextColumn Header="PrizeWon" Binding="{Binding Path=PrizeWon}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ListBox ItemsSource="{Binding Tournament.Matches}" Grid.Row="4" Grid.Column="5" 
+                 Grid.RowSpan="6" SelectedItem="{Binding SelectedMatch}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MatchInfo}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <ListBox ItemsSource="{Binding Tournament.Standings}" Grid.Row="4" Grid.Column="6" 
+                 Grid.RowSpan="6" SelectedItem="{Binding SelectedMatch}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Description}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        */
     }
 }

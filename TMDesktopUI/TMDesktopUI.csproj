@@ -105,6 +105,7 @@
     <Compile Include="ViewModels\DisplayMatchViewModel.cs" />
     <Compile Include="ViewModels\DisplayPlayerViewModel.cs" />
     <Compile Include="ViewModels\DisplayTeamViewModel.cs" />
+    <Compile Include="ViewModels\DisplayTournamentStatsViewModel.cs" />
     <Compile Include="ViewModels\DisplayTournamentViewModel.cs" />
     <Compile Include="ViewModels\MainScreenViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

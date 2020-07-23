@@ -1,0 +1,31 @@
+=========================
+>> TOURNAMENT OVERVIEW <<
+=========================
+
+Tournament name: Tournament ABC
+Start date: 15.07.2020
+End date: 19.07.2020
+Prizepool: 0
+
+Participating teams:
+>> Astralis
+>> fnatic
+>> RandomTeam
+
+Tournament final standings:
+ -- No standings have been recorded. -- 
+
+Tournament matches:
+Groupstage / unlabeled matches:
+17.07. - Astralis vs. RandomTeam (2 : 1)
+
+Quarterfinal matches:
+ -- No quarterfinal matches have been recorded. -- 
+
+Semifinal matches:
+ -- No semifinal matches have been recorded. -- 
+
+Final match:
+ -- No final matches have been recorded. -- 
+
+
